@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RBs_SpareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdModelo" Type="int" />
+          <Property Name="NombreCliente" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidosCliente" Type="varchar" MaxLength="100" />
+          <Property Name="MotivoCita" Type="varchar" MaxLength="256" />
+          <Property Name="FechaCita" Type="date" />
+          <Property Name="HoraCita" Type="time" Precision="7" />
+          <Property Name="Condicion" Type="bit" />
+        </EntityType>
+        <EntityType Name="CondicionOrden">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Detalle_Orden">
+          <Key>
+            <PropertyRef Name="IdOrden" />
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdOrden" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="IVALinea" Type="money" />
+          <Property Name="PrecioLinea" Type="money" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Nombre" Type="varchar" MaxLength="20" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="MarcaMoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MarcaProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ModeloMoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMarcaMoto" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCliente" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidosCliente" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="date" />
+          <Property Name="Subtotal" Type="money" />
+          <Property Name="TotalIVA" Type="money" />
+          <Property Name="TotalFinal" Type="money" />
+          <Property Name="IdCondicionOrden" Type="int" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoProducto" Type="int" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="Imagen" Type="varbinary(max)" />
+          <Property Name="PrecioUnidad" Type="money" />
+          <Property Name="IVA" Type="money" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <Association Name="fk_CondicionOrden_Orden">
+          <End Role="CondicionOrden" Type="Self.CondicionOrden" Multiplicity="0..1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionOrden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="IdCondicionOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdOrden_DetalleOrden">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="Detalle_Orden" Type="Self.Detalle_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detalle_Orden">
+              <PropertyRef Name="IdOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdProducto_DetalleOrden">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Detalle_Orden" Type="Self.Detalle_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detalle_Orden">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdTipoProducto">
+          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdTipoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MarcaMoto_ModeloMoto">
+          <End Role="MarcaMoto" Type="Self.MarcaMoto" Multiplicity="0..1" />
+          <End Role="ModeloMoto" Type="Self.ModeloMoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaMoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ModeloMoto">
+              <PropertyRef Name="IdMarcaMoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MarcaProducto_Producto">
+          <End Role="MarcaProducto" Type="Self.MarcaProducto" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ModeloMoto_Cita">
+          <End Role="ModeloMoto" Type="Self.ModeloMoto" Multiplicity="0..1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeloMoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Rol_Empleado">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RBs_SpareModelStoreContainer">
+          <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CondicionOrden" EntityType="Self.CondicionOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalle_Orden" EntityType="Self.Detalle_Orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaMoto" EntityType="Self.MarcaMoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MarcaProducto" EntityType="Self.MarcaProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModeloMoto" EntityType="Self.ModeloMoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orden" EntityType="Self.Orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_CondicionOrden_Orden" Association="Self.fk_CondicionOrden_Orden">
+            <End Role="CondicionOrden" EntitySet="CondicionOrden" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdOrden_DetalleOrden" Association="Self.fk_IdOrden_DetalleOrden">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="Detalle_Orden" EntitySet="Detalle_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdProducto_DetalleOrden" Association="Self.fk_IdProducto_DetalleOrden">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle_Orden" EntitySet="Detalle_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdTipoProducto" Association="Self.fk_IdTipoProducto">
+            <End Role="TipoProducto" EntitySet="TipoProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MarcaMoto_ModeloMoto" Association="Self.fk_MarcaMoto_ModeloMoto">
+            <End Role="MarcaMoto" EntitySet="MarcaMoto" />
+            <End Role="ModeloMoto" EntitySet="ModeloMoto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MarcaProducto_Producto" Association="Self.fk_MarcaProducto_Producto">
+            <End Role="MarcaProducto" EntitySet="MarcaProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ModeloMoto_Cita" Association="Self.fk_ModeloMoto_Cita">
+            <End Role="ModeloMoto" EntitySet="ModeloMoto" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Rol_Empleado" Association="Self.fk_Rol_Empleado">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RBs_SpareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdModelo" Type="Int32" />
+          <Property Name="NombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidosCliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MotivoCita" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCita" Type="DateTime" Precision="0" />
+          <Property Name="HoraCita" Type="Time" Precision="7" />
+          <Property Name="Condicion" Type="Boolean" />
+          <NavigationProperty Name="ModeloMoto" Relationship="Self.fk_ModeloMoto_Cita" FromRole="Cita" ToRole="ModeloMoto" />
+        </EntityType>
+        <EntityType Name="CondicionOrden">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orden" Relationship="Self.fk_CondicionOrden_Orden" FromRole="CondicionOrden" ToRole="Orden" />
+        </EntityType>
+        <EntityType Name="Detalle_Orden">
+          <Key>
+            <PropertyRef Name="IdOrden" />
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdOrden" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="IVALinea" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PrecioLinea" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Orden" Relationship="Self.fk_IdOrden_DetalleOrden" FromRole="Detalle_Orden" ToRole="Orden" />
+          <NavigationProperty Name="Producto" Relationship="Self.fk_IdProducto_DetalleOrden" FromRole="Detalle_Orden" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Rol" Relationship="Self.fk_Rol_Empleado" FromRole="Empleado" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="MarcaMoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ModeloMoto" Relationship="Self.fk_MarcaMoto_ModeloMoto" FromRole="MarcaMoto" ToRole="ModeloMoto" />
+        </EntityType>
+        <EntityType Name="MarcaProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Producto" Relationship="Self.fk_MarcaProducto_Producto" FromRole="MarcaProducto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="ModeloMoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMarcaMoto" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cita" Relationship="Self.fk_ModeloMoto_Cita" FromRole="ModeloMoto" ToRole="Cita" />
+          <NavigationProperty Name="MarcaMoto" Relationship="Self.fk_MarcaMoto_ModeloMoto" FromRole="ModeloMoto" ToRole="MarcaMoto" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidosCliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+          <Property Name="Subtotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalIVA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalFinal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IdCondicionOrden" Type="Int32" />
+          <NavigationProperty Name="CondicionOrden" Relationship="Self.fk_CondicionOrden_Orden" FromRole="Orden" ToRole="CondicionOrden" />
+          <NavigationProperty Name="Detalle_Orden" Relationship="Self.fk_IdOrden_DetalleOrden" FromRole="Orden" ToRole="Detalle_Orden" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoProducto" Type="Int32" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PrecioUnidad" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Detalle_Orden" Relationship="Self.fk_IdProducto_DetalleOrden" FromRole="Producto" ToRole="Detalle_Orden" />
+          <NavigationProperty Name="MarcaProducto" Relationship="Self.fk_MarcaProducto_Producto" FromRole="Producto" ToRole="MarcaProducto" />
+          <NavigationProperty Name="TipoProducto" Relationship="Self.fk_IdTipoProducto" FromRole="Producto" ToRole="TipoProducto" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_Rol_Empleado" FromRole="Rol" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="Producto" Relationship="Self.fk_IdTipoProducto" FromRole="TipoProducto" ToRole="Producto" />
+        </EntityType>
+        <Association Name="fk_ModeloMoto_Cita">
+          <End Role="ModeloMoto" Type="Self.ModeloMoto" Multiplicity="0..1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModeloMoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CondicionOrden_Orden">
+          <End Role="CondicionOrden" Type="Self.CondicionOrden" Multiplicity="0..1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionOrden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="IdCondicionOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdOrden_DetalleOrden">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="Detalle_Orden" Type="Self.Detalle_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detalle_Orden">
+              <PropertyRef Name="IdOrden" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdProducto_DetalleOrden">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Detalle_Orden" Type="Self.Detalle_Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Detalle_Orden">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Rol_Empleado">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MarcaMoto_ModeloMoto">
+          <End Role="MarcaMoto" Type="Self.MarcaMoto" Multiplicity="0..1" />
+          <End Role="ModeloMoto" Type="Self.ModeloMoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaMoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ModeloMoto">
+              <PropertyRef Name="IdMarcaMoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_MarcaProducto_Producto">
+          <End Role="MarcaProducto" Type="Self.MarcaProducto" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MarcaProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdTipoProducto">
+          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdTipoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RBs_SpareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cita" EntityType="Self.Cita" />
+          <EntitySet Name="CondicionOrden" EntityType="Self.CondicionOrden" />
+          <EntitySet Name="Detalle_Orden" EntityType="Self.Detalle_Orden" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="MarcaMoto" EntityType="Self.MarcaMoto" />
+          <EntitySet Name="MarcaProducto" EntityType="Self.MarcaProducto" />
+          <EntitySet Name="ModeloMoto" EntityType="Self.ModeloMoto" />
+          <EntitySet Name="Orden" EntityType="Self.Orden" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" />
+          <AssociationSet Name="fk_ModeloMoto_Cita" Association="Self.fk_ModeloMoto_Cita">
+            <End Role="ModeloMoto" EntitySet="ModeloMoto" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CondicionOrden_Orden" Association="Self.fk_CondicionOrden_Orden">
+            <End Role="CondicionOrden" EntitySet="CondicionOrden" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdOrden_DetalleOrden" Association="Self.fk_IdOrden_DetalleOrden">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="Detalle_Orden" EntitySet="Detalle_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdProducto_DetalleOrden" Association="Self.fk_IdProducto_DetalleOrden">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Detalle_Orden" EntitySet="Detalle_Orden" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Rol_Empleado" Association="Self.fk_Rol_Empleado">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MarcaMoto_ModeloMoto" Association="Self.fk_MarcaMoto_ModeloMoto">
+            <End Role="MarcaMoto" EntitySet="MarcaMoto" />
+            <End Role="ModeloMoto" EntitySet="ModeloMoto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MarcaProducto_Producto" Association="Self.fk_MarcaProducto_Producto">
+            <End Role="MarcaProducto" EntitySet="MarcaProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdTipoProducto" Association="Self.fk_IdTipoProducto">
+            <End Role="TipoProducto" EntitySet="TipoProducto" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RBs_SpareModelStoreContainer" CdmEntityContainer="RBs_SpareEntities">
+          <EntitySetMapping Name="Cita">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Cita">
+              <MappingFragment StoreEntitySet="Cita">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="ApellidosCliente" ColumnName="ApellidosCliente" />
+                <ScalarProperty Name="MotivoCita" ColumnName="MotivoCita" />
+                <ScalarProperty Name="FechaCita" ColumnName="FechaCita" />
+                <ScalarProperty Name="HoraCita" ColumnName="HoraCita" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CondicionOrden">
+            <EntityTypeMapping TypeName="RBs_SpareModel.CondicionOrden">
+              <MappingFragment StoreEntitySet="CondicionOrden">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detalle_Orden">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Detalle_Orden">
+              <MappingFragment StoreEntitySet="Detalle_Orden">
+                <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IVALinea" ColumnName="IVALinea" />
+                <ScalarProperty Name="PrecioLinea" ColumnName="PrecioLinea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarcaMoto">
+            <EntityTypeMapping TypeName="RBs_SpareModel.MarcaMoto">
+              <MappingFragment StoreEntitySet="MarcaMoto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MarcaProducto">
+            <EntityTypeMapping TypeName="RBs_SpareModel.MarcaProducto">
+              <MappingFragment StoreEntitySet="MarcaProducto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModeloMoto">
+            <EntityTypeMapping TypeName="RBs_SpareModel.ModeloMoto">
+              <MappingFragment StoreEntitySet="ModeloMoto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdMarcaMoto" ColumnName="IdMarcaMoto" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orden">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Orden">
+              <MappingFragment StoreEntitySet="Orden">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+                <ScalarProperty Name="ApellidosCliente" ColumnName="ApellidosCliente" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+                <ScalarProperty Name="TotalIVA" ColumnName="TotalIVA" />
+                <ScalarProperty Name="TotalFinal" ColumnName="TotalFinal" />
+                <ScalarProperty Name="IdCondicionOrden" ColumnName="IdCondicionOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdTipoProducto" ColumnName="IdTipoProducto" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="PrecioUnidad" ColumnName="PrecioUnidad" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="RBs_SpareModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoProducto">
+            <EntityTypeMapping TypeName="RBs_SpareModel.TipoProducto">
+              <MappingFragment StoreEntitySet="TipoProducto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

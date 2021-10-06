@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ad07937a7254524b6c1a78e7faa58cd" Name="Diagram1">
+        <EntityTypeShape EntityType="RBs_SpareModel.Cita" Width="1.5" PointX="10.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.CondicionOrden" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.Detalle_Orden" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.Empleado" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.MarcaMoto" Width="1.5" PointX="5.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.MarcaProducto" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.ModeloMoto" Width="1.5" PointX="8" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.Orden" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.Producto" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.Rol" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RBs_SpareModel.TipoProducto" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="RBs_SpareModel.fk_ModeloMoto_Cita" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_CondicionOrden_Orden" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_IdOrden_DetalleOrden" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_IdProducto_DetalleOrden" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_Rol_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_MarcaMoto_ModeloMoto" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_MarcaProducto_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="RBs_SpareModel.fk_IdTipoProducto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
