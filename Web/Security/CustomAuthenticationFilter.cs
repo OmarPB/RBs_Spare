@@ -10,8 +10,8 @@ namespace Web.Security
     {
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-
-            if ((Usuario)filterContext.HttpContext.Session["User"] == null)
+            //Cambié manualmente a Empleado, en el ejemplo se trabaja con Usuario
+            if ((Empleado)filterContext.HttpContext.Session["User"] == null)
             {
                 filterContext.Result = new HttpUnauthorizedResult();
             }

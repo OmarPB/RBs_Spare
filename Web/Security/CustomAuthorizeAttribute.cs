@@ -19,15 +19,16 @@ namespace Web.Security
         }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            //Cambié manualmente a Empleado, en el ejemplo se trabaja con Usuario
             bool authorize = false;
-            var oUsuario = (Usuario)httpContext.Session["User"];
+            var oEmpleado = (Empleado)httpContext.Session["User"];
 
-            if (oUsuario != null)
+            if (oEmpleado != null)
             {
 
                 foreach (var rol in allowedroles)
                 {
-                    if (rol == oUsuario.IdTipoUsuario)
+                    if (rol == oEmpleado.IdRol)
                         return true;
                 }
             }
