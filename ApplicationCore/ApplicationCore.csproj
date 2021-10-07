@@ -42,11 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IServiceEmpleado.cs" />
+    <Compile Include="Services\ServiceEmpleado.cs" />
     <Compile Include="Utils\Cryptography.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj">
       <Project>{a33b2057-a051-4540-9f32-5da32db7f976}</Project>
