@@ -11,11 +11,15 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
+    [MetadataType(typeof(EmpleadoMetadata))]
+
     public partial class Empleado
     {
         public int Id { get; set; }
         public Nullable<int> IdRol { get; set; }
+        public string Contrasenia { get; set; }
         public string Nombre { get; set; }
         public string Apellidos { get; set; }
         public string Email { get; set; }

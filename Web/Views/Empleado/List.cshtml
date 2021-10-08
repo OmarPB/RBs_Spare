@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Infraestructure.Models.Empleado>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Empleados</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Usuario", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellidos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rol.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rol.Descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn", @style = "background-color: #1319c4; color: white" })
+                @Html.ActionLink("Ver Detalles", "Details", new { id = item.Id }, new { @class= "btn", @style= "background-color: lightgrey; color: black" })
+                @Html.ActionLink("Desactivar Usuario", "Delete", new { id = item.Id }, new { @class = "btn", @style = "background-color: #d61717; color: white" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/toastjs")
+    @Scripts.Render("~/bundles/jqueryui")
+
+    @*Para el Toast*@
+    <script>
+
+        $(document).ready(function () {
+             console.log("Entro a JQuery")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "1000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                // Recibe los parámetros del Controller
+                var option = '@ViewBag.Action'
+                var message = '@ViewBag.Message'
+
+
+                if (option == 'S') {
+                    toastr.success("El registro fue salvado correctamente");
+                }
+
+
+                 if (option == 'D') {
+                    toastr.success("El registro fue borrado correctamente");
+                }
+
+
+                 if (option == 'U') {
+                    toastr.success("El registro fue actualizado correctamente");
+                }
+
+                if (option == 'E') {
+                    toastr.warning("Se ha producido un error :"+message);
+            }
+
+
+            // Cambiar el color del fondo del Grid.
+            //$(".table tbody tr:even").css("background-color", "#ddd");
+        });
+
+
+
+    </script>
+}
+

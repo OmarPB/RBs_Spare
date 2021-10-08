@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IServiceEmpleado.cs" />
+    <Compile Include="Services\IServiceRol.cs" />
     <Compile Include="Services\ServiceEmpleado.cs" />
+    <Compile Include="Services\ServiceRol.cs" />
     <Compile Include="Utils\Cryptography.cs" />
   </ItemGroup>
   <ItemGroup />

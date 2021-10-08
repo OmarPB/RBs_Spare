@@ -34,7 +34,7 @@ namespace ApplicationCore.Services
             RepositoryEmpleado repository = new RepositoryEmpleado();
 
             //Encripta la contraseña y la envía a la base de datos
-            //empleado.Contrasenia = Cryptography.EncrypthAES(empleado.Contrasenia);
+            empleado.Contrasenia = Cryptography.EncrypthAES(empleado.Contrasenia);
 
             return repository.Save(empleado);
         }

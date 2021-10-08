@@ -40,8 +40,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="IdRol" Type="int" />
+          <Property Name="Contrasenia" Type="char" MaxLength="200" />
           <Property Name="Nombre" Type="varchar" MaxLength="20" />
           <Property Name="Apellidos" Type="varchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="256" />
@@ -297,8 +298,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="IdRol" Type="Int32" />
+          <Property Name="Contrasenia" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
           <Property Name="Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
@@ -566,6 +568,7 @@
               <MappingFragment StoreEntitySet="Empleado">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
