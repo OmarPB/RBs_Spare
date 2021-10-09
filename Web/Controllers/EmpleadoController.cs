@@ -110,6 +110,7 @@ namespace Web.Controllers
 
         // GET: Empleado/Details/5      
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [HttpPost]
         public ActionResult Details(int? id)
         {
             ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
@@ -125,7 +126,7 @@ namespace Web.Controllers
 
                 Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
 
-                return PartialView("_Details",Empleado);
+                return PartialView(Empleado);
             }
             catch (Exception ex)
             {

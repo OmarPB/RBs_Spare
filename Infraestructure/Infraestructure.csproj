@@ -107,9 +107,15 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepositoryEmpleado.cs" />
+    <Compile Include="Repository\IRepositoryMarcaProducto.cs" />
+    <Compile Include="Repository\IRepositoryProducto.cs" />
     <Compile Include="Repository\IRepositoryRol.cs" />
+    <Compile Include="Repository\IRepositoryTipoProducto.cs" />
     <Compile Include="Repository\RepositoryEmpleado.cs" />
+    <Compile Include="Repository\RepositoryMarcaProducto.cs" />
+    <Compile Include="Repository\RepositoryProducto.cs" />
     <Compile Include="Repository\RepositoryRol.cs" />
+    <Compile Include="Repository\RepositoryTipoProducto.cs" />
     <Compile Include="Util\Log.cs" />
   </ItemGroup>
   <ItemGroup>

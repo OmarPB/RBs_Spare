@@ -1,1 +1,1 @@
-﻿public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3 }
+﻿public enum Roles { Administrador = 1, Taller = 2 }
