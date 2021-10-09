@@ -43,4 +43,12 @@ namespace Infraestructure.Models
         public Nullable<bool> Estado { get; set; }
 
     }
+
+    internal partial class RolMetadata
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Rol")]
+        public string Descripcion { get; set; }
+    }
 }

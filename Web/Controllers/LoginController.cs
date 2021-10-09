@@ -26,8 +26,8 @@ namespace Web.Controllers
             Empleado oEmpleado = null;
             try
             {
-                if (!ModelState.IsValid)
-                {
+                //if (!ModelState.IsValid)
+                //{
                     oEmpleado = _ServiceEmpleado.Login(empleado.Id, empleado.Contrasenia);
 
                     if (oEmpleado != null)
@@ -42,7 +42,7 @@ namespace Web.Controllers
                         TempData["Message"] = "Error al autenticarse";
 
                     }
-                }
+                //}
 
                 return View("Index");
             }
