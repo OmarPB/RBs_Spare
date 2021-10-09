@@ -33,12 +33,12 @@ namespace Web.Controllers
                     if (oEmpleado != null)
                     {
                         Session["User"] = oEmpleado;
-                        //Log.Info($"Accede {oEmpleado.Nombre} {oEmpleado.Apellido1 + " " + oEmpleado.Apellido2} con el rol {oEmpleado.TipoEmpleado.Id}-{oEmpleado.TipoEmpleado.Descripcion}");
+                        Log.Info($"Accede {oEmpleado.Nombre} {oEmpleado.Apellidos} con el rol {oEmpleado.Rol.Id}-{oEmpleado.Rol.Descripcion}");
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        //Log.Warn($"{empleado.Id} se intentó conectar  y falló");
+                        Log.Warn($"{empleado.Id} se intentó conectar  y falló");
                         TempData["Message"] = "Error al autenticarse";
 
                     }
@@ -49,7 +49,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                //Log.Error(ex, MethodBase.GetCurrentMethod());
+                Log.Error(ex, MethodBase.GetCurrentMethod());
                 // Pasar el Error a la página que lo muestra
                 TempData["Message"] = ex.Message;
                 TempData.Keep();
@@ -66,7 +66,7 @@ namespace Web.Controllers
                 if (Session["User"] != null)
                 {
                     Empleado oEmpleado = Session["User"] as Empleado;
-                    //Log.Warn($"El Empleado {oEmpleado.Nombre} {oEmpleado.Apellido1 + " " + oEmpleado.Apellido2} con el rol {oEmpleado.TipoEmpleado.Id}-{oEmpleado.TipoEmpleado.Descripcion}, intentó acceder una página sin derechos  ");
+                    Log.Warn($"El Empleado {oEmpleado.Nombre} {oEmpleado.Apellidos} con el rol {oEmpleado.Rol.Id}-{oEmpleado.Rol.Descripcion}, intentó acceder una página sin derechos  ");
                 }
 
                 return View();
@@ -74,7 +74,7 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                //Log.Error(ex, MethodBase.GetCurrentMethod());
+                Log.Error(ex, MethodBase.GetCurrentMethod());
                 // Pasar el Error a la página que lo muestra
                 TempData["Message"] = ex.Message;
                 TempData.Keep();
@@ -87,14 +87,14 @@ namespace Web.Controllers
         {
             try
             {
-                //Log.Info("Se desconectó ");
+                Log.Info("Se desconectó ");
                 Session["User"] = null;
                 return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                //Log.Error(ex, MethodBase.GetCurrentMethod());
+                Log.Error(ex, MethodBase.GetCurrentMethod());
                 // Pasar el Error a la página que lo muestra
                 TempData["Message"] = ex.Message;
                 TempData.Keep();

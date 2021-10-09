@@ -125,7 +125,7 @@ namespace Web.Controllers
 
                 Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
 
-                return View(Empleado);
+                return PartialView("_Details",Empleado);
             }
             catch (Exception ex)
             {

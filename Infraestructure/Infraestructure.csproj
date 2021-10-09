@@ -110,6 +110,7 @@
     <Compile Include="Repository\IRepositoryRol.cs" />
     <Compile Include="Repository\RepositoryEmpleado.cs" />
     <Compile Include="Repository\RepositoryRol.cs" />
+    <Compile Include="Util\Log.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\toastr.css" />

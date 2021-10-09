@@ -1,15 +1,16 @@
 ﻿@model Infraestructure.Models.Empleado
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Detalles</h2>
-
 <div>
     <h4>Empleado</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Contrasenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contrasenia)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -54,6 +55,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Volver a la Lista", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
