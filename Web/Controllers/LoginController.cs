@@ -89,7 +89,7 @@ namespace Web.Controllers
             {
                 Log.Info("Se desconectó ");
                 Session["User"] = null;
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
