@@ -22,9 +22,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Administración <span class="glyphicon  glyphicon glyphicon-user" />
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Mantenimiento de Empleados", "List", "Empleado")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Catálogo de Productos", "Index", "Home")</li>
                     <li>@Html.ActionLink("Citas para el Taller", "About", "Home")</li>
                     <li>@Html.ActionLink("Reportes", "Contact", "Home")</li>
+
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -50,7 +60,7 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="@Url.Action("Logout", "Login")">
-                                                Logout
+                                                Salir
                                                 <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
                                             </a>
 
@@ -62,7 +72,7 @@
                             {
                                 <a href="@Url.Action("Index", "Login")">
                                     Iniciar Sesión
-                                    <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
+                                    <span class="glyphicon  glyphicon-log-in " aria-hidden="true"></span>
                                 </a>
                             }
 

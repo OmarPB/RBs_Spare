@@ -49,7 +49,7 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn", @style = "background-color: #1319c4; color: white" })
-                @Html.ActionLink("Ver Detalles", "Details", new { id = item.Id }, new { @class = "btn", @style = "background-color: lightgrey; color: black" })
+                <a class="btn" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#">Detalles</a>
                 @Html.ActionLink("Desactivar Usuario", "Delete", new { id = item.Id }, new { @class = "btn", @style = "background-color: #d61717; color: white" })
             </td>
         </tr>
@@ -57,63 +57,32 @@
 
 </table>
 
-<input type="hidden" id="campooculto" />
+<input type="hidden" id="campoOculto" />
 
 <!-- Modal -->
-<!--Las ventanas modal estan ocultas en el código son activadas por Javascript/jQuery-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
+<!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 10%">
     <div class="modal-dialog" role="document">
-
         <div class="modal-content">
-
             <div class="modal-header">
-
-                <button type="button" class="clèse" data-dismiss="modal" aria-label-"Close"> <span aria-hidden="true">&times; </span></button>
-
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">RB's Spare</h4>
             </div>
-
-            <h4 class="modal-title" id="myModalLabel">Detalles</h4>
-
             <div class="modal-body">
-
+                ...
             </div>
-
             <div class="modal-footer">
-
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
-
         </div>
-
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-
     </div>
-
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/toastjs")
     @Scripts.Render("~/bundles/jqueryui")
-
-    @*Script para los Modal*@
-    <script>
-
-        function modalDetail(p) {
-
-            // Almacena el Id del estudiante en el hidden field tipo variable global
-
-            $("#campoOculto").val(p);
-
-            //var temp = $("#campooculto").val();
-
-            // Invoca al Div de Modal de una vez se invoca el evento shown.bs.modal
-
-            // donde se invoca al Ajax con el Partial View
-
-            $("#myModal").modal();
-        }
-
-    </script>
 
     @*Para el Toast*@
     <script>
@@ -168,6 +137,58 @@
         });
 
 
+
+    </script>
+
+    <script>
+        function modalDetail(p) {
+            // Almacena el Id del Empleado en el hidden field tipo variable global
+            $("#campoOculto").val(p);
+            // $("#myModal").val(p);
+            //var temp = $("#campoOculto").val();
+            // Invoca al Div de Modal de una vez se invoca el evento shown.bs.modal
+            // donde se invoca al Ajax con el Partial View
+            $("#myModal").modal();
+        }
+    </script>
+
+    <script>
+
+
+        // Este evento se ejecuta antes después de invocar  $("#myModal").modal();
+        // acá es donde se invoca por Ajax al Controller y este devuelve Partial View
+        $('#myModal').on('shown.bs.modal', function () {
+            // permite mover
+            $('.modal-dialog').draggable();
+            // Se lee el campo oculto
+            var idEmpleado = $("#campoOculto").val();
+            //var identificacionEstudiante = $("#myModal").val();
+            console.log(idEmpleado);
+            $.ajax({
+                type: "GET",
+                url: "/Empleado/AjaxFilterDetails/",
+                // parametro por JSON
+                data: { id: idEmpleado },
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(".modal-body").html(data);
+                },
+                // Capturar errores y mostrar un mensaje de error
+                error: function (xhr, status, error) {
+                    var mensaje = "<div class='alert alert-danger' role='alert'> Result: " +
+                        status + " " + error + " " + xhr.status + " " + xhr.statusText + "</div>";
+                    //debugger;
+                    $("#mensaje").html(mensaje).show("slow").delay(1000).hide("slow");
+                }
+            });
+
+        })
+
+        // Se ejecuta cuando se destruye el modal
+        $("#myModal").on('hide.bs.modal', function () {
+            // Se limpia el Div para no dejar
+            $(".modal-body").html("...");
+        });
 
     </script>
 }

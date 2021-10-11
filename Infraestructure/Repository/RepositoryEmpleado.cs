@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Infraestructure.Repository
 {
@@ -98,6 +99,18 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+
+        //public Empleado GetEmpleadoByID(int idEmpleado)
+        //{
+        //    Empleado empleado = null;
+        //    List<Empleado> lista = null;
+        //    if (HttpContext.Current.Session["Empleado"] != null)
+        //    {
+        //        lista = (List<Empleado>)HttpContext.Current.Session["Empleado"];
+        //        empleado = lista.Find(f => f.Id == idEmpleado);
+        //    }
+        //    return empleado;
+        //}
 
         public Empleado Save(Empleado empleado)
         {

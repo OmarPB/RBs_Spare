@@ -110,33 +110,43 @@ namespace Web.Controllers
 
         // GET: Empleado/Details/5      
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
-        [HttpPost]
-        public ActionResult Details(int? id)
+        //public ActionResult Details(int? id)
+        //{
+        //    ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
+        //    Empleado Empleado = null;
+
+        //    try
+        //    {
+        //        // Si va null
+        //        if (id == null)
+        //        {
+        //            return RedirectToAction("List");
+        //        }
+
+        //        Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
+
+        //        return View(Empleado);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Salvar el error en un archivo 
+        //        //Log.Error(ex, MethodBase.GetCurrentMethod());
+        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+        //        TempData.Keep();
+        //        // Redireccion a la captura del Error
+        //        return RedirectToAction("Default", "Error");
+        //    }
+        //}
+
+        public ActionResult AjaxFilterDetails(int id)
         {
-            ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-            Empleado Empleado = null;
 
-            try
-            {
-                // Si va null
-                if (id == null)
-                {
-                    return RedirectToAction("List");
-                }
+            IRepositoryEmpleado _RepositoryEmpleado = new RepositoryEmpleado();
+            Empleado empleado = _RepositoryEmpleado.GetEmpleadoByID(id);
 
-                Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
-
-                return PartialView(Empleado);
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                //Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData.Keep();
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
+            var detalles = new List<Empleado>();
+            detalles.Add(empleado);
+            return PartialView("_PartialViewDetailsEmpleado", detalles);
         }
 
         // GET: Empleado/Edit/5
