@@ -16,7 +16,7 @@ namespace Web
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Empleado", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "Empleado", action = "List", id = UrlParameter.Optional }
             );
         }
     }

@@ -7,7 +7,7 @@
 <h2>Editar</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Save", "Empleado"))
 {
     @Html.AntiForgeryToken()
 
@@ -91,10 +91,6 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Vovler a la Lista", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

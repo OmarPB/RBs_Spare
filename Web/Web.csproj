@@ -242,13 +242,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Empleado\Create.cshtml" />
     <Content Include="Views\Empleado\List.cshtml" />
-    <Content Include="Views\Empleado\Edit.cshtml" />
     <Content Include="Views\Error\Default.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Login\UnAuthorized.cshtml" />
     <Content Include="Views\Empleado\_PartialViewDetailsEmpleado.cshtml" />
+    <Content Include="Views\Empleado\_DeletePartialView.cshtml" />
+    <Content Include="Views\Empleado\_EditPartialView.cshtml" />
+    <Content Include="Views\Empleado\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

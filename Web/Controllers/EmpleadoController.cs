@@ -51,6 +51,7 @@ namespace Web.Controllers
 
                 IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
                 lista = _ServiceEmpleado.GetEmpleado();
+                Action = "";
             }
             catch (Exception ex)
             {
@@ -108,46 +109,47 @@ namespace Web.Controllers
         }
 
 
-        // GET: Empleado/Details/5      
+        //GET: Empleado/Details/    
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
-        //public ActionResult Details(int? id)
-        //{
-        //    ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-        //    Empleado Empleado = null;
-
-        //    try
-        //    {
-        //        // Si va null
-        //        if (id == null)
-        //        {
-        //            return RedirectToAction("List");
-        //        }
-
-        //        Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
-
-        //        return View(Empleado);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Salvar el error en un archivo 
-        //        //Log.Error(ex, MethodBase.GetCurrentMethod());
-        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-        //        TempData.Keep();
-        //        // Redireccion a la captura del Error
-        //        return RedirectToAction("Default", "Error");
-        //    }
-        //}
-
-        public ActionResult AjaxFilterDetails(int id)
+        public ActionResult AjaxFilterDetails(int? id)
         {
+            ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
+            Empleado Empleado = null;
 
-            IRepositoryEmpleado _RepositoryEmpleado = new RepositoryEmpleado();
-            Empleado empleado = _RepositoryEmpleado.GetEmpleadoByID(id);
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("List");
+                }
 
-            var detalles = new List<Empleado>();
-            detalles.Add(empleado);
-            return PartialView("_PartialViewDetailsEmpleado", detalles);
+                Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
+                var detalles = new List<Empleado>();
+                detalles.Add(Empleado);
+
+                return PartialView("_PartialViewDetailsEmpleado", detalles);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
         }
+
+        //public ActionResult AjaxFilterDetails5(int id)
+        //{
+        //    IServiceEmpleado serviceEmpleado = new ServiceEmpleado();
+        //    Empleado empleado = serviceEmpleado.GetEmpleadoByID(id);
+
+        //    var detalles = new List<Empleado>();
+        //    detalles.Add(empleado);
+        //    return PartialView("_PartialViewDetailsEmpleado", detalles);
+        //}
 
         // GET: Empleado/Edit/5
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
@@ -173,7 +175,7 @@ namespace Web.Controllers
 
                 Action = "U";
 
-                return View(Empleado);
+                return PartialView("_EditPartialView", Empleado);
             }
             catch (Exception ex)
             {
@@ -216,7 +218,7 @@ namespace Web.Controllers
 
                 Action = "D";
 
-                return View(Empleado);
+                return PartialView("_DeletePartialView", Empleado);
             }
             catch (Exception ex)
             {
