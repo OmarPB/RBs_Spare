@@ -196,8 +196,10 @@ namespace Web.Controllers
             //ViewBag con los tipos de Empleado
             IServiceRol serviceRol = new ServiceRol();
             ViewBag.ListaTipos = serviceRol.GetRol();
+            Empleado empleado = new Empleado();
 
-            return View();
+            return PartialView("_CreatePartialView", empleado);
+            //return View();
         }
 
 

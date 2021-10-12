@@ -7,7 +7,9 @@
 <h2>Lista de Empleados</h2>
 
 <p>
-    @Html.ActionLink("Agregar Nuevo Empleado", "Create", new { @class = "btn btn-success" })
+    @*@Html.ActionLink("Agregar Nuevo Empleado", "Create", new { @class = "btn btn-success" })*@
+    <a class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
+
 </p>
 <table class="table">
     <tr>
@@ -146,6 +148,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/toastjs")
     @Scripts.Render("~/bundles/jqueryui")
+
+    @*Scripts para validaciones*@
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
     @*Para el Toast*@
     <script>
@@ -359,9 +365,9 @@
 
     @*Script para Create*@
     <script>
-        function modalCreate() {
+        function modalCreate(p) {
             // Almacena el Id del Empleado en el hidden field tipo variable global
-            $("#campoOculto").val();
+            $("#campoOculto").val(p);
             // $("#modalDetails").val(p);
             //var temp = $("#campoOculto").val();
             // Invoca al Div de Modal de una vez se invoca el evento shown.bs.modal
@@ -374,20 +380,21 @@
         // Este evento se ejecuta antes después de invocar  $("#modalDetails").modal();
         // acá es donde se invoca por Ajax al Controller y este devuelve Partial View
         $('#modalCreate').on('shown.bs.modal', function () {
+
             // permite mover
             $('.modal-dialog').draggable();
             // Se lee el campo oculto
-            //var idEmpleado = $("#campoOculto").val();
+            var idEmpleado = $("#campoOculto").val();
             //var identificacionEstudiante = $("#modalDetails").val();
-            //console.log(idEmpleado);
+            console.log(idEmpleado);
             $.ajax({
                 type: "GET",
                 url: "/Empleado/Create/",
                 // parametro por JSON
-                //data: { id: idEmpleado },
+                data: { id: idEmpleado },
                 contentType: "application/json; charset=utf-8",
-                success: function () {
-                    $(".modal-body").html();
+                success: function (data) {
+                    $(".modal-body").html(data);
                 },
                 // Capturar errores y mostrar un mensaje de error
                 error: function (xhr, status, error) {
