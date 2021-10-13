@@ -6,10 +6,10 @@
 }
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Recuperación de contraseña";
 }
 
-<h2 id="formularioTitle">Inicio de Sesión</h2>
+<h2 id="formularioTitle">Ingrese el correo asociado a su cuenta</h2>
 
 @if (TempData["Message"] != null)
 {
@@ -19,7 +19,7 @@
 }
 
 
-@using (Html.BeginForm("Login", "Login"))
+@using (Html.BeginForm("IniciarRecuperacion", "Login", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -28,31 +28,16 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*Campo tipo password*@
-                @Html.PasswordFor(model => model.Contrasenia, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Entrar" class="btn btn-success" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12" style="padding-left:25%;">
-                @Html.ActionLink("¿Olvidaste tu contraseña?", "IniciarRecuperacion")
+                <input type="submit" value="Enviar" class="btn btn-success" />
             </div>
         </div>
     </div>

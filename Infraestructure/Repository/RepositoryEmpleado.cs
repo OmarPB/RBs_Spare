@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -184,6 +186,78 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+
+        public bool VerificarEmpleado(string email)
+        {
+            try
+            {
+                Empleado empleado = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    empleado = ctx.Empleado.Where(p => p.Email == email).Include("Rol").FirstOrDefault();
+                }
+                if (empleado != null)
+                {
+                    empleado.TokenRecuperacion = GetSha256(Guid.NewGuid().ToString());
+                    Save(empleado);
+                    SendEmail(email, empleado.TokenRecuperacion);
+                    return true;
+                }
+                else
+                    return false;
+                
+            }
+
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        //Método para pasar el token a un hash
+        private string GetSha256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
+
+        private void SendEmail(string EmailDestino, string token)
+        {
+            string urlDomain = "http://localhost:64990/";
+            string EmailOrigen = "autodo.web@gmail.com";
+            string Contraseña = "omaresteban*";
+            string url = urlDomain + "/Login/Recuperacion/?token=" + token;
+            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "Recuperación de contraseña",
+                "<p>Correo para recuperación de contraseña</p><br>" +
+                "<a href='" + url + "'>Click para recuperar</a>");
+
+            oMailMessage.IsBodyHtml = true;
+
+            SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+            oSmtpClient.EnableSsl = true;
+            oSmtpClient.UseDefaultCredentials = false;
+            oSmtpClient.Port = 587;
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmailOrigen, Contraseña);
+
+            oSmtpClient.Send(oMailMessage);
+
+            oSmtpClient.Dispose();
+        }
+
 
         //Fin
     }

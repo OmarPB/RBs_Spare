@@ -23,14 +23,13 @@ namespace Web.Controllers
         public ActionResult Login(Empleado empleado)
         {
             IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-            Empleado oEmpleado = null;
             try
             {
                 //if (!ModelState.IsValid)
                 //{
-                    oEmpleado = _ServiceEmpleado.Login(empleado.Id, empleado.Contrasenia);
+                Empleado oEmpleado = _ServiceEmpleado.Login(empleado.Id, empleado.Contrasenia);
 
-                    if (oEmpleado != null)
+                if (oEmpleado != null)
                     {
                         Session["User"] = oEmpleado;
                         Log.Info($"Accede {oEmpleado.Nombre} {oEmpleado.Apellidos} con el rol {oEmpleado.Rol.Id}-{oEmpleado.Rol.Descripcion}");
@@ -100,6 +99,45 @@ namespace Web.Controllers
                 TempData.Keep();
                 return RedirectToAction("Default", "Error");
             }
+        }
+
+        //Vista para solicitar al cliente los datos necesarios para recuperar la contraseña
+        [HttpPost]
+        public ActionResult IniciarRecuperacion(Empleado empleado)
+        {
+            try
+            {
+                IServiceEmpleado service = new ServiceEmpleado();
+
+                if(service.VerificarEmpleado(empleado.Email)){
+
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                // Pasar el Error a la página que lo muestra
+                TempData["Message"] = ex.Message;
+                TempData.Keep();
+                return RedirectToAction("Default", "Error");
+            }
+            
+        }
+
+
+        [HttpGet]
+        public ActionResult IniciarRecuperacion()
+        {
+            return View();
+        }
+
+        //Vista para solicitar al cliente la nueva contraseña
+        public ActionResult Recuperacion()
+        {
+            return View();
         }
     }
 }

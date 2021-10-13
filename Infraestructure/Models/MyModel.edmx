@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RBs_SpareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RBs_SpareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cita">
           <Key>
             <PropertyRef Name="Id" />
@@ -48,6 +48,7 @@
           <Property Name="Email" Type="varchar" MaxLength="256" />
           <Property Name="Telefono" Type="int" />
           <Property Name="Estado" Type="bit" />
+          <Property Name="TokenRecuperacion" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="MarcaMoto">
           <Key>
@@ -254,8 +255,7 @@
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RBs_SpareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -307,6 +307,7 @@
           <Property Name="Telefono" Type="Int32" />
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Rol" Relationship="Self.fk_Rol_Empleado" FromRole="Empleado" ToRole="Rol" />
+          <Property Name="TokenRecuperacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="MarcaMoto">
           <Key>
@@ -566,6 +567,7 @@
           <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="RBs_SpareModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="TokenRecuperacion" ColumnName="TokenRecuperacion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
                 <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />

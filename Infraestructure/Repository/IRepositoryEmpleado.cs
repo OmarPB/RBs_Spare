@@ -14,5 +14,6 @@ namespace Infraestructure.Repository
         void DeleteEmpleado(int id);
         Empleado Save(Empleado Empleado);
         Empleado Login(int id, string contrasenia);
+        bool VerificarEmpleado(string email);
     }
 }

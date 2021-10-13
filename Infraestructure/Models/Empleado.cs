@@ -11,10 +11,7 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    [MetadataType(typeof(EmpleadoMetadata))]
-
+    
     public partial class Empleado
     {
         public int Id { get; set; }
@@ -25,6 +22,7 @@ namespace Infraestructure.Models
         public string Email { get; set; }
         public Nullable<int> Telefono { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public string TokenRecuperacion { get; set; }
     
         public virtual Rol Rol { get; set; }
     }

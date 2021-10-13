@@ -51,6 +51,12 @@ namespace ApplicationCore.Services
 
         }
 
+        public bool VerificarEmpleado(string email)
+        {
+            IRepositoryEmpleado repository = new RepositoryEmpleado();
+            return repository.VerificarEmpleado(email);
+        }
+
         //Fin
     }
 }
