@@ -145,6 +145,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\TipoProductoController.cs" />
     <Compile Include="Enum\Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +251,11 @@
     <Content Include="Views\Empleado\_DeletePartialView.cshtml" />
     <Content Include="Views\Empleado\_EditPartialView.cshtml" />
     <Content Include="Views\Empleado\Create.cshtml" />
+    <Content Include="Views\TipoProducto\Create.cshtml" />
+    <Content Include="Views\TipoProducto\List.cshtml" />
+    <Content Include="Views\TipoProducto\_EditPartialView.cshtml" />
+    <Content Include="Views\TipoProducto\_DeletePartialView.cshtml" />
+    <Content Include="Views\TipoProducto\_PartialViewDetailsTipoProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

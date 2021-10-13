@@ -1,0 +1,25 @@
+﻿@model Infraestructure.Models.TipoProducto
+
+<h3>¿Desea desactivar a este tipo de producto?</h3>
+<div>
+    <h4>TipoProducto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("DeleteConfirmed", "TipoProducto", new { id = Model.Id }, FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Desactivar" class="btn btn-danger" />
+        </div>
+    }
+</div>
