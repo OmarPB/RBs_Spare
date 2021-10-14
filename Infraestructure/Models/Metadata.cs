@@ -51,4 +51,16 @@ namespace Infraestructure.Models
         [Display(Name = "Rol")]
         public string Descripcion { get; set; }
     }
+
+    internal partial class TipoProductoMetadata
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Descripción")]
+        public string Descripcion { get; set; }
+        public Nullable<bool> Estado { get; set; }
+    }
+
+    //Fin
 }

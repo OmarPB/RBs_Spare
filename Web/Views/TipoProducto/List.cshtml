@@ -318,6 +318,13 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
+
+                    //The validation plugin can't bind to the same form twice.
+                    //We need to remove existing validators
+                    $('modalEdit').removeData("validator");
+
+                    //Refresh the validators
+                    $.validator.unobtrusive.parse(document);
                 },
                 // Capturar errores y mostrar un mensaje de error
                 error: function (xhr, status, error) {
@@ -370,6 +377,13 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
+
+                    //The validation plugin can't bind to the same form twice.
+                    //We need to remove existing validators
+                    $('modalCreate').removeData("validator");
+
+                    //Refresh the validators
+                    $.validator.unobtrusive.parse(document);
                 },
                 // Capturar errores y mostrar un mensaje de error
                 error: function (xhr, status, error) {

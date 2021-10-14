@@ -86,7 +86,7 @@ namespace Web.Controllers
                     TempData["Message"] = "Error al procesar los datos! " + errores;
                     TempData.Keep();
 
-                    return View("Create", tipoProducto);
+                    return PartialView("Create", tipoProducto);
                 }
 
                 Action = "S";
@@ -191,7 +191,7 @@ namespace Web.Controllers
             IServiceRol serviceRol = new ServiceRol();
             TipoProducto tipoProducto = new TipoProducto();
 
-            return PartialView("Create", tipoProducto);
+            return PartialView("_CreatePartialView", tipoProducto);
             //return View();
         }
 
