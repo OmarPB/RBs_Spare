@@ -257,6 +257,7 @@
     <Content Include="Views\TipoProducto\_PartialViewDetailsTipoProducto.cshtml" />
     <Content Include="Views\Empleado\_CreatePartialView.cshtml" />
     <Content Include="Views\Login\IniciarRecuperacion.cshtml" />
+    <Content Include="Views\Login\Recuperacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

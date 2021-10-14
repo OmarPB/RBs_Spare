@@ -11,6 +11,7 @@ namespace Web.Controllers
 {
     public class LoginController : Controller
     {
+        private static Empleado aux;
         public ActionResult Index()
         {
 
@@ -134,10 +135,65 @@ namespace Web.Controllers
             return View();
         }
 
+        [HttpGet]
         //Vista para solicitar al cliente la nueva contraseña
-        public ActionResult Recuperacion()
+        public ActionResult Recuperacion(string token)
         {
-            return View();
+            IServiceEmpleado service = new ServiceEmpleado();
+            try
+            {
+                if (token == null || token.Trim().Equals(""))
+                {
+                    return View("Index");
+                }
+
+                Empleado oEmpleado = service.GetEmpleadoByToken(token);
+                if(oEmpleado == null)
+                {
+                    ViewBag.Error = "Tu token ha expirado";
+                    return View("Index");
+                }
+                aux = oEmpleado;
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                // Pasar el Error a la página que lo muestra
+                TempData["Message"] = ex.Message;
+                TempData.Keep();
+                return RedirectToAction("Default", "Error");
+            }
+            
+
+            
+        }
+
+        [HttpPost]
+        public ActionResult Recuperacion(Empleado empleado)
+        {
+            aux.Contrasenia = empleado.Contrasenia;
+            IServiceEmpleado service = new ServiceEmpleado();
+            try
+            {
+                if (aux != null)
+                {
+                    aux.TokenRecuperacion = null;
+                    service.Save(aux);
+                }
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                // Pasar el Error a la página que lo muestra
+                TempData["Message"] = ex.Message;
+                TempData.Keep();
+                return RedirectToAction("Default", "Error");
+            }
         }
     }
 }

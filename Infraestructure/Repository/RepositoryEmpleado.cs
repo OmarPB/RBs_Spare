@@ -223,6 +223,35 @@ namespace Infraestructure.Repository
             }
         }
 
+
+        public Empleado GetEmpleadoByToken(string token)
+        {
+            try
+            {
+                Empleado empleado = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    empleado = ctx.Empleado.Where(p => p.TokenRecuperacion == token).Include("Rol").FirstOrDefault();
+                }
+                return empleado;
+
+            }
+
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         //Método para pasar el token a un hash
         private string GetSha256(string str)
         {

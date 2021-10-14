@@ -57,6 +57,12 @@ namespace ApplicationCore.Services
             return repository.VerificarEmpleado(email);
         }
 
+        public Empleado GetEmpleadoByToken(string token)
+        {
+            IRepositoryEmpleado repository = new RepositoryEmpleado();
+            return repository.GetEmpleadoByToken(token);
+        }
+
         //Fin
     }
 }

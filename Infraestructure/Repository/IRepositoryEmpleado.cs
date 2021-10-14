@@ -15,5 +15,6 @@ namespace Infraestructure.Repository
         Empleado Save(Empleado Empleado);
         Empleado Login(int id, string contrasenia);
         bool VerificarEmpleado(string email);
+        Empleado GetEmpleadoByToken(string token);
     }
 }
