@@ -105,7 +105,7 @@
 
 <!-- ModalEdit -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,7 +126,7 @@
 
 <!-- ModalCreate -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -343,6 +343,13 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
+
+                    //The validation plugin can't bind to the same form twice.
+                    //We need to remove existing validators
+                    $('modalEdit').removeData("validator");
+
+                    //Refresh the validators
+                    $.validator.unobtrusive.parse(document);
                 },
                 // Capturar errores y mostrar un mensaje de error
                 error: function (xhr, status, error) {
@@ -395,6 +402,13 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
+
+                    //The validation plugin can't bind to the same form twice.
+                    //We need to remove existing validators
+                    $('modalCreate').removeData("validator");
+
+                    //Refresh the validators
+                    $.validator.unobtrusive.parse(document);
                 },
                 // Capturar errores y mostrar un mensaje de error
                 error: function (xhr, status, error) {

@@ -250,12 +250,12 @@
     <Content Include="Views\Empleado\_PartialViewDetailsEmpleado.cshtml" />
     <Content Include="Views\Empleado\_DeletePartialView.cshtml" />
     <Content Include="Views\Empleado\_EditPartialView.cshtml" />
-    <Content Include="Views\Empleado\Create.cshtml" />
     <Content Include="Views\TipoProducto\Create.cshtml" />
     <Content Include="Views\TipoProducto\List.cshtml" />
     <Content Include="Views\TipoProducto\_EditPartialView.cshtml" />
     <Content Include="Views\TipoProducto\_DeletePartialView.cshtml" />
     <Content Include="Views\TipoProducto\_PartialViewDetailsTipoProducto.cshtml" />
+    <Content Include="Views\Empleado\_CreatePartialView.cshtml" />
     <Content Include="Views\Login\IniciarRecuperacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
