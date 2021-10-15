@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
@@ -15,7 +16,7 @@ namespace Web.Controllers
         // Significa  que solo los que tienen el rol de Administrador pueden accederla 
         // ver Enums.cs  
         // public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3}
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+                [CustomAuthorize((int)Roles.Administrador)]
         // GET: MarcaProducto
         public ActionResult Index()
         {
@@ -33,7 +34,7 @@ namespace Web.Controllers
             }
         }
 
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+                [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult List()
         {
             IEnumerable<MarcaProducto> lista = null;
@@ -66,7 +67,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(MarcaProducto MarcaProducto)
         {
             string errores = "";
@@ -107,7 +108,7 @@ namespace Web.Controllers
 
 
         //GET: MarcaProducto/Details/    
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult AjaxFilterDetails(int? id)
         {
             ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
@@ -149,7 +150,7 @@ namespace Web.Controllers
         //}
 
         // GET: MarcaProducto/Edit/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
         {
             IServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
@@ -184,7 +185,7 @@ namespace Web.Controllers
 
 
         // GET: MarcaProducto/Create
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             //ViewBag con los tipos de MarcaProducto
@@ -197,7 +198,7 @@ namespace Web.Controllers
 
 
         // GET: MarcaProducto/Delete/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+                [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int? id)
         {
             try
@@ -228,7 +229,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+                [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult DeleteConfirmed(int? id)
         {
             ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();

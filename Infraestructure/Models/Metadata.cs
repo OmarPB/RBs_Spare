@@ -21,7 +21,7 @@ namespace Infraestructure.Models
 
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "Por favor digite una {0}")]
-        [RegularExpression(@"^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{9-50}$", ErrorMessage = "La contraseña debe contener al menos 9 caracteres, una mayúscula, un número y un caracter especial")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{9,50}$", ErrorMessage = "La contraseña debe contener al menos 9 caracteres, una mayúscula, un número y un caracter especial")]
         [DataType(DataType.Password)]
         public string Contrasenia { get; set; }
 
@@ -43,6 +43,34 @@ namespace Infraestructure.Models
 
         public Nullable<bool> Estado { get; set; }
 
+    }
+
+    internal partial class ProductoMetadata
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Tipo")]
+        public Nullable<int> IdTipoProducto { get; set; }
+
+        [Display(Name = "Marca")]
+        public Nullable<int> IdMarca { get; set; }
+
+        [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Descripcion { get; set; }
+
+        public byte[] Imagen { get; set; }
+
+        [Display(Name = "Precio Unidad")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        public Nullable<decimal> PrecioUnidad { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [DisplayFormat(DataFormatString = "{0:0.0%}", ApplyFormatInEditMode = true)]
+        public Nullable<decimal> IVA { get; set; }
+
+        public Nullable<bool> Estado { get; set; }
     }
 
     internal partial class RolMetadata

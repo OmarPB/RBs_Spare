@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.Security;
 
 namespace Web.Controllers
 {
@@ -15,7 +16,7 @@ namespace Web.Controllers
         // Significa  que solo los que tienen el rol de Administrador pueden accederla 
         // ver Enums.cs  
         // public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3}
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: TipoProducto
         public ActionResult Index()
         {
@@ -33,7 +34,7 @@ namespace Web.Controllers
             }
         }
 
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult List()
         {
             IEnumerable<TipoProducto> lista = null;
@@ -66,7 +67,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(TipoProducto tipoProducto)
         {
             string errores = "";
@@ -107,7 +108,7 @@ namespace Web.Controllers
 
 
         //GET: TipoProducto/Details/    
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult AjaxFilterDetails(int? id)
         {
             ServiceTipoProducto _ServiceTipoProducto = new ServiceTipoProducto();
@@ -149,7 +150,7 @@ namespace Web.Controllers
         //}
 
         // GET: TipoProducto/Edit/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
         {
             IServiceTipoProducto _ServiceTipoProducto = new ServiceTipoProducto();
@@ -184,7 +185,7 @@ namespace Web.Controllers
 
 
         // GET: TipoProducto/Create
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             //ViewBag con los tipos de TipoProducto
@@ -197,7 +198,7 @@ namespace Web.Controllers
 
 
         // GET: TipoProducto/Delete/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int? id)
         {
             try
@@ -228,7 +229,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult DeleteConfirmed(int? id)
         {
             ServiceTipoProducto _ServiceTipoProducto = new ServiceTipoProducto();

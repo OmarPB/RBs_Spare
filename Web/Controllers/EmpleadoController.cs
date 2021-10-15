@@ -18,7 +18,7 @@ namespace Web.Controllers
         // Significa  que solo los que tienen el rol de Administrador pueden accederla 
         // ver Enums.cs  
         // public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3}
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         // GET: Empleado
         public ActionResult Index()
         {
@@ -36,7 +36,7 @@ namespace Web.Controllers
             }
         }
 
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult List()
         {
             IEnumerable<Empleado> lista = null;
@@ -69,7 +69,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(Empleado Empleado)
         {
             string errores = "";
@@ -110,7 +110,7 @@ namespace Web.Controllers
 
 
         //GET: Empleado/Details/    
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult AjaxFilterDetails(int? id)
         {
             ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
@@ -152,7 +152,7 @@ namespace Web.Controllers
         //}
 
         // GET: Empleado/Edit/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int? id)
         {
             IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
@@ -190,7 +190,7 @@ namespace Web.Controllers
 
 
         // GET: Empleado/Create
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             //ViewBag con los tipos de Empleado
@@ -204,7 +204,7 @@ namespace Web.Controllers
 
 
         // GET: Empleado/Delete/5
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int? id)
         {
             try
@@ -235,7 +235,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult DeleteConfirmed(int? id)
         {
             ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();

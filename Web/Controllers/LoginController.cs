@@ -61,7 +61,7 @@ namespace Web.Controllers
         {
             try
             {
-                ViewBag.Message = "Un Authorized Page!";
+                ViewBag.Message = "No autorizado";
 
                 if (Session["User"] != null)
                 {

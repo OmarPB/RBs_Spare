@@ -101,7 +101,7 @@ namespace Infraestructure.Repository
         }
 
 
-        public Producto Save(Producto Producto)
+        public Producto Save(Producto producto)
         {
             int retorno = 0;
             Producto oProducto = null;
@@ -110,23 +110,25 @@ namespace Infraestructure.Repository
 
                 using (MyContext ctx = new MyContext())
                 {
-                    Producto.Estado = true;
+                    producto.Estado = true;
 
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oProducto = GetProductoByID(Producto.Id);
+                    oProducto = GetProductoByID(producto.Id);
                     if (oProducto == null)
                     {
-                        ctx.Producto.Add(Producto);
+                        producto.IVA = producto.IVA / 100;
+                        ctx.Producto.Add(producto);
                     }
                     else
                     {
-                        ctx.Entry(Producto).State = EntityState.Modified;
+                        producto.IVA = producto.IVA / 100;
+                        ctx.Entry(producto).State = EntityState.Modified;
                     }
                     retorno = ctx.SaveChanges();
                 }
 
                 if (retorno >= 0)
-                    oProducto = GetProductoByID(Producto.Id);
+                    oProducto = GetProductoByID(producto.Id);
 
                 return oProducto;
             }
