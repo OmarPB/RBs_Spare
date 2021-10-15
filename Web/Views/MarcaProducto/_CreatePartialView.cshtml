@@ -1,21 +1,19 @@
-﻿@model Infraestructure.Models.TipoProducto
+﻿@model Infraestructure.Models.MarcaProducto
 
 @{
-    ViewBag.Title = "Editar Tipo de Producto";
+    ViewBag.Title = "Nueva Marca de Producto";
 }
 
-<h2>Editar Tipo de Producto</h2>
+<h2>Nueva Marca de Producto</h2>
 
 
-@using (Html.BeginForm("Save", "TipoProducto"))
+@using (Html.BeginForm("Save", "MarcaProducto", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -24,19 +22,9 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Estado)
-                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>*@
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar Cambios" class="btn btn-success" />
+                <input type="submit" value="Guardar" class="btn btn-success" />
             </div>
         </div>
     </div>

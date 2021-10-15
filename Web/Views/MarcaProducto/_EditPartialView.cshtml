@@ -1,13 +1,13 @@
-﻿@model Infraestructure.Models.TipoProducto
+﻿@model Infraestructure.Models.MarcaProducto
 
 @{
-    ViewBag.Title = "Editar Tipo de Producto";
+    ViewBag.Title = "Editar Marca de Producto";
 }
 
-<h2>Editar Tipo de Producto</h2>
+<h2>Editar Marca de Producto</h2>
 
 
-@using (Html.BeginForm("Save", "TipoProducto"))
+@using (Html.BeginForm("Save", "MarcaProducto"))
 {
     @Html.AntiForgeryToken()
 
@@ -25,14 +25,14 @@
         </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Estado)
-                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Estado)
+                        @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

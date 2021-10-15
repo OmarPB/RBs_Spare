@@ -1,6 +1,6 @@
-﻿@model Infraestructure.Models.TipoProducto
+﻿@model Infraestructure.Models.MarcaProducto
 
-<h3>¿Desea desactivar este Tipo de Producto?</h3>
+<h3>¿Desea desactivar esta Marca de Producto?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -14,7 +14,8 @@
 
     </dl>
 
-    @using (Html.BeginForm("DeleteConfirmed", "TipoProducto", new { id = Model.Id }, FormMethod.Post)) {
+    @using (Html.BeginForm("DeleteConfirmed", "MarcaProducto", new { id = Model.Id }, FormMethod.Post))
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

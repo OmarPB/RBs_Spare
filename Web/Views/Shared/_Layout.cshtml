@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - RB's Spare</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -24,12 +24,21 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Mantenimientos <span class="glyphicon  glyphicon glyphicon-plus"/>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Tipos de Productos", "List", "TipoProducto")</li>
+                            <li>@Html.ActionLink("Marcas de Productos", "List", "MarcaProducto")</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Administración <span class="glyphicon  glyphicon glyphicon-user" />
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Mantenimiento de Empleados", "List", "Empleado")</li>
-                            <li>@Html.ActionLink("Mantenimiento de Tipos de Producto", "List", "TipoProducto")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Catálogo de Productos", "Index", "Home")</li>

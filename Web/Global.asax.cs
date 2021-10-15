@@ -21,7 +21,12 @@ namespace Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            //Activar log4net
             log4net.Config.XmlConfigurator.Configure();
+
+            //Cambio de Idioma para validación de números
+            ClientDataTypeModelValidatorProvider.ResourceClassKey = "Messages";
+            DefaultModelBinder.ResourceClassKey = "Messages";
         }
 
         protected void Application_BeginRequest(Object sender, EventArgs e)

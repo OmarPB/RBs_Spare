@@ -1,32 +1,19 @@
-﻿@model IEnumerable<Infraestructure.Models.Empleado>
+﻿@model IEnumerable<Infraestructure.Models.MarcaProducto>
 
 @{
-    ViewBag.Title = "Lista de Empleados";
+    ViewBag.Title = "List";
 }
 
-<h2>Lista de Empleados</h2>
+<h2>Lista de Marcas de Productos</h2>
 
 <p>
-    @*@Html.ActionLink("Agregar Nuevo Empleado", "Create", new { @class = "btn btn-success" })*@
+    @*@Html.ActionLink("Create New", "Create")*@
     <a class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
-
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </th>
-        <th class="hidden-xs">
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th class="hidden-xs">
-            @Html.DisplayNameFor(model => model.Rol.Descripcion)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th></th>
     </tr>
@@ -35,19 +22,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellidos)
-            </td>
-            <td class="hidden-xs">
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td class="hidden-xs">
-                @Html.DisplayFor(modelItem => item.Rol.Descripcion)
+                @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
                 <a class="btn" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#">Editar</a>
@@ -105,7 +80,7 @@
 
 <!-- ModalEdit -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel">
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -126,7 +101,7 @@
 
 <!-- ModalCreate -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel">
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -212,7 +187,7 @@
     @*Scrip para Detalles*@
     <script>
         function modalDetail(p) {
-            // Almacena el Id del Empleado en el hidden field tipo variable global
+            // Almacena el Id del MarcaProducto en el hidden field tipo variable global
             $("#campoOculto").val(p);
             // $("#modalDetails").val(p);
             //var temp = $("#campoOculto").val();
@@ -230,14 +205,14 @@
             // permite mover
             $('.modal-dialog').draggable();
             // Se lee el campo oculto
-            var idEmpleado = $("#campoOculto").val();
+            var idMarcaProducto = $("#campoOculto").val();
             //var identificacionEstudiante = $("#modalDetails").val();
-            console.log(idEmpleado);
+            console.log(idMarcaProducto);
             $.ajax({
                 type: "GET",
-                url: "/Empleado/AjaxFilterDetails/",
+                url: "/MarcaProducto/AjaxFilterDetails/",
                 // parametro por JSON
-                data: { id: idEmpleado },
+                data: { id: idMarcaProducto },
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
@@ -264,7 +239,7 @@
     @*Script para Delete*@
     <script>
         function modalDelete(p) {
-            // Almacena el Id del Empleado en el hidden field tipo variable global
+            // Almacena el Id del MarcaProducto en el hidden field tipo variable global
             $("#campoOculto").val(p);
             // $("#modalDetails").val(p);
             //var temp = $("#campoOculto").val();
@@ -281,14 +256,14 @@
             // permite mover
             $('.modal-dialog').draggable();
             // Se lee el campo oculto
-            var idEmpleado = $("#campoOculto").val();
+            var idMarcaProducto = $("#campoOculto").val();
             //var identificacionEstudiante = $("#modalDetails").val();
-            console.log(idEmpleado);
+            console.log(idMarcaProducto);
             $.ajax({
                 type: "GET",
-                url: "/Empleado/Delete/",
+                url: "/MarcaProducto/Delete/",
                 // parametro por JSON
-                data: { id: idEmpleado },
+                data: { id: idMarcaProducto },
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
@@ -315,7 +290,7 @@
     @*Script para Edit*@
     <script>
         function modalEdit(p) {
-            // Almacena el Id del Empleado en el hidden field tipo variable global
+            // Almacena el Id del MarcaProducto en el hidden field tipo variable global
             $("#campoOculto").val(p);
             // $("#modalDetails").val(p);
             //var temp = $("#campoOculto").val();
@@ -332,14 +307,14 @@
             // permite mover
             $('.modal-dialog').draggable();
             // Se lee el campo oculto
-            var idEmpleado = $("#campoOculto").val();
+            var idMarcaProducto = $("#campoOculto").val();
             //var identificacionEstudiante = $("#modalDetails").val();
-            console.log(idEmpleado);
+            console.log(idMarcaProducto);
             $.ajax({
                 type: "GET",
-                url: "/Empleado/Edit/",
+                url: "/MarcaProducto/Edit/",
                 // parametro por JSON
-                data: { id: idEmpleado },
+                data: { id: idMarcaProducto },
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);
@@ -373,7 +348,7 @@
     @*Script para Create*@
     <script>
         function modalCreate(p) {
-            // Almacena el Id del Empleado en el hidden field tipo variable global
+            // Almacena el Id del MarcaProducto en el hidden field tipo variable global
             $("#campoOculto").val(p);
             // $("#modalDetails").val(p);
             //var temp = $("#campoOculto").val();
@@ -391,14 +366,14 @@
             // permite mover
             $('.modal-dialog').draggable();
             // Se lee el campo oculto
-            var idEmpleado = $("#campoOculto").val();
+            var idMarcaProducto = $("#campoOculto").val();
             //var identificacionEstudiante = $("#modalDetails").val();
-            console.log(idEmpleado);
+            console.log(idMarcaProducto);
             $.ajax({
                 type: "GET",
-                url: "/Empleado/Create/",
+                url: "/MarcaProducto/Create/",
                 // parametro por JSON
-                data: { id: idEmpleado },
+                data: { id: idMarcaProducto },
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $(".modal-body").html(data);

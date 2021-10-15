@@ -138,13 +138,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\MarcaProductoController.cs" />
     <Compile Include="Controllers\TipoProductoController.cs" />
     <Compile Include="Enum\Enums.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,10 +251,7 @@
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Empleado\List.cshtml" />
-    <Content Include="Views\Error\Default.cshtml" />
-    <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Login\UnAuthorized.cshtml" />
-    <Content Include="Views\Empleado\_PartialViewDetailsEmpleado.cshtml" />
     <Content Include="Views\Empleado\_DeletePartialView.cshtml" />
     <Content Include="Views\Empleado\_EditPartialView.cshtml" />
     <Content Include="Views\TipoProducto\List.cshtml" />
@@ -258,6 +262,14 @@
     <Content Include="Views\Login\IniciarRecuperacion.cshtml" />
     <Content Include="Views\Login\Recuperacion.cshtml" />
     <Content Include="Views\TipoProducto\_CreatePartialView.cshtml" />
+    <Content Include="Views\MarcaProducto\List.cshtml" />
+    <Content Include="Views\MarcaProducto\_CreatePartialView.cshtml" />
+    <Content Include="Views\MarcaProducto\_EditPartialView.cshtml" />
+    <Content Include="Views\MarcaProducto\_DeletePartialView.cshtml" />
+    <Content Include="Views\MarcaProducto\_PartialViewDetailsMarcaProducto.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\Default.cshtml" />
+    <Content Include="Views\Empleado\_PartialViewDetailsEmpleado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,6 +298,12 @@
       <Project>{a33b2057-a051-4540-9f32-5da32db7f976}</Project>
       <Name>Infraestructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Messages.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

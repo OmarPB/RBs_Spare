@@ -37,7 +37,7 @@ namespace Infraestructure.Models
 
         [Display(Name = "Teléfono")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [Range(0, int.MaxValue, ErrorMessage = "Favor ingrese únicamente números")]
+        [Range(10000000, 99999999, ErrorMessage = "El formato debe ser 88888888")]
         public Nullable<int> Telefono { get; set; }
 
         public Nullable<bool> Estado { get; set; }
@@ -56,8 +56,18 @@ namespace Infraestructure.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Descripcion { get; set; }
+        public Nullable<bool> Estado { get; set; }
+    }
+
+    internal partial class MarcaProductoMetadata
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Descripcion { get; set; }
         public Nullable<bool> Estado { get; set; }
     }

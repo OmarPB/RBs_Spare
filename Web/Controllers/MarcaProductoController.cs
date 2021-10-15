@@ -1,17 +1,14 @@
 ﻿using ApplicationCore.Services;
 using Infraestructure.Models;
-using Infraestructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Web.Security;
 
 namespace Web.Controllers
 {
-    public class EmpleadoController : Controller
+    public class MarcaProductoController : Controller
     {
         private static String Action;
 
@@ -19,7 +16,7 @@ namespace Web.Controllers
         // ver Enums.cs  
         // public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3}
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
-        // GET: Empleado
+        // GET: MarcaProducto
         public ActionResult Index()
         {
             try
@@ -39,7 +36,7 @@ namespace Web.Controllers
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult List()
         {
-            IEnumerable<Empleado> lista = null;
+            IEnumerable<MarcaProducto> lista = null;
             try
             {
                 //Log.Info("Visita");
@@ -49,8 +46,8 @@ namespace Web.Controllers
                     ViewBag.Action = Action;
                 }
 
-                IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-                lista = _ServiceEmpleado.GetEmpleado();
+                IServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
+                lista = _ServiceMarcaProducto.GetMarcaProducto();
                 Action = "";
             }
             catch (Exception ex)
@@ -70,7 +67,7 @@ namespace Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
-        public ActionResult Save(Empleado Empleado)
+        public ActionResult Save(MarcaProducto MarcaProducto)
         {
             string errores = "";
             try
@@ -78,8 +75,8 @@ namespace Web.Controllers
                 // Es valido
                 if (ModelState.IsValid)
                 {
-                    ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-                    _ServiceEmpleado.Save(Empleado);
+                    ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
+                    _ServiceMarcaProducto.Save(MarcaProducto);
                 }
                 else
                 {
@@ -89,7 +86,7 @@ namespace Web.Controllers
                     TempData["Message"] = "Error al procesar los datos! " + errores;
                     TempData.Keep();
 
-                    return View("Create", Empleado);
+                    return PartialView("Create", MarcaProducto);
                 }
 
                 Action = "S";
@@ -109,13 +106,11 @@ namespace Web.Controllers
         }
 
 
-        //GET: Empleado/Details/    
+        //GET: MarcaProducto/Details/    
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult AjaxFilterDetails(int? id)
         {
-            ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-            Empleado empleado = null;
-
+            ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
             try
             {
                 // Si va null
@@ -124,11 +119,13 @@ namespace Web.Controllers
                     return RedirectToAction("List");
                 }
 
-                empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
-                //var detalles = new List<Empleado>();
-                //detalles.Add(Empleado);
+                MarcaProducto MarcaProducto = _ServiceMarcaProducto.GetMarcaProductoByID(id.Value);
+                var detalles = new List<MarcaProducto>
+                {
+                    MarcaProducto
+                };
 
-                return PartialView("_PartialViewDetailsEmpleado", empleado);
+                return PartialView("_PartialViewDetailsMarcaProducto", detalles);
             }
             catch (Exception ex)
             {
@@ -143,24 +140,21 @@ namespace Web.Controllers
 
         //public ActionResult AjaxFilterDetails5(int id)
         //{
-        //    IServiceEmpleado serviceEmpleado = new ServiceEmpleado();
-        //    Empleado empleado = serviceEmpleado.GetEmpleadoByID(id);
+        //    IServiceMarcaProducto serviceMarcaProducto = new ServiceMarcaProducto();
+        //    MarcaProducto MarcaProducto = serviceMarcaProducto.GetMarcaProductoByID(id);
 
-        //    var detalles = new List<Empleado>();
-        //    detalles.Add(empleado);
-        //    return PartialView("_PartialViewDetailsEmpleado", detalles);
+        //    var detalles = new List<MarcaProducto>();
+        //    detalles.Add(MarcaProducto);
+        //    return PartialView("_PartialViewDetailsMarcaProducto", detalles);
         //}
 
-        // GET: Empleado/Edit/5
+        // GET: MarcaProducto/Edit/5
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult Edit(int? id)
         {
-            IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-            Empleado Empleado = null;
+            IServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
+            MarcaProducto MarcaProducto = null;
 
-            //ViewBag con los tipos de Empleado
-            IServiceRol serviceRol = new ServiceRol();
-            ViewBag.ListaTipos = serviceRol.GetRol();
 
             try
             {
@@ -170,12 +164,12 @@ namespace Web.Controllers
                     return RedirectToAction("List");
                 }
 
-                Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
+                MarcaProducto = _ServiceMarcaProducto.GetMarcaProductoByID(id.Value);
                 // Response.StatusCode = 500;
 
                 Action = "U";
 
-                return PartialView("_EditPartialView", Empleado);
+                return PartialView("_EditPartialView", MarcaProducto);
             }
             catch (Exception ex)
             {
@@ -189,21 +183,20 @@ namespace Web.Controllers
         }
 
 
-        // GET: Empleado/Create
+        // GET: MarcaProducto/Create
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult Create()
         {
-            //ViewBag con los tipos de Empleado
+            //ViewBag con los tipos de MarcaProducto
             IServiceRol serviceRol = new ServiceRol();
-            ViewBag.ListaTipos = serviceRol.GetRol();
-            Empleado empleado = new Empleado();
+            MarcaProducto MarcaProducto = new MarcaProducto();
 
-            return PartialView("_CreatePartialView", empleado);
+            return PartialView("_CreatePartialView", MarcaProducto);
             //return View();
         }
 
 
-        // GET: Empleado/Delete/5
+        // GET: MarcaProducto/Delete/5
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult Delete(int? id)
         {
@@ -215,12 +208,12 @@ namespace Web.Controllers
                     return RedirectToAction("List");
                 }
 
-                ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-                Empleado Empleado = _ServiceEmpleado.GetEmpleadoByID(id.Value);
+                ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
+                MarcaProducto MarcaProducto = _ServiceMarcaProducto.GetMarcaProductoByID(id.Value);
 
                 Action = "D";
 
-                return PartialView("_DeletePartialView", Empleado);
+                return PartialView("_DeletePartialView", MarcaProducto);
             }
             catch (Exception ex)
             {
@@ -238,7 +231,7 @@ namespace Web.Controllers
         //[CustomAuthorize((int)Roles.Administrador, (int)Roles.Procesos)]
         public ActionResult DeleteConfirmed(int? id)
         {
-            ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
+            ServiceMarcaProducto _ServiceMarcaProducto = new ServiceMarcaProducto();
 
             try
             {
@@ -248,7 +241,7 @@ namespace Web.Controllers
                     return View();
                 }
 
-                _ServiceEmpleado.DeleteEmpleado(id.Value);
+                _ServiceMarcaProducto.DeleteMarcaProducto(id.Value);
 
                 return RedirectToAction("List");
             }
