@@ -21,6 +21,7 @@ namespace Infraestructure.Models
 
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "Por favor digite una {0}")]
+        [RegularExpression(@"^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{9-50}$", ErrorMessage = "La contraseña debe contener al menos 9 caracteres, una mayúscula, un número y un caracter especial")]
         [DataType(DataType.Password)]
         public string Contrasenia { get; set; }
 
