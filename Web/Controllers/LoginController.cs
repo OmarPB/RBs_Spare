@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Web.ViewModel;
 
 namespace Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace Web.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Empleado empleado)
+        public ActionResult Login(LoginViewModel empleado)
         {
             IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
             try
@@ -104,16 +105,19 @@ namespace Web.Controllers
 
         //Vista para solicitar al cliente los datos necesarios para recuperar la contraseña
         [HttpPost]
-        public ActionResult IniciarRecuperacion(Empleado empleado)
+        public ActionResult IniciarRecuperacion(LoginViewModel empleado)
         {
             try
             {
                 IServiceEmpleado service = new ServiceEmpleado();
+                Empleado oEmpleado = service.VerificarEmpleado(empleado.Email);
 
-                if(service.VerificarEmpleado(empleado.Email)){
-
-                }
+                    if (oEmpleado != null)
+                    {
+                        service.Save(oEmpleado);
+                    }
                 return View();
+
             }
             catch (Exception ex)
             {

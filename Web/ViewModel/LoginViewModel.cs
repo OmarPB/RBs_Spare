@@ -15,5 +15,9 @@ namespace Web.ViewModel
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Contrasenia { get; set; }
+        [Display(Name ="Correo Electrónico")]
+        [EmailAddress(ErrorMessage ="Digite un {0} válido")]
+        public string Email { get; set; }
+        
     }
 }

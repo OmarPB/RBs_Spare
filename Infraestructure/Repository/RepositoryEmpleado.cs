@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -187,7 +188,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public bool VerificarEmpleado(string email)
+        public Empleado VerificarEmpleado(string email)
         {
             try
             {
@@ -200,12 +201,12 @@ namespace Infraestructure.Repository
                 if (empleado != null)
                 {
                     empleado.TokenRecuperacion = GetSha256(Guid.NewGuid().ToString());
-                    Save(empleado);
                     SendEmail(email, empleado.TokenRecuperacion);
-                    return true;
+
+                    return empleado;
                 }
                 else
-                    return false;
+                    return null;
                 
             }
 

@@ -32,7 +32,16 @@ namespace ApplicationCore.Services
         public Empleado Save(Empleado empleado)
         {
             RepositoryEmpleado repository = new RepositoryEmpleado();
-
+            Empleado auxEmp = repository.GetEmpleadoByID(empleado.Id);
+            if (auxEmp != null)
+            {
+                if (auxEmp.Contrasenia.Equals(empleado.Contrasenia))
+                {
+                    //Desencripta la contraseña para prevenir errores durante el proceso de recuperación
+                    empleado.Contrasenia = Cryptography.DecrypthAES(empleado.Contrasenia);
+                }
+            }
+            
             //Encripta la contraseña y la envía a la base de datos
             empleado.Contrasenia = Cryptography.EncrypthAES(empleado.Contrasenia);
 
@@ -51,7 +60,7 @@ namespace ApplicationCore.Services
 
         }
 
-        public bool VerificarEmpleado(string email)
+        public Empleado VerificarEmpleado(string email)
         {
             IRepositoryEmpleado repository = new RepositoryEmpleado();
             return repository.VerificarEmpleado(email);
