@@ -8,7 +8,7 @@
 
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
-    <a class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
+    <a title="Permite crear un nuevo Producto" class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
 </p>
 <table class="table">
     <tr>
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.TipoProducto.Descripcion)
             </td>
             <td>
-                <a class="btn" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#">Editar</a>
-                <a class="btn" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#">Detalles</a>
-                <a class="btn" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#">Desactivar</a>
+                <a title="Click para editar los valores del Producto" class="btn" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#">Editar</a>
+                <a title="Click para ver los detalles del Producto" class="btn" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#">Detalles</a>
+                <a title="Click para desactivar el Producto" class="btn" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#">Desactivar</a>
             </td>
         </tr>
     }
