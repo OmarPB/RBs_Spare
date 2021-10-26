@@ -8,30 +8,19 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("RB's Spare", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
-        </div>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #e31110;">
+        <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="70" height="70" /></a>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -Desarrollado para fines Educativos | Omar Picado Brenes | Version @typeof(Web.MvcApplication).Assembly.GetName().Version.ToString()</p>
-
-        </footer>
     </div>
+    <footer class="py-lg-4 bg-dark fixed-bottom" align="center">
+    <div class="container px-4">
+        <p class="m-0 text-center text-white">&copy; @DateTime.Now.Year - RB's Spare</p>
+        <p class="m-0 text-center text-white">Versión 1.0.2</p>
+    </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -9,7 +9,7 @@
     ViewBag.Title = "Recuperación de contraseña";
 }
 
-<h2 id="formularioTitle">Ingrese el correo asociado a su cuenta</h2>
+<h2 id="formularioTitle" align="center">Ingrese el correo asociado a su cuenta</h2>
 
 @if (TempData["Message"] != null)
 {
@@ -24,7 +24,7 @@
     @Html.AntiForgeryToken()
 
 
-    <div class="form-horizontal" id="formulario">
+    <div class="form-horizontal" id="formulario" align="center">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -46,21 +46,11 @@
 }
 
 <style>
-    #formulario {
-        margin-left: 25%
-    }
-
-    #formularioTitle {
-        margin-bottom: 2%;
-        margin-left: 40%
-    }
-
     body {
         margin-top: 10%;
     }
 
     footer {
-        margin-left: 25%;
         margin-top: 16.5%
     }
 

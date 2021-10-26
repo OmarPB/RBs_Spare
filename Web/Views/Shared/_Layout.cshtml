@@ -11,99 +11,184 @@
     <link rel="stylesheet" href="~/Content/toastr.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #e31110; padding-top: 1%; padding-bottom: 1%;">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="80" height="80" /></a>
+    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #e31110; padding-top: 1%; padding-bottom: 1%;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="80" height="80" /></a>
 
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" style="margin-top:1%; margin-left:1%">
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                            Mantenimientos <span class="glyphicon  glyphicon glyphicon-plus" />
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Tipos de Productos", "List", "TipoProducto")</li>
-                            <li>@Html.ActionLink("Marcas de Productos", "List", "MarcaProducto")</li>
-                            <li>@Html.ActionLink("Productos", "List", "Producto")</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                            Administración <span class="glyphicon  glyphicon glyphicon-user" />
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Control de Empleados", "List", "Empleado")</li>
-                            <li>@Html.ActionLink("Reportes", "Contact", "Home")</li>
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Catálogo de Productos", "Index", "Home", new { id = "menu" })</li>
-                    <li>@Html.ActionLink("Citas para el Taller", "About", "Home", new { id = "menu" })</li>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="margin-top:1%; margin-left:1%">
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
+                                Mantenimientos <span class="glyphicon  glyphicon glyphicon-plus" />
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Tipos de Productos", "List", "TipoProducto")</li>
+                                <li>@Html.ActionLink("Marcas de Productos", "List", "MarcaProducto")</li>
+                                <li>@Html.ActionLink("Productos", "List", "Producto")</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
+                                Administración <span class="glyphicon  glyphicon glyphicon-user" />
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Control de Empleados", "List", "Empleado")</li>
+                                <li>@Html.ActionLink("Reportes", "Contact", "Home")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Catálogo de Productos", "Index", "Home", new { id = "menu" })</li>
+                        <li>@Html.ActionLink("Citas para el Taller", "About", "Home", new { id = "menu" })</li>
 
-                </ul>
+                    </ul>
 
-                <ul class="nav navbar-nav navbar-right" style="margin-top: 1%">
-                    <li>
-                        @{
-                            string nombre = "";
-                            Infraestructure.Models.Empleado oEmpleado;
-                            // Validar si vienen datos en la session
-                            if (Session["User"] != null)
-                            {
-                                // Casting
-                                oEmpleado = Session["User"] as Infraestructure.Models.Empleado;
-
-                                if (oEmpleado != null)
+                    <ul class="nav navbar-nav navbar-right" style="margin-top: 1%">
+                        <li>
+                            @{
+                                string nombre = "";
+                                Infraestructure.Models.Empleado oEmpleado;
+                                // Validar si vienen datos en la session
+                                if (Session["User"] != null)
                                 {
-                                    nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
+                                    // Casting
+                                    oEmpleado = Session["User"] as Infraestructure.Models.Empleado;
 
-                                    <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                                        @nombre
-                                        <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="@Url.Action("Logout", "Login")">
-                                                Salir
-                                                <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
-                                            </a>
+                                    if (oEmpleado != null)
+                                    {
+                                        nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
 
-                                        </li>
-                                    </ul>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
+                                            @nombre
+                                            <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="@Url.Action("Logout", "Login")">
+                                                    Salir
+                                                    <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
+                                                </a>
+
+                                            </li>
+                                        </ul>
+                                    }
                                 }
+                                else
+                                {
+                                    <a style="margin-top: 1%" id="menu" href="@Url.Action("Index", "Login")">
+                                        Iniciar Sesión
+                                        <span class="glyphicon  glyphicon-log-in " aria-hidden="true"></span>
+                                    </a>
+                                }
+
+
                             }
-                            else
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #e31110;">
+        <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="80" height="80" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("List", "TipoProducto")">Tipos de Producto</a>
+                        <a class="dropdown-item" href="@Url.Action("List", "MarcaProducto")">Marcas de Producto</a>
+                        <a class="dropdown-item" href="@Url.Action("List", "Producto")">Productos</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("List", "Empleado")">Control de empleados</a>
+                        <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Reportes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { id = "menu" })" )">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("About", "Home", new { id = "menu" })" )">Citas para el taller</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li>
+                    @{
+                        string nombre = "";
+                        Infraestructure.Models.Empleado oEmpleado;
+                        // Validar si vienen datos en la session
+                        if (Session["User"] != null)
+                        {
+                            // Casting
+                            oEmpleado = Session["User"] as Infraestructure.Models.Empleado;
+
+                            if (oEmpleado != null)
                             {
-                                <a style="margin-top: 1%" id="menu" href="@Url.Action("Index", "Login")">
-                                    Iniciar Sesión
-                                    <span class="glyphicon  glyphicon-log-in " aria-hidden="true"></span>
+                                nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
+
+                                <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
+                                    @nombre
+                                    <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
+                                    <span class="caret"></span>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("Logout", "Login")">
+                                            Salir
+                                            <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
+                                        </a>
+
+                                    </li>
+                                </ul>
                             }
-
-
+                        }
+                        else
+                        {
+                            <a style="margin-top: 1%" id="menu" href="@Url.Action("Index", "Login")">
+                                Iniciar Sesión
+                                <span class="glyphicon  glyphicon-log-in " aria-hidden="true"></span>
+                            </a>
                         }
 
-                    </li>
-                </ul>
-            </div>
+
+                    }
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
+
+
     <div class="container body-content" style="margin-top: 4%;">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
     </div>
+
+    <footer class="py-lg-4 bg-light sticky-bottom" align="center" style="position:relative">
+        <div class="container px-4">
+            <p class="m-0 text-center">&copy; @DateTime.Now.Year - RB's Spare</p>
+            <p class="m-0 text-center">Versión 1.0.2</p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
