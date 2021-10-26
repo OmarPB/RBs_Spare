@@ -44,7 +44,7 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-                <li>
+                <li class="nav-item dropdown">
                     @{
                         string nombre = "";
                         Infraestructure.Models.Empleado oEmpleado;
@@ -57,15 +57,13 @@
                             if (oEmpleado != null)
                             {
                                 nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
-
+                                
                                 <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
                                     @nombre
-                                    <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
-                                    <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="@Url.Action("Logout", "Login")">
+                                    <li class="nav-item dropdown">
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Login")">
                                             Salir
                                             <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
                                         </a>
@@ -91,7 +89,7 @@
 
 
 
-    <div class="container body-content" style="margin-top: 4%;">
+    <div class="container body-content" style="margin-top: 6%;">
         @RenderBody()
 
     </div>
@@ -106,7 +104,7 @@
 
 
     <!-- Footer -->
-    <footer class="page-footer font-small" style="background-color:lightgray;">
+    <footer class="page-footer font-small" style="background-color:lightgray; margin-bottom:-2%; margin-top:2%;">
 
         <!-- Footer Links -->
         <div class="container text-center text-md-left">
