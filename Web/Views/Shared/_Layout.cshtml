@@ -5,101 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - RB's Spare</title>
     @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/fontawesome")
+    @Scripts.Render("~/bundles/modernizr")
+
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 
     <link rel="stylesheet" href="~/Content/toastr.css">
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #e31110; padding-top: 1%; padding-bottom: 1%;">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="80" height="80" /></a>
-
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav" style="margin-top:1%; margin-left:1%">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                                Mantenimientos <span class="glyphicon  glyphicon glyphicon-plus" />
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Tipos de Productos", "List", "TipoProducto")</li>
-                                <li>@Html.ActionLink("Marcas de Productos", "List", "MarcaProducto")</li>
-                                <li>@Html.ActionLink("Productos", "List", "Producto")</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                                Administración <span class="glyphicon  glyphicon glyphicon-user" />
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Control de Empleados", "List", "Empleado")</li>
-                                <li>@Html.ActionLink("Reportes", "Contact", "Home")</li>
-                            </ul>
-                        </li>
-                        <li>@Html.ActionLink("Catálogo de Productos", "Index", "Home", new { id = "menu" })</li>
-                        <li>@Html.ActionLink("Citas para el Taller", "About", "Home", new { id = "menu" })</li>
-
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right" style="margin-top: 1%">
-                        <li>
-                            @{
-                                string nombre = "";
-                                Infraestructure.Models.Empleado oEmpleado;
-                                // Validar si vienen datos en la session
-                                if (Session["User"] != null)
-                                {
-                                    // Casting
-                                    oEmpleado = Session["User"] as Infraestructure.Models.Empleado;
-
-                                    if (oEmpleado != null)
-                                    {
-                                        nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
-
-                                        <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
-                                            @nombre
-                                            <span class="glyphicon  glyphicon-user " aria-hidden="true"></span>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="@Url.Action("Logout", "Login")">
-                                                    Salir
-                                                    <span class="glyphicon   glyphicon-log-out" aria-hidden="true"></span>
-                                                </a>
-
-                                            </li>
-                                        </ul>
-                                    }
-                                }
-                                else
-                                {
-                                    <a style="margin-top: 1%" id="menu" href="@Url.Action("Index", "Login")">
-                                        Iniciar Sesión
-                                        <span class="glyphicon  glyphicon-log-in " aria-hidden="true"></span>
-                                    </a>
-                                }
-
-
-                            }
-
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
-
-
-
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #e31110;">
         <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Logo/Logo opcional.png")" width="80" height="80" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -183,12 +96,140 @@
 
     </div>
 
-    <footer class="py-lg-4 bg-light sticky-bottom" align="center" style="position:relative">
-        <div class="container px-4">
-            <p class="m-0 text-center">&copy; @DateTime.Now.Year - RB's Spare</p>
-            <p class="m-0 text-center">Versión 1.0.2</p>
+    @*<footer class="py-lg-4 bg-light sticky-bottom" align="center" style="position:relative">
+            <div class="container px-4">
+                <p class="m-0 text-center">&copy; @DateTime.Now.Year - RB's Spare</p>
+                <p class="m-0 text-center">Versión 1.0.2</p>
+            </div>
+        </footer>*@
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small" style="background-color:lightgray;">
+
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row">
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Content -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Footer Content</h5>
+                    <p>Here you can use rows and columns to organize your footer content.</p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident voluptate
+                        esse
+                        quasi, veritatis totam voluptas nostrum.
+                    </p>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Links -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <a href="#!">PROJECTS</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">ABOUT US</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">BLOG</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <a href="#!">AWARDS</a>
+                            </p>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                    <!-- Contact details -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fas fa-home mr-3"></i> New York, NY 10012, US
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-envelope mr-3"></i> info@example.com
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-phone mr-3"></i> + 01 234 567 88
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-print mr-3"></i> + 01 234 567 89
+                            </p>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+                <hr class="clearfix w-100 d-md-none">
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                    <!-- Social buttons -->
+                    <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+
+                    <!-- Facebook -->
+                    <a type="button" href="#" class="btn-floating btn-fb">
+                        <i class="fa fa-facebook fa-3x"></i>
+                    </a>
+                    
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
         </div>
+        <!-- Footer Links -->
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2020 Copyright:
+            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
     </footer>
+    <!-- Footer -->
+
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
