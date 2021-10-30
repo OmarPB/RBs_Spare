@@ -116,7 +116,8 @@ namespace Web.Controllers
                     {
                         service.Save(oEmpleado);
                     }
-                return View();
+                
+                return View("NotificacionCorreo");
 
             }
             catch (Exception ex)
@@ -130,6 +131,11 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
             
+        }
+
+        public ActionResult NotificacionCorreo()
+        {
+            return View();
         }
 
 
