@@ -7,7 +7,10 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/TempResources/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/TempResources/vendor/animate.css/animate.min.css" />
+    <link rel="stylesheet" href="~/TempResources/css/style.css" />
     <link rel="stylesheet" href="~/Content/toastr.css">
 </head>
 <body>
@@ -19,7 +22,7 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="@Url.Action("List", "TipoProducto")">Tipos de Producto</a>
@@ -55,7 +58,7 @@
                             if (oEmpleado != null)
                             {
                                 nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
-                                
+
                                 <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
                                     @nombre
                                 </a>
@@ -87,7 +90,7 @@
 
 
 
-    <div class="container body-content" style="margin-top: 6%;">
+    <div class="container body-content col-md-12" style="margin-left:0; margin-right:0; padding-left:0; padding-right:0;">
         @RenderBody()
 
     </div>
@@ -174,7 +177,7 @@
                     <a type="button" href="https://www.facebook.com/Moto-repuestos-Ram%C3%ADrez-Barboza-1790145137929981/" class="btn-floating btn-fb">
                         <i class="fa fa-facebook fa-3x"></i>
                     </a>
-                    
+
 
                 </div>
                 <!-- Grid column -->
