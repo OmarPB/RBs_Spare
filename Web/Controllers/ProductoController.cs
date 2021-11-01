@@ -19,17 +19,13 @@ namespace Web.Controllers
         // Significa  que solo los que tienen el rol de Administrador pueden accederla 
         // ver Enums.cs  
         // public enum Roles { Administrador = 1, Procesos = 2, Reportes = 3}
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         // GET: Producto
         public ActionResult Index()
         {
             try
             {
-
-                // Forzar un error 
-                // int c = 0;
-                // int x = c / 0;
-                return RedirectToAction("List");
+                return View();
             }
             catch (Exception ex)
             {
@@ -43,6 +39,36 @@ namespace Web.Controllers
 
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult List()
+        {
+            IEnumerable<Producto> lista = null;
+            try
+            {
+                Log.Info("Visita");
+
+                if (!String.IsNullOrEmpty(Action))
+                {
+                    ViewBag.Action = Action;
+                }
+
+                IServiceProducto _ServiceProducto = new ServiceProducto();
+                lista = _ServiceProducto.GetProducto();
+                Action = "";
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
+            return View(lista);
+        }
+
+        public ActionResult Catalogo()
         {
             IEnumerable<Producto> lista = null;
             try

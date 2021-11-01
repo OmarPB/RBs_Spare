@@ -35,10 +35,13 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="menu" href="@Url.Action("Index", "Home", new { id = "menu" })" )">Productos</a>
+                    <a class="nav-link" id="menu" href="@Url.Action("Catalogo", "Producto", new { id = "menu" })" )">Catálogo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="menu" href="@Url.Action("About", "Home", new { id = "menu" })" )">Citas para el taller</a>
+                </li>
+                <li class="menu__item" id="cantidadProductos">
+                    @Html.Partial("_OrdenCantidad")
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
