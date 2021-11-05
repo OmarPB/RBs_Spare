@@ -1,4 +1,5 @@
 ﻿using Infraestructure.Models;
+using Infraestructure.Utils;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;

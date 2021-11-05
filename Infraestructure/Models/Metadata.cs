@@ -101,5 +101,25 @@ namespace Infraestructure.Models
         public Nullable<bool> Estado { get; set; }
     }
 
+    internal partial class OrdenMetadata
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Por favar ingrese su {0}")]
+        public string NombreCliente { get; set; }
+
+        [Display(Name = "Apellidos")]
+        [Required(ErrorMessage = "Por favar ingrese sus {0}")]
+        public string ApellidosCliente { get; set; }
+
+        [Display(Name = "Fecha de Creación")]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+        public Nullable<decimal> Subtotal { get; set; }
+        public Nullable<decimal> TotalIVA { get; set; }
+        public Nullable<decimal> TotalFinal { get; set; }
+        public Nullable<int> IdCondicionOrden { get; set; }
+    }
+
     //Fin
 }

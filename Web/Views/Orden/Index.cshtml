@@ -1,0 +1,136 @@
+﻿@model Infraestructure.Models.Orden
+
+@{
+    ViewBag.Title = "Orden";
+}
+
+@using (Html.BeginForm("Save", "Orden", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div style="margin-top:50px; margin-bottom:50px;">
+        <h2>Orden </h2>
+        <hr />
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaCreacion, htmlAttributes: new { @class = "col-form-label" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.FechaCreacion, htmlAttributes: new
+                       {
+                           @class = "form-control",
+                           @Value = DateTime.Now.ToString("yyyy-MM-dd"),
+                           @readonly = "readonly"
+                       })
+                            @Html.ValidationMessageFor(model => model.FechaCreacion, "", new { @class = "text-danger" })
+                        </div>
+                        @* Para Mostrar la fecha en un formato agradable para el usuario *@
+                    <div class="col-md-10">
+                        @{
+                            string format = "dd 'de' MMMM 'del' yyyy";
+                            var now = DateTime.Now.ToString(format);
+                            <h4 style="color: gray">@now</h4>
+                        }
+                    </div>
+
+                        <hr />
+                        <h3 style="margin-top: 1%">Información del Cliente</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApellidosCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ApellidosCliente, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ApellidosCliente, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+
+        <hr />
+        <span class="glyphicons glyphicons-hand-left"></span>
+        <div id="resultadoDetalle">
+            @if (Web.ViewModel.ViewModelCarrito.Instancia.Items.Count() > 0)
+            {
+                @Html.Partial("~/Views/Orden/_DetalleOrden.cshtml", (List<Web.ViewModel.ViewModelOrdenDetalle>)ViewBag.DetalleOrden)
+            }
+            else
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    La Orden no tiene Productos asignados
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+        </div>
+        <hr />
+        <!-- Submit -->
+        <button type="submit" class="btn btn-success float-right" id="btnOrdenar" style="margin-bottom:25px;">
+            <span class="icon  icon-floppy-save"></span>
+            Enviar Orden
+        </button>
+    </div>
+}
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+
+    <script type="text/javascript">
+
+    //Actualizar cantidad de productos en el carrito
+    //Cambio de cantidad en caja de texto
+    function updateCantidad(ctr) {
+        var txtCantidad = $(ctr);
+        var cantidad = txtCantidad.val();
+        var id = txtCantidad.data("productoid");
+        $.ajax({
+            type: "GET",
+            dataType: 'text',
+            url: "/Orden/actualizarCantidad",
+            data: { "productoID": id, "cantidad": cantidad },
+            success: function (data) {
+                $("#resultadoDetalle").html('');
+                $("#resultadoDetalle").html(data);
+                updateCantProductos();
+            }, error: function (xhr, status, error) {
+                console.log("Error: " + error + ", No Error: " + xhr.status);
+            },
+        });
+    }
+    //Actualizar cantidad de productos en el menú
+    function updateCantProductos() {
+        $.ajax({
+            type: "GET",
+            dataType: 'text',
+            url: "/Orden/actualizarOrdenCantidad",
+            success: function (data) {
+                $("#cantidadProductos").html('');
+                $("#cantidadProductos").html(data);
+            }, error: function (xhr, status, error) {
+                console.log("Error: " + error + ", No Error: " + xhr.status);
+            },
+        });
+    }
+
+        //function ShowSelected() {
+        //    var envio = document.getElementById("Envio").innerText;
+        //    var tipo = document.getElementById("TipoEntrega").Value;
+        //    if (selection == "Express")
+        //        document.getElementById("").style.display = "block";
+        //}
+
+
+    </script>
+}
