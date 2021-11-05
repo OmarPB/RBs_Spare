@@ -395,6 +395,7 @@
     <Content Include="Views\Orden\Details.cshtml" />
     <Content Include="Views\Orden\Edit.cshtml" />
     <Content Include="Views\Orden\_DetalleOrden.cshtml" />
+    <Content Include="Views\Orden\OrdenCompleta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

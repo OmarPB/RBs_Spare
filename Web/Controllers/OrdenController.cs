@@ -137,7 +137,7 @@ namespace Web.Controllers
         // GET: Orden/Create
         //Guardar la orden
         [HttpPost]
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(Orden orden)
         {
             Detalle_Orden detalle = new Detalle_Orden();
@@ -164,31 +164,21 @@ namespace Web.Controllers
 
                     foreach (var item in listaDetalle)
                     {
+                        //Se declara el nuevo Detalle_Orden
                         Detalle_Orden detalle_orden = new Detalle_Orden();
-                        detalle_orden.IdOrden = item.ProductoId;
-                        //detalle_orden.PrecioLinea = item.Precio;
+                        detalle_orden.IdOrden = item.OrdenId;
+                        detalle_orden.IdProducto = item.ProductoId;
                         detalle_orden.Cantidad = item.Cantidad;
-                        detalle_orden.PrecioLinea = item.SubTotal;
-
-
-
-                        //if (orden.TipoEntregaID == 1)
-                        //{
-                        //    orden.Envio = 4000;
-                        //    orden.SubTotal = Carrito.Instancia.GetSubTotal() + orden.Envio;
-                        //    orden.Impuesto = Carrito.Instancia.GetImpuesto();
-                        //    orden.Total = (orden.Impuesto + orden.SubTotal);
-                        //}
-                        //else
-                        //{
-                        //    orden.SubTotal = Carrito.Instancia.GetSubTotal();
-                        //    orden.Impuesto = Carrito.Instancia.GetImpuesto();
-                        //    orden.Total = (orden.Impuesto + orden.SubTotal);
-                        //}
+                        detalle_orden.IVALinea = item.Producto.IVA;
+                        detalle_orden.PrecioLinea = (decimal)(item.Producto.PrecioUnidad * item.Cantidad);
                         orden.Detalle_Orden.Add(detalle_orden);
                     }
                 }
 
+                //Se actualizan los valores de Impuesto y totales a la Orden
+                orden.Subtotal = ViewModelCarrito.Instancia.GetSubTotal();
+                orden.TotalIVA = ViewModelCarrito.Instancia.GetImpuesto();
+                orden.TotalFinal = ViewModelCarrito.Instancia.GetTotal();
 
                 IServiceOrden _ServiceOrden = new ServiceOrden();
 
@@ -198,7 +188,7 @@ namespace Web.Controllers
                 ViewModelCarrito.Instancia.eliminarViewModelCarrito();
                 TempData["NotificationMessage"] = Utils.SweetAlertHelper.Mensaje("Orden", "¡Orden Guardada!", SweetAlertMessageType.success);
                 // Reporte orden
-                return RedirectToAction("Index");
+                return View("OrdenCompleta");
             }
             catch (Exception ex)
             {
