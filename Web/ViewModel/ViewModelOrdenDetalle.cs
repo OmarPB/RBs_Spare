@@ -60,5 +60,14 @@ namespace Web.ViewModel
             this.ProductoId = ProductoId;
             this.Producto = _ServiceProducto.GetProductoByID(ProductoId);
         }
+
+        public int getUltimaOrdenId()
+        {
+            IServiceOrden serviceOrden = new ServiceOrden();
+
+            return serviceOrden.GetOrden().Last<Orden>().Id +1;
+        }
+
+        //Fin
     }
 }

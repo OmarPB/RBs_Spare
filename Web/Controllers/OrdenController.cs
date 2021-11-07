@@ -160,8 +160,6 @@ namespace Web.Controllers
                     orden.FechaCreacion = Convert.ToDateTime(localDate);
                     orden.IdCondicionOrden = 1;
 
-
-
                     foreach (var item in listaDetalle)
                     {
                         //Se declara el nuevo Detalle_Orden
@@ -179,6 +177,8 @@ namespace Web.Controllers
                 orden.Subtotal = ViewModelCarrito.Instancia.GetSubTotal();
                 orden.TotalIVA = ViewModelCarrito.Instancia.GetImpuesto();
                 orden.TotalFinal = ViewModelCarrito.Instancia.GetTotal();
+                //Se pone la orden en condición 1: Pendiente
+                orden.IdCondicionOrden = 1;
 
                 IServiceOrden _ServiceOrden = new ServiceOrden();
 
@@ -243,39 +243,6 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
-
-        //[HttpPost]
-
-        //[CustomAuthorize((int)Roles.Vendedor)]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult EditConfirmed(int? id)
-        //{
-        //    IServiceOrden _ServiceOrden = new ServiceOrden();
-        //    Orden orden = null;
-        //    try
-        //    {
-
-        //        if (id == null)
-        //        {
-        //            return View();
-        //        }
-        //        orden.CondicionOrdenID = 2;
-        //        _ServiceOrden.GetOrdenByID(id.Value);
-
-
-        //        return RedirectToAction("IndexAdmin");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Salvar el error en un archivo 
-        //        Utils.Log.Error(ex, MethodBase.GetCurrentMethod());
-        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-        //        TempData.Keep();
-        //        // Redireccion a la captura del Error
-        //        return RedirectToAction("Default", "Error");
-        //    }
-        //}
 
         private SelectList listaCondicionOrden(int idCondicionOrden = 0)
         {

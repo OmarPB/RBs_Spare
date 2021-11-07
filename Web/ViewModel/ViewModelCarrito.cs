@@ -57,7 +57,7 @@ namespace Web.ViewModel
                     nuevoItem.Cantidad = 1;
                     Items.Add(nuevoItem);
                 }
-                mensaje = SweetAlertHelper.Mensaje("Orden", "Producto Agregado", SweetAlertMessageType.success);
+                mensaje = SweetAlertHelper.Mensaje("Información", "¡Agregado con éxito!", SweetAlertMessageType.success);
 
             }
             else

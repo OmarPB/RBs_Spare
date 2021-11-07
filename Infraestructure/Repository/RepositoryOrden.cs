@@ -20,9 +20,12 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    ordenes = ctx.Orden.Include("CondicionOrden").
-                               OrderByDescending(x => x.FechaCreacion).
-                               ToList<Orden>();
+                    ordenes = ctx.Orden.
+                        Include("CondicionOrden").
+                               Include("Detalle_Orden").
+                               Include("Detalle_Orden.Producto").
+                               OrderBy(x => x.Id)
+                               .ToList<Orden>();
 
                 }
                 return ordenes;
@@ -48,7 +51,8 @@ namespace Infraestructure.Repository
             using (MyContext ctx = new MyContext())
             {
                 ctx.Configuration.LazyLoadingEnabled = false;
-                lista = ctx.Orden.Include("CondicionOrden").Where(x => x.IdCondicionOrden == condicion).ToList();
+                lista = ctx.Orden.Include("CondicionOrden").Include("Detalle_Orden").
+                               Include("Detalle_Orden.Producto").Where(x => x.IdCondicionOrden == condicion).ToList();
             }
             return lista;
         }
