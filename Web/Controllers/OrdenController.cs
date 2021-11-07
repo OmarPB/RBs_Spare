@@ -143,7 +143,11 @@ namespace Web.Controllers
             Detalle_Orden detalle = new Detalle_Orden();
             try
             {
-
+                //string mensaje = "*Resumen de la Orden* 📝%0A%0A" +
+                //    "Cliente: *" + orden.NombreCliente + " " + orden.ApellidosCliente + "*%0A" +
+                //    "N° de Orden: *" + ViewModelCarrito.Instancia.Items[0].getUltimaOrdenId() + "*%0A" +
+                //    "Fecha: *" + DateTime.Now.ToString("dd de MMMM de yyyy") + "*%0A%0A" +
+                //    "*Productos:* %0A";
                 // Si no existe la sesión no hay nada
                 if (ViewModelCarrito.Instancia.Items.Count() <= 0)
                 {
@@ -154,7 +158,6 @@ namespace Web.Controllers
 
                 else
                 {
-
                     var listaDetalle = ViewModelCarrito.Instancia.Items;
                     String localDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     orden.FechaCreacion = Convert.ToDateTime(localDate);
@@ -170,8 +173,15 @@ namespace Web.Controllers
                         detalle_orden.IVALinea = item.Producto.IVA;
                         detalle_orden.PrecioLinea = (decimal)(item.Producto.PrecioUnidad * item.Cantidad);
                         orden.Detalle_Orden.Add(detalle_orden);
+
+                        //Info para el mensaje
+                        //mensaje += "🏍️ *" + item.Producto.Descripcion + "*" +
+                        //"%0ACantidad: " + item.Cantidad +
+                        //"%0APrecio: ₡" + item.Precio.ToString("##,00.00") +
+                        //"%0ASubtotal: ₡" + item.SubTotal.ToString("##,00.00") + "%0A%0A";
                     }
                 }
+                //ViewBag.Mensaje = mensaje;
 
                 //Se actualizan los valores de Impuesto y totales a la Orden
                 orden.Subtotal = ViewModelCarrito.Instancia.GetSubTotal();
@@ -187,7 +197,8 @@ namespace Web.Controllers
                 // Limpia el Carrito de compras
                 ViewModelCarrito.Instancia.eliminarViewModelCarrito();
                 TempData["NotificationMessage"] = Utils.SweetAlertHelper.Mensaje("Orden", "¡Orden Guardada!", SweetAlertMessageType.success);
-                // Reporte orden
+                
+                //Muestra una página de confirmación 
                 return View("OrdenCompleta");
             }
             catch (Exception ex)
@@ -198,7 +209,7 @@ namespace Web.Controllers
                 TempData["Redirect"] = "Orden";
                 TempData["Redirect-Action"] = "Index";
                 // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
+                return View("Index");
             }
         }
 

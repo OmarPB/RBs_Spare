@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
@@ -33,13 +33,13 @@
         </div>
 
         @*Para la confirmación de contraseña*@
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.Label("Confirmar", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.Password("Confirmar", "", new { @class = "form-control" })
                 <label class="text-danger" id="mensaje"></label>
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })

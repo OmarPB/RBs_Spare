@@ -69,47 +69,46 @@
                             </div>
                         }
                     </div>
-                    <div class="col-md-12">
-                        @* Enviar mensaje y guardar orden *@
-                        <!-- Submit -->
-                        <button type="submit" onclick="enviarMensaje()" class="btn btn-success btn-lg" id="btnOrdenar" style="margin-bottom:5%; margin-top: -5%">
-                            Enviar Orden
-                        </button>
-                    </div>
+                </div>
+                <div class="col-md-12">
+                    @* Enviar mensaje y guardar orden *@
+                    <!-- Submit -->
+                    <button type="submit" onclick="enviarMensaje()" class="btn btn-success btn-lg" id="btnOrdenar" style="margin-bottom:5%; margin-top: -5%">
+                        Enviar Orden
+                    </button>
                 </div>
             </div>
         </div>
 
-
-        @* Creación del mensaje de Whatsapp *@
-        @{
-            if (Web.ViewModel.ViewModelCarrito.Instancia.Items.Count() > 0)
-            {
-                //InfoCliente
-                
-
-                decimal total = Web.ViewModel.ViewModelCarrito.Instancia.GetTotal();
-                decimal ivaTotal = Web.ViewModel.ViewModelCarrito.Instancia.GetImpuesto();
-                int numOrden = Web.ViewModel.ViewModelCarrito.Instancia.Items[0].getUltimaOrdenId();
-
-                string mensaje = "Orden: # *" + numOrden + "*%0A" +
-                    "Fecha: *" + now + "*%0A%0A" +
-                    "*Productos:*%0A";
-
-                foreach (var item in (List<Web.ViewModel.ViewModelOrdenDetalle>)ViewBag.DetalleOrden)
+        <div id="divMensaje">
+            @* Creación del mensaje de Whatsapp *@
+            @{
+                if (Web.ViewModel.ViewModelCarrito.Instancia.Items.Count() > 0)
                 {
-                    mensaje += "🏍️ *" + item.Producto.Descripcion + "*" +
-                        "%0ACantidad: " + item.Cantidad +
-                        "%0APrecio: ₡" + item.Precio.ToString("##,00.00") +
-                        "%0ASubtotal: ₡" + item.SubTotal.ToString("##,00.00") + "%0A%0A";
-                }
-                mensaje += "Total IVA: ₡" + ivaTotal.ToString("##,00.00") +
-                    "%0A%0A✅ *Total Final: ₡" + total.ToString("##,00.00") + "* ✅";
+                    decimal total = Web.ViewModel.ViewModelCarrito.Instancia.GetTotal();
+                    decimal ivaTotal = Web.ViewModel.ViewModelCarrito.Instancia.GetImpuesto();
+                    int numOrden = Web.ViewModel.ViewModelCarrito.Instancia.Items[0].getUltimaOrdenId();
 
-                <textarea id="mensaje" style="display:none; white-space: pre-wrap">@mensaje</textarea>
+                    string mensaje = "Orden: # *" + numOrden + "*%0A" +
+                        "Fecha: *" + now + "*%0A%0A" +
+                        "*Productos:*%0A";
+
+                    foreach (var item in (List<Web.ViewModel.ViewModelOrdenDetalle>)ViewBag.DetalleOrden)
+                    {
+                        mensaje += "🏍️ *" + item.Producto.Descripcion + "*" +
+                            "%0ACantidad: " + item.Cantidad +
+                            "%0APrecio: ₡" + item.Precio.ToString("##,00.00") +
+                            "%0ASubtotal: ₡" + item.SubTotal.ToString("##,00.00") + "%0A%0A";
+                    }
+                    mensaje += "Total IVA: ₡" + ivaTotal.ToString("##,00.00") +
+                        "%0A%0A✅ *Total Final: ₡" + total.ToString("##,00.00") + "* ✅";
+
+                    <textarea id="mensaje" style="display: none; white-space: pre-wrap">@mensaje</textarea>
+                }
             }
-        }
+        </div>
     </div>
+
 }
 @section Scripts {
 
@@ -118,28 +117,48 @@
     @Scripts.Render("~/bundles/jqueryui")
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     @* Método para obtener el texto del mensaje *@
     <script>
 
+        //function validarCampos() {
+        //    var nombre = document.getElementById("NombreCliente").value;
+        //    var apellidos = document.getElementById("ApellidosCliente").value;
+        //    if (nombre == "" || apellidos == "") {
+        //        swal("Atención", "Por favor asegúrese de haber llenado todos los campos", "warning");
+        //        return;
+        //    }
+        //}
+
         function enviarMensaje() {
+
             var nombre = document.getElementById("NombreCliente").value;
             var apellidos = document.getElementById("ApellidosCliente").value;
-
             if (nombre != "" && apellidos != "") {
+
                 var texto = "*Resumen de la Orden* 📝%0A%0A" +
                     "Cliente: *" + nombre + " " + apellidos + "*%0A" +
                     document.getElementById("mensaje").value;
-                window.open("https://web.whatsapp.com/send?phone=50683482932&text=" + texto, "_blank");
+
+                var telefono = 50683482932;
+
+                window.open("https://web.whatsapp.com/send?phone=" + telefono + "&text=" + texto, "_blank");
             }
             else {
                 swal("Atención", "Por favor asegúrese de haber llenado todos los campos", "warning");
                 return;
             }
         }
+
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
     </script>
 
-    @*<script type="text/javascript">
+    <script type="text/javascript">
 
         //Actualizar cantidad de productos en el carrito
         //Cambio de cantidad en caja de texto
@@ -176,5 +195,5 @@
             });
         }
 
-    </script>*@
+    </script>
 }
