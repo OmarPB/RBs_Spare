@@ -114,9 +114,18 @@ namespace Infraestructure.Models
 
         [Display(Name = "Fecha de Creación")]
         public Nullable<System.DateTime> FechaCreacion { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public Nullable<decimal> Subtotal { get; set; }
+
+        [Display(Name = "Total Impuesto")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public Nullable<decimal> TotalIVA { get; set; }
+
+        [Display(Name = "Total Final")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public Nullable<decimal> TotalFinal { get; set; }
+        [Display(Name = "Condición")]
         public Nullable<int> IdCondicionOrden { get; set; }
     }
 

@@ -11,7 +11,7 @@
     <a class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
 
 </p>
-<table class="table">
+<table class="table" style="margin-bottom: 6.5%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -19,13 +19,13 @@
         <th>
             @Html.DisplayNameFor(model => model.Apellidos)
         </th>
-        <th class="hidden-xs">
+        <th class="d-none d-sm-block">
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Telefono)
         </th>
-        <th class="hidden-xs">
+        <th class="d-none d-sm-block">
             @Html.DisplayNameFor(model => model.Rol.Descripcion)
         </th>
         <th></th>
@@ -40,19 +40,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Apellidos)
             </td>
-            <td class="hidden-xs">
+            <td class="d-none d-sm-block">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
-            <td class="hidden-xs">
+            <td class="d-none d-sm-block">
                 @Html.DisplayFor(modelItem => item.Rol.Descripcion)
             </td>
             <td>
-                <a class="btn" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#">Editar</a>
-                <a class="btn" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#">Detalles</a>
-                <a class="btn" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#">Desactivar</a>
+                <a class="btn" title="Editar Empleado" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#"><i class="fa fa-edit"></i></a>
+                <a class="btn" title="Detalles del Empleado" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#"><i class="fa fa-info"></i></a>
+                <a class="btn" title="Desactivar Empleado" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }

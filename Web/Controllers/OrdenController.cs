@@ -143,11 +143,6 @@ namespace Web.Controllers
             Detalle_Orden detalle = new Detalle_Orden();
             try
             {
-                //string mensaje = "*Resumen de la Orden* 📝%0A%0A" +
-                //    "Cliente: *" + orden.NombreCliente + " " + orden.ApellidosCliente + "*%0A" +
-                //    "N° de Orden: *" + ViewModelCarrito.Instancia.Items[0].getUltimaOrdenId() + "*%0A" +
-                //    "Fecha: *" + DateTime.Now.ToString("dd de MMMM de yyyy") + "*%0A%0A" +
-                //    "*Productos:* %0A";
                 // Si no existe la sesión no hay nada
                 if (ViewModelCarrito.Instancia.Items.Count() <= 0)
                 {
@@ -173,15 +168,8 @@ namespace Web.Controllers
                         detalle_orden.IVALinea = item.Producto.IVA;
                         detalle_orden.PrecioLinea = (decimal)(item.Producto.PrecioUnidad * item.Cantidad);
                         orden.Detalle_Orden.Add(detalle_orden);
-
-                        //Info para el mensaje
-                        //mensaje += "🏍️ *" + item.Producto.Descripcion + "*" +
-                        //"%0ACantidad: " + item.Cantidad +
-                        //"%0APrecio: ₡" + item.Precio.ToString("##,00.00") +
-                        //"%0ASubtotal: ₡" + item.SubTotal.ToString("##,00.00") + "%0A%0A";
                     }
                 }
-                //ViewBag.Mensaje = mensaje;
 
                 //Se actualizan los valores de Impuesto y totales a la Orden
                 orden.Subtotal = ViewModelCarrito.Instancia.GetSubTotal();
@@ -213,47 +201,135 @@ namespace Web.Controllers
             }
         }
 
-        [HttpPost]
-        // GET: Orden/Edit/5
         [CustomAuthorize((int)Roles.Administrador)]
-        public ActionResult Edit(int? id)
+        public ActionResult AprobarOrden(int? id)
         {
             IServiceOrden _ServiceOrden = new ServiceOrden();
             Orden orden = null;
+
             try
             {
                 // Si va null
                 if (id == null)
                 {
-                    return RedirectToAction("IndexAdmin");
+                    return RedirectToAction("List");
                 }
 
                 orden = _ServiceOrden.GetOrdenByID(id.Value);
+
                 //Asumo que es cuando la orden se procesa, en este caso se estaría actulizando a "Aprobado"
                 //Falta revisar bien. Además, hay que implementar que se pueda rechazar la orden.
                 orden.IdCondicionOrden = 2;
+
+                //Se fijan algunos valores nulos para evitar que se dupliquen
+                orden.CondicionOrden = null;
+                orden.Detalle_Orden = null;
+
                 _ServiceOrden.Save(orden);
-                if (orden == null)
-                {
-                    TempData["Message"] = "No existe la orden solicitado";
-                    TempData["Redirect"] = "Orden";
-                    TempData["Redirect-Action"] = "IndexAdmin";
-                    //TempData.Keep();
-                    return RedirectToAction("Default", "Error");
-                }
-                return View("IndexAdmin");
+
+                //Cargo la Lista Actualizada
+                IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
+
+                return View("IndexAdmin", listaOrdenes);
             }
             catch (Exception ex)
             {
                 // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos! " + ex.Message;
-                TempData["Redirect"] = "Orden";
-                TempData["Redirect-Action"] = "IndexAdmin";
+                TempData.Keep();
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        [CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult RechazarOrden(int? id)
+        {
+            IServiceOrden _ServiceOrden = new ServiceOrden();
+            Orden orden = null;
+
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("List");
+                }
+
+                orden = _ServiceOrden.GetOrdenByID(id.Value);
+
+                //Asumo que es cuando la orden se procesa, en este caso se estaría actulizando a "Aprobado"
+                //Falta revisar bien. Además, hay que implementar que se pueda rechazar la orden.
+                orden.IdCondicionOrden = 3;
+
+                //Se fijan algunos valores nulos para evitar que se dupliquen
+                orden.CondicionOrden = null;
+                orden.Detalle_Orden = null;
+
+                _ServiceOrden.Save(orden);
+
+                //Cargo la Lista Actualizada
+                IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
+
+                return View("IndexAdmin", listaOrdenes);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        //[HttpPost]
+        //// GET: Orden/Edit/5
+        //[CustomAuthorize((int)Roles.Administrador)]
+        //public ActionResult Edit(int? id)
+        //{
+        //    IServiceOrden _ServiceOrden = new ServiceOrden();
+        //    Orden orden = null;
+        //    try
+        //    {
+        //        // Si va null
+        //        if (id == null)
+        //        {
+        //            return RedirectToAction("IndexAdmin");
+        //        }
+
+        //        orden = _ServiceOrden.GetOrdenByID(id.Value);
+        //        //Asumo que es cuando la orden se procesa, en este caso se estaría actulizando a "Aprobado"
+        //        //Falta revisar bien. Además, hay que implementar que se pueda rechazar la orden.
+        //        orden.IdCondicionOrden = 2;
+        //        _ServiceOrden.Save(orden);
+
+        //        //Cargo la Lista Actualizada
+        //        IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
+
+        //        if (orden == null)
+        //        {
+        //            TempData["Message"] = "No existe la orden solicitado";
+        //            TempData["Redirect"] = "Orden";
+        //            TempData["Redirect-Action"] = "IndexAdmin";
+        //            //TempData.Keep();
+        //            return RedirectToAction("Default", "Error");
+        //        }
+        //        return View("IndexAdmin", listaOrdenes);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Salvar el error en un archivo 
+        //        Log.Error(ex, MethodBase.GetCurrentMethod());
+        //        TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+        //        TempData["Redirect"] = "Orden";
+        //        TempData["Redirect-Action"] = "IndexAdmin";
+        //        // Redireccion a la captura del Error
+        //        return RedirectToAction("Default", "Error");
+        //    }
+        //}
 
         private SelectList listaCondicionOrden(int idCondicionOrden = 0)
         {

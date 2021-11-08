@@ -65,7 +65,7 @@ namespace Web.ViewModel
         {
             IServiceOrden serviceOrden = new ServiceOrden();
 
-            return serviceOrden.GetOrden().Last<Orden>().Id +1;
+            return serviceOrden.GetOrden().First<Orden>().Id +1;
         }
 
         //Fin

@@ -241,6 +241,7 @@
     <Content Include="Img\Logo.PNG" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Img\whatsapp.ico" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="TempResources\css\style.css" />

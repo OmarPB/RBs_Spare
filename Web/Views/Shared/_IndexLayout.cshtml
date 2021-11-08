@@ -37,6 +37,13 @@
                         <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Reportes</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Procesos</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="@Url.Action("IndexAdmin", "Orden")">Administración de Órdenes</a>
+                        <a class="dropdown-item" href="@Url.Action("Index", "Home")">Administración de Citas</a>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" id="menu" href="@Url.Action("Catalogo", "Producto", new { id = "menu" })" )">Catálogo</a>
                 </li>

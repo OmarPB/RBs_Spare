@@ -25,6 +25,13 @@
             <dd>
                 @Html.DisplayFor(model => model.CondicionOrden.Descripcion)
             </dd>
+            <dt>
+                @Html.DisplayName("Nombre Cliente: ") 
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreCliente) @Html.DisplayFor(model => model.ApellidosCliente)
+            </dd>
         </dl>
         <br />
         <h2 style="margin-top:5px; margin-bottom:2px;">Resumen de la Orden</h2>
@@ -57,7 +64,7 @@
                         @Html.DisplayFor(modelItem => item.Cantidad)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PrecioLinea)
+                        @Html.DisplayFor(modelItem => item.Producto.PrecioUnidad)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PrecioLinea)
@@ -79,7 +86,7 @@
                                 <strong>Impuesto</strong>
                             </td>
                             <td class="right">
-                                <strong> &cent; @Html.DisplayFor(model => model.TotalIVA)</strong>
+                                <strong>@Html.DisplayFor(model => model.TotalIVA)</strong>
                             </td>
                         </tr>
                         <tr>
@@ -87,7 +94,7 @@
                                 <strong>Subtotal</strong>
                             </td>
                             <td class="right">
-                                <strong>  &cent; @Html.DisplayFor(model => model.Subtotal)</strong>
+                                <strong>@Html.DisplayFor(model => model.Subtotal)</strong>
                             </td>
                         </tr>
                         <tr>
@@ -96,7 +103,7 @@
                                 <strong>Total</strong>
                             </td>
                             <td class="right">
-                                <strong> &cent; @Html.DisplayFor(model => model.TotalFinal)</strong>
+                                <strong>@Html.DisplayFor(model => model.TotalFinal)</strong>
 
                             </td>
                         </tr>
@@ -108,10 +115,9 @@
     </div>
     <hr />
 
-
-    <p style="font-size: 20px; margin-left:100px; margin-bottom:10px;">
+    <h5>
         @Html.ActionLink("Regresar al listado", "IndexAdmin")
-    </p>
+    </h5>
 
 </div>
 

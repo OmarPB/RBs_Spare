@@ -4,70 +4,12 @@
     ViewBag.Title = "Órdenes";
 }
 
-<div class="container" style="margin:100px auto">
+<div class="container" style="margin:10% auto">
 
     <h2>Lista de Ordenes registradas</h2>
-    <hr />
-    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        <div class="btn-group" role="group" style="width:100px; margin:5px;">
-            @using (Html.BeginForm("ObtenerOrdenesEnPreparacion", "Orden", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-actions no-color">
-                    <input type="submit" value="Ordenes en preparación" title="Ordenes en preparación" class="btn btn-primary" style="width:200px; " />
-
-                </div>
-            }
-        </div>
-        <div class="btn-group" role="group" style="width:100px; margin:5px;">
-            @using (Html.BeginForm("ObtenerOrdenesFinalizadas", "Orden", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-actions no-color">
-                    <input type="submit" value="Ordenes finalizadas" title="Ordenes finalizadas" class="btn btn-primary" style="width:200px;" />
-                </div>
-            }
-        </div>
-        <div class="btn-group" role="group" style="width:100px; margin:5px;">
-            @using (Html.BeginForm("IndexAdmin", "Orden", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-actions no-color">
-                    <input type="submit" value="Mostrar todas las ordenes" title="Mostrar todas las ordenes" class="btn btn-primary" style="width:200px;" />
-                </div>
-            }
-
-        </div>
-        @*<div class="btn-group" role="group" style="width:100px; margin:5px;">
-                <h1 class="my-4">Estado</h1>
-                <div class="list-group">
-                    @foreach (var estado in (List<Infraestructure.Model.Estado>)ViewBag.EstadoID)
-                    {
-                        @Ajax.ActionLink(estado.Nombre,//Texto para el usuario
-                       "ordenEstado",//Acción a llamar
-                       "Orden",
-                       new
-                            {
-                           id = estado.EstadoID
-                       },//Parámetros para la acción
-                       new AjaxOptions
-                            {
-                           UpdateTargetId = "resultado",
-                           InsertionMode = InsertionMode.Replace,
-                           HttpMethod = "GET",
-                           LoadingElementId = "ajaxLoader"
-                       }, new { @class = "list-group-item" }
-                       )
-                    }
-                </div>
-            </div>*@
+    <div class="btn-group btn-group-justified" role="group">
 
     </div>
-
-    <br />
     <div class="row">
 
         <table class="table">
@@ -79,42 +21,40 @@
                     <th>
                         @Html.DisplayNameFor(model => model.FechaCreacion)
                     </th>
-
+                    @*<th class="d-none d-sm-block">
+                        @Html.DisplayNameFor(model => model.NombreCliente)
+                    </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.IdCondicionOrden)
+                    </th>
+                    <th>
+                        @Html.Label("Acciones")
                     </th>
                 </tr>
             </thead>
             <tbody id=" resultado">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaCreacion)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    @*<td class="d-none d-sm-block">
+                        @Html.DisplayFor(modelItem => item.NombreCliente) @Html.DisplayFor(modelItem => item.ApellidosCliente)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
+                    </td>
+                    <td>
+                        <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
+                        <a class="btn btn-success" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
+                        <a class="btn btn-primary" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
+                    </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Detalle", "Details", new { id = item.Id })  |
-                            @using (Html.BeginForm("Edit", "Orden", new { id = item.Id }, FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-
-                                <div class="form-actions no-color">
-                                    <input type="submit" value="Editar" class="btn btn-primary" />
-
-                                </div>
-
-                            }
-
-                        </td>
-
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>

@@ -24,7 +24,7 @@ namespace Infraestructure.Repository
                         Include("CondicionOrden").
                                Include("Detalle_Orden").
                                Include("Detalle_Orden.Producto").
-                               OrderBy(x => x.Id)
+                               OrderByDescending(x => x.Id)
                                .ToList<Orden>();
 
                 }
@@ -288,27 +288,23 @@ namespace Infraestructure.Repository
             Orden oOrden = null;
             try
             {
+
                 using (MyContext ctx = new MyContext())
                 {
 
                     ctx.Configuration.LazyLoadingEnabled = false;
                     oOrden = GetOrdenById(orden.Id);
-
                     if (oOrden == null)
                     {
-                        //Insertar
                         ctx.Orden.Add(orden);
-                        retorno = ctx.SaveChanges();
                     }
                     else
                     {
-                        //Actualizar
-                        ctx.Orden.Add(orden);
                         ctx.Entry(orden).State = EntityState.Modified;
-                        retorno = ctx.SaveChanges();
-
                     }
+                    retorno = ctx.SaveChanges();
                 }
+
                 if (retorno >= 0)
                     oOrden = GetOrdenById(orden.Id);
 
@@ -317,15 +313,17 @@ namespace Infraestructure.Repository
             catch (DbUpdateException dbEx)
             {
                 string mensaje = "";
-                Utils.Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw new Exception(mensaje);
             }
             catch (Exception ex)
             {
                 string mensaje = "";
-                Utils.Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
                 throw;
             }
         }
+
+            //Fin
     }
 }
