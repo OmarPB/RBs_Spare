@@ -101,5 +101,31 @@ namespace Infraestructure.Models
         public Nullable<bool> Estado { get; set; }
     }
 
+
+    internal partial class CitaMetadata
+    {
+        public int Id { get; set; }
+        [Display(Name ="Modelo de la moto")]
+        public Nullable<int> IdModelo { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name ="Nombre")]
+        public string NombreCliente { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name ="Apellidos")]
+        public string ApellidosCliente { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name ="Motivo de la cita")]
+        public string MotivoCita { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name ="Fecha deseada")]
+        public Nullable<System.DateTime> FechaCita { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Hora deseada")]
+        public Nullable<System.TimeSpan> HoraCita { get; set; }
+        public Nullable<bool> Condicion { get; set; }
+
+        public virtual ModeloMoto ModeloMoto { get; set; }
+    }
+
     //Fin
 }

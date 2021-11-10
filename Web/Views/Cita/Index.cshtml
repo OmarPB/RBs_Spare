@@ -1,0 +1,130 @@
+﻿@model Infraestructure.Models.Cita
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Save", "Cita", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Cita</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+                @Html.LabelFor(model => model.IdModelo, "IdModelo", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IdModelo", new SelectList(ViewBag.listaModelos, "Id", "Descripcion"), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApellidosCliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApellidosCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApellidosCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MotivoCita, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MotivoCita, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MotivoCita, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaCita, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date" id="datetimepicker12" data-target-input="nearest">
+                    @Html.EditorFor(model => model.FechaCita, new { htmlAttributes = new { @class = "form-control datetimepicker-input", @target = "#datetimepicker12" } })
+                    @Html.ValidationMessageFor(model => model.FechaCita, "", new { @class = "text-danger" })
+                    <div class="input-group-append" data-target="#datetimepicker12" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoraCita, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                    
+                    @Html.EditorFor(model => model.HoraCita, new { htmlAttributes = new { @class = "form-control", @id="durationExample" } })
+                    @Html.ValidationMessageFor(model => model.HoraCita, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agendar cita" class="btn btn-primary"  />
+            </div>
+        </div>
+    </div>
+}
+
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/TempResources/jquery.timepicker.css" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
+
+@section Scripts{
+
+    @*Scripts para el timepicker*@
+    <script type="text/javascript" src="~/TempResources/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="~/TempResources/bootstrap-datepicker.js"></script>
+    @*<script type="text/javascript" src="~/TempResources/site.js"></script>*@
+
+    @*Scripts para el datepicker*@
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment-with-locales.min.js" integrity="sha512-EATaemfsDRVs6gs1pHbvhc6+rKFGv8+w4Wnxk4LmkC0fzdVoyWb+Xtexfrszd1YuUMBEhucNuorkf8LpFBhj6w==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+
+    <script>
+        $(function () {
+            $('#durationExample').timepicker({
+                'timeFormat': 'H:i',
+                'minTime': '8:00am',
+                'maxTime': '4:30pm',
+                'disableTimeRanges': [
+                    ['12pm', '1pm']
+                ]
+            });
+        });
+
+        
+    </script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker12').datetimepicker({
+                daysOfWeekDisabled: [0],
+                locale: 'es-mx',
+                format: 'L',
+
+            });
+        });
+    </script>
+} 

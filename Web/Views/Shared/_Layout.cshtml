@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - RB's Spare</title>
     @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/cssjqueryuiy")*@
     @Styles.Render("~/Content/fontawesome")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/toastr.css">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #e31110;">
@@ -55,7 +57,7 @@
                             if (oEmpleado != null)
                             {
                                 nombre = $"{oEmpleado.Nombre} {oEmpleado.Apellidos}";
-                                
+
                                 <a class="dropdown-toggle" data-toggle="dropdown" id="menu">
                                     @nombre
                                 </a>
@@ -174,7 +176,7 @@
                     <a type="button" href="https://www.facebook.com/Moto-repuestos-Ram%C3%ADrez-Barboza-1790145137929981/" class="btn-floating btn-fb">
                         <i class="fa fa-facebook fa-3x"></i>
                     </a>
-                    
+
 
                 </div>
                 <!-- Grid column -->
@@ -196,6 +198,7 @@
 
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
