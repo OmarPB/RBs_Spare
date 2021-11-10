@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Infraestructure.Models.Producto>
+
+@{
+    ViewBag.Title = "Catalogo";
+}
+
+<h2>Catálogo</h2>
+<div class="row" style="margin-top:2%">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3" style="margin-bottom: 2.5%">
+            <div class="card shadow-lg" style="width:100%; height: 100%;">
+                <img style="height: 50%" src="data:image/jpeg;charset=utf-8;base64, @Convert.ToBase64String(item.Imagen)"
+                     alt=" @Html.DisplayFor(modelItem => item.Descripcion)" class="img img-fluid" />
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        @Html.DisplayNameFor(model => model.TipoProducto):   @Html.DisplayFor(modelItem => item.TipoProducto.Descripcion)
+                        <br />
+                        @Html.DisplayNameFor(model => model.MarcaProducto):   @Html.DisplayFor(modelItem => item.MarcaProducto.Descripcion)
+                    </h6>
+                    <p class="card-text">
+                        @Html.DisplayNameFor(model => model.PrecioUnidad):  @Html.DisplayFor(modelItem => item.PrecioUnidad)
+                    </p>
+                    @Ajax.ActionLink("Ordenar",//Texto para el usuario
+                                "ordenarProducto",//Acción a llamar
+                                "Orden",
+                                new
+                                {
+                                    ProductoId = item.Id
+                                },//Parámetros a enviar
+                                new AjaxOptions
+                                {
+                                    UpdateTargetId = "cantidadProductos",
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "GET",
+                                }, new { @class = "btn btn-primary" }
+                                )
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}

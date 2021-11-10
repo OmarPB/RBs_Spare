@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Infraestructure.Models.Orden>
+
+@{
+    ViewBag.Title = "Órdenes";
+}
+
+<div class="container" style="margin:10% auto">
+
+    <h2>Lista de Ordenes registradas</h2>
+    <div class="btn-group btn-group-justified" role="group">
+
+    </div>
+    <div class="row">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaCreacion)
+                    </th>
+                    @*<th class="d-none d-sm-block">
+                        @Html.DisplayNameFor(model => model.NombreCliente)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCondicionOrden)
+                    </th>
+                    <th>
+                        @Html.Label("Acciones")
+                    </th>
+                </tr>
+            </thead>
+            <tbody id=" resultado">
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    @*<td class="d-none d-sm-block">
+                        @Html.DisplayFor(modelItem => item.NombreCliente) @Html.DisplayFor(modelItem => item.ApellidosCliente)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
+                    </td>
+                    <td>
+                        <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
+                        <a class="btn btn-success" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
+                        <a class="btn btn-primary" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+}

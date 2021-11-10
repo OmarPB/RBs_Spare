@@ -21,8 +21,7 @@ namespace Infraestructure.Models
 
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "Por favor digite una {0}")]
-        [RegularExpression(@"^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{9,100}$", ErrorMessage = "La contraseña debe contener al menos 9 caracteres, una mayúscula, un número y un caracter especial")]
-        [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[A-z])(?=.*[A-Z])(?=.*\D)[a-zA-Z\d\w\W]{9,}$", ErrorMessage = "La contraseña debe tener al menos 9 caracteres con mayúsculas, minúsculas, números y caracteres especiales")]        //[DataType(DataType.Password)]
         public string Contrasenia { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -125,6 +124,35 @@ namespace Infraestructure.Models
         public Nullable<bool> Condicion { get; set; }
 
         public virtual ModeloMoto ModeloMoto { get; set; }
+    }
+
+    internal partial class OrdenMetadata
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Por favar ingrese su {0}")]
+        public string NombreCliente { get; set; }
+
+        [Display(Name = "Apellidos")]
+        [Required(ErrorMessage = "Por favar ingrese sus {0}")]
+        public string ApellidosCliente { get; set; }
+
+        [Display(Name = "Fecha de Creación")]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        public Nullable<decimal> Subtotal { get; set; }
+
+        [Display(Name = "Total Impuesto")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        public Nullable<decimal> TotalIVA { get; set; }
+
+        [Display(Name = "Total Final")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        public Nullable<decimal> TotalFinal { get; set; }
+        [Display(Name = "Condición")]
+        public Nullable<int> IdCondicionOrden { get; set; }
     }
 
     //Fin

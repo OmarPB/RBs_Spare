@@ -1,4 +1,5 @@
 ﻿using Infraestructure.Models;
+using Infraestructure.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -52,7 +53,7 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     // mal muy mal ...
                     lista = ctx.Producto.Where(p => p.Estado == true)
-                        .Include("TipoProducto").Include("MarcaProducto").ToList<Producto>();
+                        .Include("TipoProducto").Include("MarcaProducto").Include("Detalle_Orden").ToList<Producto>();
                 }
                 return lista;
             }
@@ -80,7 +81,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    Producto = ctx.Producto.Where(p => p.Id == id).Include("TipoProducto").Include("MarcaProducto").FirstOrDefault();
+                    Producto = ctx.Producto.Where(p => p.Id == id).Include("TipoProducto").Include("MarcaProducto").Include("Detalle_Orden").FirstOrDefault();
                     //Producto = ctx.Producto.Find(id);
                 }
 
@@ -170,7 +171,7 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     // mal muy mal ...
                     lista = ctx.Producto.Where(p => p.IdTipoProducto == idTipoProducto)
-                        .Include("TipoProducto").Include("MarcaProducto").ToList<Producto>();
+                        .Include("TipoProducto").Include("MarcaProducto").Include("Detalle_Orden").ToList<Producto>();
                 }
                 return lista;
             }
