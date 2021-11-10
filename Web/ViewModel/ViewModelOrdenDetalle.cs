@@ -64,7 +64,10 @@ namespace Web.ViewModel
         public int getUltimaOrdenId()
         {
             IServiceOrden serviceOrden = new ServiceOrden();
-
+            if (serviceOrden.GetOrden().Count<Orden>() == 0)
+            {
+                return 1;
+            }else
             return serviceOrden.GetOrden().First<Orden>().Id +1;
         }
 
