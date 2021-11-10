@@ -22,10 +22,21 @@ namespace ApplicationCore.Services
             return repository.GetOrdenByCondicion(condicion);
         }
 
+        public IEnumerable<Orden> GetOrdenByFecha(DateTime fecha)
+        {
+            IRepositoryOrden repository = new RepositoryOrden();
+            return repository.GetOrdenByFecha(fecha);
+        }
+
         public Orden GetOrdenByID(int id)
         {
             IRepositoryOrden repository = new RepositoryOrden();
             return repository.GetOrdenById(id);
+        }
+
+        public IEnumerable<Orden> GetOrdenesByFecha(DateTime fecha)
+        {
+            throw new NotImplementedException();
         }
 
         //public IEnumerable<Orden> GetOrdenEnPreparacion()

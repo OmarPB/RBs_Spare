@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Infraestructure.Models.Orden>
+
+<h3>Lista de Órdenes</h3>
+
+<p>
+    @Html.ActionLink("Descargar PDF", "CreatePdfOrdenCatalogo", "Reportes")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApellidosCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalIVA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CondicionOrden.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApellidosCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCreacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subtotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalIVA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
+        </td>
+    </tr>
+}
+
+</table>

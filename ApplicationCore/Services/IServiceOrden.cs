@@ -15,6 +15,7 @@ namespace ApplicationCore.Services
         //IEnumerable<Orden> GetOrdenEnPreparacion();
         //IEnumerable<Orden> GetOrdenFinalizada();
         IEnumerable<Orden> GetOrdenByCondicion(int condicion);
+        IEnumerable<Orden> GetOrdenByFecha(DateTime fecha);
         //void GetOrdenCountDate(out string etiquetas, out string valores);
         //IEnumerable<Orden> GetOrdenByFecha(string fechaInicial, string fechaFinal);
 
