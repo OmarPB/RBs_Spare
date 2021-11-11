@@ -491,6 +491,9 @@
     <Content Include="Views\Reportes\ReporteOrdenes.cshtml" />
     <Content Include="Views\Reportes\_ReporteOrdenes.cshtml" />
     <Content Include="Views\Cita\Index.cshtml" />
+    <Content Include="Views\Cita\List.cshtml" />
+    <Content Include="Views\Reportes\ReporteCitas.cshtml" />
+    <Content Include="Views\Reportes\_ReporteCitas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

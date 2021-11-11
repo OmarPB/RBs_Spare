@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Infraestructure.Models.Cita>
+
+<p>
+    @Html.ActionLink("Descargar PDF", "CreatePdfCitas", "Reportes")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApellidosCliente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MotivoCita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoraCita)
+        </th>
+        <th>
+            @Html.DisplayName("Motocicleta")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApellidosCliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotivoCita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaCita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoraCita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModeloMoto.MarcaMoto.Descripcion)  @Html.DisplayFor(modelItem => item.ModeloMoto.Descripcion)
+        </td>
+    </tr>
+}
+
+</table>

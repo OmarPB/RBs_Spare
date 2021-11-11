@@ -71,6 +71,51 @@ namespace Web.Controllers
             }
         }
 
+
+
+
+        public ActionResult ReporteCitas() //AntesCierreDep
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult AjaxReporteCitas(ViewModelParametro parametro)
+        {
+            IEnumerable<Cita> lista = null;
+            try
+            {
+
+                IServiceCita _ServiceCita = new ServiceCita();
+                lista = _ServiceCita.GetCitasByFecha(parametro.Fecha);
+                Console.Write(lista.ToString());
+                return PartialView("_ReporteCitas", lista);
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+
+
+
         ///////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////// Método que crea el PDF ///////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,6 +205,107 @@ namespace Web.Controllers
                 doc.Close();
                 // Retorna un File
                 return File(ms.ToArray(), "application/pdf", "Reporte de Órdenes.pdf");
+
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "¡Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
+        }
+
+
+        public ActionResult CreatePdfCitas()
+        {
+            IEnumerable<Cita> lista = null;
+            try
+            {
+                // Extraer informacion
+                IServiceCita _ServiceCita = new ServiceCita();
+                lista = _ServiceCita.GetCitasReport();
+
+                // Crear stream para almacenar en memoria el reporte 
+                MemoryStream ms = new MemoryStream();
+                //Initialize writer
+                PdfWriter writer = new PdfWriter(ms);
+
+                //Initialize document
+                PdfDocument pdfDoc = new PdfDocument(writer);
+                Document doc = new Document(pdfDoc, iText.Kernel.Geom.PageSize.A1, false);
+
+                DateTime fecha = (DateTime)lista.First().FechaCita;
+                string mes = fecha.ToString("MMMM");
+
+                Paragraph header = new Paragraph("Citas de " + mes)
+                                   .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                                   .SetFontSize(14)
+                                   .SetFontColor(ColorConstants.BLUE);
+                doc.Add(header);
+
+
+                // Crear tabla con 6 columnas 
+                Table table = new Table(6, true);
+
+
+                // los Encabezados
+                table.AddHeaderCell("Id");
+                table.AddHeaderCell("Cliente");
+                table.AddHeaderCell("Fecha");
+                table.AddHeaderCell("Hora");
+                table.AddHeaderCell("Motivo");
+                table.AddHeaderCell("Motocicleta");
+
+
+                foreach (var item in lista)
+                {
+
+                    // Agregar datos a las celdas
+                    table.AddCell(new Paragraph(item.Id.ToString()));
+                    table.AddCell(new Paragraph(item.NombreCliente.ToString() + item.ApellidosCliente.ToString()));
+                    table.AddCell(new Paragraph(item.FechaCita.ToString()));
+                    table.AddCell(new Paragraph(item.HoraCita.ToString()));
+                    table.AddCell(new Paragraph(item.MotivoCita.ToString()));
+                    table.AddCell(new Paragraph(item.ModeloMoto.MarcaMoto.Descripcion.ToString() + " " + item.ModeloMoto.Descripcion.ToString()));
+
+                    //// Convierte la imagen que viene en Bytes en imagen para PDF
+                    //Image image = new Image(ImageDataFactory.Create(item.FotoOrden));
+                    //// Tamaño de la imagen
+                    //image = image.SetHeight(75).SetWidth(75);
+                    //table.AddCell(image);
+                }
+                doc.Add(table);
+
+                //// Calculo del monto total de impuestos
+                //decimal totalIVA = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalIVA));
+                //// Agrega  el monto total de impuestos
+                //doc.Add(new Paragraph("\n\r Total Costos " + totalIVA.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
+
+                //// Calculo del monto total de impuestos
+                //decimal totalFinal = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalFinal));
+                //// Agrega  el monto total de impuestos
+                //doc.Add(new Paragraph("\n\r Total Costos " + totalFinal.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
+
+
+                // Colocar número de páginas
+                int numberOfPages = pdfDoc.GetNumberOfPages();
+                for (int i = 1; i <= numberOfPages; i++)
+                {
+
+                    // Write aligned text to the specified by parameters point
+                    doc.ShowTextAligned(new Paragraph(String.Format("pag {0} of {1}", i, numberOfPages)),
+                            559, 826, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                }
+
+
+                //Close document
+                doc.Close();
+                // Retorna un File
+                return File(ms.ToArray(), "application/pdf", "Reporte de Citas.pdf");
 
             }
             catch (Exception ex)

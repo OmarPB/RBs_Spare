@@ -47,14 +47,14 @@
                     <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="@Url.Action("ReporteOrdenes", "Reportes")">Reporte de Órdenes</a>
-                        <a class="dropdown-item" href="@Url.Action("Index", "Home")">Reporte de Citas</a>
+                        <a class="dropdown-item" href="@Url.Action("ReporteCitas", "Reportes")">Reporte de Citas</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="menu" href="@Url.Action("Catalogo", "Producto", new { id = "menu" })" )">Catálogo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="menu" href="@Url.Action("About", "Home", new { id = "menu" })" )">Citas para el taller</a>
+                    <a class="nav-link" id="menu" href="@Url.Action("Index", "Cita")">Citas para el taller</a>
                 </li>
                 <li class="menu__item" id="cantidadProductos">
                     @Html.Partial("_OrdenCantidad")
@@ -106,7 +106,7 @@
 
 
 
-    <div class="container body-content" style="margin-top: 6%;">
+    <div class="container body-content" style="margin-top: 12%;">
         @RenderBody()
 
     </div>

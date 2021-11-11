@@ -104,6 +104,7 @@ namespace Infraestructure.Models
     internal partial class CitaMetadata
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Modelo de la moto")]
         public Nullable<int> IdModelo { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

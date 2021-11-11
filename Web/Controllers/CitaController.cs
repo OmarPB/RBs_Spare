@@ -14,6 +14,10 @@ namespace Web.Controllers
         // GET: Cita
         public ActionResult Index()
         {
+            if (!String.IsNullOrEmpty(Action))
+            {
+                ViewBag.Action = Action;
+            }
             IServiceModeloMoto serviceModelo = new ServiceModeloMoto();
             ViewBag.listaModelos = serviceModelo.GetModeloMoto();
             return View();
@@ -30,6 +34,11 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     ServiceCita _ServiceCita = new ServiceCita();
+                    if (cita.FechaCita < DateTime.Today)
+                    {
+                        Action = "F";
+                        return RedirectToAction("Index");
+                    }
                     if (_ServiceCita.GetCita(cita) == null)
                     {
                         _ServiceCita.Save(cita);
@@ -60,6 +69,36 @@ namespace Web.Controllers
                 // Redireccion a la captura del Error
                 return RedirectToAction("Default", "Error");
             }
+        }
+
+        public ActionResult List()
+        {
+            IEnumerable<Cita> lista = null;
+            try
+            {
+                //Log.Info("Visita");
+
+                if (!String.IsNullOrEmpty(Action))
+                {
+                    ViewBag.Action = Action;
+                }
+
+                IServiceCita _ServiceCita = new ServiceCita();
+                lista = _ServiceCita.GetCitas();
+                Action = "";
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
+
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
+            return View(lista);
         }
     }
 }

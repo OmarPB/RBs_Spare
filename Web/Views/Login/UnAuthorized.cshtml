@@ -6,13 +6,13 @@
 @{
     Layout = Layout = "~/Views/Shared/_Login.cshtml"; ;
 }
+<div style="margin-top:12%" align="center">
+    <h2>Lo sentimos, usted no está autorizado para acceder a esta página.</h2>
+    <br>
 
-<h2>Lo sentimos, usted no está autorizado para acceder a esta página.</h2>
-<br>
+    <input type="button" value="Volver" class="btn btn-primary" onclick="goBack()" />
 
-<input type="button" value="Volver" class="btn btn-default" onclick="goBack()" />
-
-
+</div>
 <script>
     function goBack() {
         window.history.back();

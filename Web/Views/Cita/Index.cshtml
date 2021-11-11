@@ -15,12 +15,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-                @Html.LabelFor(model => model.IdModelo, "IdModelo", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("IdModelo", new SelectList(ViewBag.listaModelos, "Id", "Descripcion"), htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
-                </div>
+            @Html.LabelFor(model => model.IdModelo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdModelo, new SelectList(ViewBag.listaModelos, "Id", "Descripcion"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
             </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -62,9 +62,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HoraCita, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                    
-                    @Html.EditorFor(model => model.HoraCita, new { htmlAttributes = new { @class = "form-control", @id="durationExample" } })
-                    @Html.ValidationMessageFor(model => model.HoraCita, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.HoraCita, new { htmlAttributes = new { @class = "form-control", @id = "durationExample" } })
+                @Html.ValidationMessageFor(model => model.HoraCita, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -72,7 +72,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Agendar cita" class="btn btn-primary"  />
+                <input type="submit" value="Agendar cita" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -86,6 +86,61 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
 
 @section Scripts{
+    @Scripts.Render("~/bundles/toastjs")
+    @Scripts.Render("~/bundles/jqueryui")
+
+
+    @*Para el Toast*@
+    <script>
+
+        $(document).ready(function () {
+             console.log("Entro a JQuery")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                // Recibe los parámetros del Controller
+                var option = '@ViewBag.Action'
+                var message = '@ViewBag.Message'
+
+
+                if (option == 'S') {
+                    toastr.success("La cita fue agendada correctamente");
+                }
+
+                if (option == 'E') {
+                    toastr.warning("Se ha producido un error :"+message);
+            }
+
+            if (option == 'F') {
+                toastr.warning("La fecha de la cita no puede ser menor a la fecha de hoy" + message);
+            }
+
+
+            // Cambiar el color del fondo del Grid.
+            //$(".table tbody tr:even").css("background-color", "#ddd");
+        });
+
+
+
+    </script>
+
+
 
     @*Scripts para el timepicker*@
     <script type="text/javascript" src="~/TempResources/jquery.timepicker.js"></script>
@@ -94,7 +149,7 @@
 
     @*Scripts para el datepicker*@
     @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment-with-locales.min.js" integrity="sha512-EATaemfsDRVs6gs1pHbvhc6+rKFGv8+w4Wnxk4LmkC0fzdVoyWb+Xtexfrszd1YuUMBEhucNuorkf8LpFBhj6w==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
@@ -113,7 +168,7 @@
             });
         });
 
-        
+
     </script>
 
 
