@@ -10,7 +10,7 @@
     @*@Html.ActionLink("Create New", "Create")*@
     <a class="btn" style="background-color: #1319c4; color: white" onclick="modalCreate(null)" href="#">Crear Nuevo</a>
 </p>
-<table class="table">
+<table class="table table-responsive-sm">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
@@ -25,9 +25,9 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                <a class="btn" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#">Editar</a>
-                <a class="btn" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#">Detalles</a>
-                <a class="btn" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#">Desactivar</a>
+                <a class="btn" title="Editar Tipo de Producto" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#"><i class="fa fa-edit"></i></a>
+                <a class="btn" title="Detalles del Tipo de Producto" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#"><i class="fa fa-info"></i></a>
+                <a class="btn" title="Desactivar Tipo de Producto" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
     }
@@ -38,20 +38,21 @@
 
 <!-- ModalDetalles ------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 3%">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
+
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -59,20 +60,21 @@
 
 <!-- ModalDelete -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 1%">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
+
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -80,20 +82,20 @@
 
 <!-- ModalEdit -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -101,20 +103,20 @@
 
 <!-- ModalCreate -------------------------------------------------------------------------------------------------------->
 <!--Las ventanas modas estan ocultas en el código son activadas por Javascript/JQuery-->
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" style="margin-top: 10%">
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalDetailsLabel">RB's Spare</h4>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

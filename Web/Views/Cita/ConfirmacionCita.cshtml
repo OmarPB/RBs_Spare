@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Orden Finalizada";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+
+<div class="form-horizontal" style="margin-top:12%; margin-bottom: 8%" align="center">
+    <h2 style=" padding-top: 2%;">¡Cita agendada con éxito!</h2>
+    <div class="form-group">
+        <div class="col-md-10">
+            <img class="img img-responsive" src="@Url.Content("~/Img/check-green.gif")" width="200" height="200" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <p>
+                <b>
+                    ¡Gracias por preferirnos!
+                </b>
+            </p>
+            <br />
+            <p>
+                <a href="@Url.Action("Index", "Home")">Regresar a la página principal</a>
+            </p>
+        </div>
+    </div>
+</div>

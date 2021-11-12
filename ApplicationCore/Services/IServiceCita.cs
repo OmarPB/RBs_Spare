@@ -9,6 +9,9 @@ namespace ApplicationCore.Services
 {
     public interface IServiceCita
     {
+        IEnumerable<Cita> GetCitas();
+        IEnumerable<Cita> GetCitasReport();
+        IEnumerable<Cita> GetCitasByFecha(DateTime fecha);
         Cita GetCita(Cita cita);
         Cita Save(Cita cita);
     }
