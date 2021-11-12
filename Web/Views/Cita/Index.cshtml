@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         <h4>Cita</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
         <div class="form-group">
             @Html.LabelFor(model => model.IdModelo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -119,12 +119,16 @@
                 var message = '@ViewBag.Message'
 
 
-                if (option == 'S') {
-                    toastr.success("La cita fue agendada correctamente");
-                }
+                //if (option == 'S') {
+                //    toastr.success("La cita fue agendada correctamente");
+                //}
 
                 if (option == 'E') {
                     toastr.warning("Se ha producido un error :"+message);
+            }
+
+            if (option == 'A') {
+                toastr.warning("Lo sentimos, ya está reservado ese espacio, seleccione otro" + message);
             }
 
             if (option == 'F') {

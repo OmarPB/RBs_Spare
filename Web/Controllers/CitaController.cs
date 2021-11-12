@@ -30,6 +30,8 @@ namespace Web.Controllers
             string errores = "";
             try
             {
+                IServiceModeloMoto serviceModelo = new ServiceModeloMoto();
+                ViewBag.listaModelos = serviceModelo.GetModeloMoto();
                 // Es valido
                 if (ModelState.IsValid)
                 {
@@ -43,6 +45,12 @@ namespace Web.Controllers
                     {
                         _ServiceCita.Save(cita);
                     }
+                    else
+                    {
+                        Action = "A";
+                        return RedirectToAction("Index");
+                    }
+
                 }
                 else
                 {
@@ -55,10 +63,10 @@ namespace Web.Controllers
                     return View("Index", cita);
                 }
 
-                Action = "S";
+                //Action = "S";
 
                 // redirigir
-                return RedirectToAction("Index");
+                return RedirectToAction("ConfirmacionCita");
             }
             catch (Exception ex)
             {
@@ -99,6 +107,11 @@ namespace Web.Controllers
             }
 
             return View(lista);
+        }
+
+        public ActionResult ConfirmacionCita()
+        {
+            return View();
         }
     }
 }

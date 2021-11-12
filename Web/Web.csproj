@@ -494,6 +494,7 @@
     <Content Include="Views\Cita\List.cshtml" />
     <Content Include="Views\Reportes\ReporteCitas.cshtml" />
     <Content Include="Views\Reportes\_ReporteCitas.cshtml" />
+    <Content Include="Views\Cita\ConfirmacionCita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
