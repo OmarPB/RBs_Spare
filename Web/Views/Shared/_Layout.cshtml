@@ -6,8 +6,9 @@
     <title>@ViewBag.Title - RB's Spare</title>
     @Styles.Render("~/Content/css")
     @*@Styles.Render("~/Content/cssjqueryuiy")*@
-    @Styles.Render("~/Content/fontawesome")
+    @*@Styles.Render("~/Content/fontawesome")*@
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/toastr.css">
 
@@ -33,14 +34,13 @@
                     <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="@Url.Action("List", "Empleado")">Control de empleados</a>
-                        <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Reportes</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Procesos</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="@Url.Action("IndexAdmin", "Orden")">Administración de Órdenes</a>
-                        <a class="dropdown-item" href="@Url.Action("Index", "Home")">Administración de Citas</a>
+                        <a class="dropdown-item" href="@Url.Action("List", "Cita")">Citas del día</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

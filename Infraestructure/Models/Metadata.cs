@@ -62,11 +62,9 @@ namespace Infraestructure.Models
 
         [Display(Name = "Precio Unidad")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public Nullable<decimal> PrecioUnidad { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [DisplayFormat(DataFormatString = "{0:0.0%}", ApplyFormatInEditMode = true)]
         public Nullable<decimal> IVA { get; set; }
 
         public Nullable<bool> Estado { get; set; }

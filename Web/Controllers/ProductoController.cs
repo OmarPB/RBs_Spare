@@ -235,7 +235,7 @@ namespace Web.Controllers
         public ActionResult Edit(int? id)
         {
             IServiceProducto _ServiceProducto = new ServiceProducto();
-            Producto Producto = null;
+            Producto producto = null;
             try
             {
                 // Si va null
@@ -244,7 +244,7 @@ namespace Web.Controllers
                     return RedirectToAction("List");
                 }
 
-                Producto = _ServiceProducto.GetProductoByID(id.Value);
+                producto = _ServiceProducto.GetProductoByID(id.Value);
                 // Response.StatusCode = 500;
 
                 //Creación de los ViewBag
@@ -256,7 +256,7 @@ namespace Web.Controllers
 
                 Action = "U";
 
-                return PartialView("_EditPartialView", Producto);
+                return PartialView("_EditPartialView", producto);
             }
             catch (Exception ex)
             {

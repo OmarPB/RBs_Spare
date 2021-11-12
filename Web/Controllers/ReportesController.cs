@@ -26,6 +26,7 @@ namespace Web.Controllers
     public class ReportesController : Controller
     {
         // GET: Reportes
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
         {
             return View();
@@ -71,9 +72,7 @@ namespace Web.Controllers
             }
         }
 
-
-
-
+        [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult ReporteCitas() //AntesCierreDep
         {
             try

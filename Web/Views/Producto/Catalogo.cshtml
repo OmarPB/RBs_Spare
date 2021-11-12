@@ -20,7 +20,8 @@
                         @Html.DisplayNameFor(model => model.MarcaProducto):   @Html.DisplayFor(modelItem => item.MarcaProducto.Descripcion)
                     </h6>
                     <p class="card-text">
-                        @Html.DisplayNameFor(model => model.PrecioUnidad):  @Html.DisplayFor(modelItem => item.PrecioUnidad)
+                        @Html.DisplayNameFor(model => model.PrecioUnidad): @Html.DisplayName(string.Format("{0:C}", item.PrecioUnidad))
+
                     </p>
                     @Ajax.ActionLink("Ordenar",//Texto para el usuario
                                 "ordenarProducto",//Acción a llamar

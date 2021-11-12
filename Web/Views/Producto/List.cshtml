@@ -43,7 +43,9 @@
                 <input class="zoom" type="image" src="data:image/jpeg;charset=utf-8;base64,@Convert.ToBase64String(item.Imagen)" id="ImagenActivo" style="height:75px;width:75px">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PrecioUnidad)
+                @*@Html.DisplayFor(modelItem => item.PrecioUnidad)*@
+                @Html.DisplayName(string.Format("{0:C}", item.PrecioUnidad))
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IVA)
@@ -57,7 +59,7 @@
             <td>
                 <a class="btn" title="Editar Producto" style="background-color: #1319c4; color: white" onclick="modalEdit(@item.Id)" href="#"><i class="fa fa-edit"></i></a>
                 <a class="btn" title="Detalles del Producto" style="background-color: lightgray; color: black" onclick="modalDetail(@item.Id)" href="#"><i class="fa fa-info"></i></a>
-                <a class="btn" title="Desactivar Producto" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#"><i class="fa fa-trash-o"></i></a>
+                <a class="btn" title="Desactivar Producto" style="background-color: #d61717; color: white" onclick="modalDelete(@item.Id)" href="#"><i class="far fa-trash-alt"></i></a>
             </td>
         </tr>
     }
