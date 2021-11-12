@@ -315,7 +315,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\banner.jpg" />
     <Content Include="Img\check-green.gif" />
+    <Content Include="Img\imagen-3.jpg" />
     <Content Include="Img\Logo opcional.PNG" />
     <Content Include="Img\Logo.PNG" />
     <Content Include="Content\toastr.scss" />
