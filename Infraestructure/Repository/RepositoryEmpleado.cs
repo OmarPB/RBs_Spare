@@ -170,7 +170,7 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
                     // mal muy mal ...
-                    empleado = ctx.Empleado.Where(p => p.Id == id && p.Contrasenia == contrasenia).Include("Rol").FirstOrDefault();
+                    empleado = ctx.Empleado.Where(p => p.Id == id && p.Contrasenia == contrasenia && p.Estado == true).Include("Rol").FirstOrDefault();
                 }
                 return empleado;
             }
