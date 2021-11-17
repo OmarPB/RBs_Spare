@@ -15,42 +15,66 @@
     <link rel="stylesheet" href="~/Content/toastr.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #e31110;">
-        <a href="@Url.Action("Index", "Home")"><img class="img img-responsive" src="@Url.Content("~/Img/Logo opcional.png")" width="80" height="80" /></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" @*style="background-color: #e31110;"*@>
+        <a href="@Url.Action("Index", "Home")"><img class="img img-responsive shadow-lg" src="@Url.Content("~/Img/Logo opcional.png")" width="80" height="80" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="@Url.Action("List", "TipoProducto")">Tipos de Producto</a>
-                        <a class="dropdown-item" href="@Url.Action("List", "MarcaProducto")">Marcas de Producto</a>
-                        <a class="dropdown-item" href="@Url.Action("List", "Producto")">Productos</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="@Url.Action("List", "Empleado")">Control de empleados</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Procesos</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="@Url.Action("IndexAdmin", "Orden")">Administración de Órdenes</a>
-                        <a class="dropdown-item" href="@Url.Action("List", "Cita")">Citas del día</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="@Url.Action("ReporteOrdenes", "Reportes")">Reporte de Órdenes</a>
-                        <a class="dropdown-item" href="@Url.Action("ReporteCitas", "Reportes")">Reporte de Citas</a>
-                    </div>
-                </li>
+                @{
+                    Infraestructure.Models.Empleado empleado;
+                    if (Session["User"] != null)
+                    {
+                        // Casting
+                        empleado = Session["User"] as Infraestructure.Models.Empleado;
+
+                        if (empleado != null)
+                        {
+                            if (empleado.IdRol == 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mantenimientos</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("List", "TipoProducto")">Tipos de Producto</a>
+                                        <a class="dropdown-item" href="@Url.Action("List", "MarcaProducto")">Marcas de Producto</a>
+                                        <a class="dropdown-item" href="@Url.Action("List", "Producto")">Productos</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("List", "Empleado")">Control de empleados</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Procesos</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("IndexAdmin", "Orden")">Administración de Órdenes</a>
+                                        <a class="dropdown-item" href="@Url.Action("List", "Cita")">Citas del día</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("ReporteOrdenes", "Reportes")">Reporte de Órdenes</a>
+                                        <a class="dropdown-item" href="@Url.Action("ReporteCitas", "Reportes")">Reporte de Citas</a>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="menu" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Procesos</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("List", "Cita")">Citas del día</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
+                }
                 <li class="nav-item">
                     <a class="nav-link" id="menu" href="@Url.Action("Catalogo", "Producto", new { id = "menu" })" )">Catálogo</a>
                 </li>
@@ -156,7 +180,7 @@
                     <ul class="list-unstyled">
                         <li>
                             <p>
-                                <i class="fa fa-map-marker"></i>  600 metros oeste del Automercado Herradura
+                                <i class="fas fa-map-marker-alt"></i>  600 metros oeste del Automercado Herradura
                             </p>
                         </li>
                         <li>
@@ -166,7 +190,7 @@
                         </li>
                         <li>
                             <p>
-                                <i class="fa fa-mobile-phone"></i> 8555-8382
+                                <i class="fab fa-whatsapp"></i> 8555-8382
                             </p>
                         </li>
                         <li>
@@ -188,8 +212,8 @@
                     <h5 class="font-weight-bold text-uppercase mb-4">Siguenos</h5>
 
                     <!-- Facebook -->
-                    <a type="button" href="https://www.facebook.com/Moto-repuestos-Ram%C3%ADrez-Barboza-1790145137929981/" class="btn-floating btn-fb">
-                        <i class="fa fa-facebook fa-3x"></i>
+                    <a type="button" title="Moto Repuestos Ramírez & Barboza" href="https://www.facebook.com/Moto-repuestos-Ram%C3%ADrez-Barboza-1790145137929981/" class="btn-floating btn-fb">
+                        <i class="fab fa-facebook fa-3x"></i>
                     </a>
 
 
@@ -203,7 +227,7 @@
         <!-- Footer Links -->
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
-            © 2020 Copyright
+            © @DateTime.Now.Year Copyright
         </div>
         <!-- Copyright -->
     </footer>
@@ -224,12 +248,12 @@
 
         #menu.dropdown-toggle:focus {
             color: white;
-            background-color: #d60c0c;
+            /*background-color: #d60c0c;*/
         }
 
         #menu.dropdown-toggle {
             color: white;
-            background-color: #e31110;
+            /*background-color: #e31110;*/
         }
 
         #menu:hover {

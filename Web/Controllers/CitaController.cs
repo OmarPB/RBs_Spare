@@ -81,7 +81,7 @@ namespace Web.Controllers
             }
         }
 
-        [CustomAuthorize((int)Roles.Administrador)]
+        [CustomAuthorize((int)Roles.Administrador, (int)Roles.Taller)]
         public ActionResult List()
         {
             IEnumerable<Cita> lista = null;
