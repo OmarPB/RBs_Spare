@@ -272,9 +272,10 @@ namespace Infraestructure.Repository
             string EmailOrigen = "autodo.web@gmail.com";
             string Contraseña = "omaresteban*";
             string url = urlDomain + "/Login/Recuperacion/?token=" + token;
-            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "Recuperación de contraseña",
-                "<p>Correo para recuperación de contraseña</p><br>" +
-                "<a href='" + url + "'>Click para recuperar</a>");
+            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "Recuperación de Contraseña",
+                "<p>Estimado usuario,</br></br>Ha iniciado el proceso para recuperación de contraseña del sistema RB's Spare, a continuación se le presentará el link para que proceda a realizar el cambio de su respectiva contraseña.</p><br>" +
+                "<a href='" + url + "'>Click para recuperar la contraseña</a></br>" +
+                "<p>De no haber sido usted quién inició el proceso de recuperación, por favor comuníquelo a su administrador.</p>");
 
             oMailMessage.IsBodyHtml = true;
 
