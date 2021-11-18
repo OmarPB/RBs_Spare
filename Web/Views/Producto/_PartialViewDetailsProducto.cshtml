@@ -25,14 +25,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PrecioUnidad)
+            @*@Html.DisplayFor(model => model.PrecioUnidad)*@
+            @Html.DisplayName(string.Format("{0:C}", Model.PrecioUnidad))
         </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.IVA)
         </dt>
 
-        <dd>
+        <dd> 
             @Html.DisplayFor(model => model.IVA)
         </dd>
 

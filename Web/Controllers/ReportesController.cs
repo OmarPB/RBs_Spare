@@ -139,10 +139,11 @@ namespace Web.Controllers
                 DateTime fecha = (DateTime)lista.First().FechaCreacion;
                 string mes = fecha.ToString("MMMM");
 
-                Paragraph header = new Paragraph("Órdenes de " + mes)
+                Paragraph header = new Paragraph("Órdenes de " + mes + "\nMoto Repuestos Ramírez & Barboza S.A.")
                                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
-                                   .SetFontSize(14)
-                                   .SetFontColor(ColorConstants.BLUE);
+                                   .SetFontSize(24)
+                                   .SetFontColor(ColorConstants.BLACK)
+                                   .SetTextAlignment(TextAlignment.CENTER);
                 doc.Add(header);
 
 

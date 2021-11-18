@@ -26,7 +26,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PrecioUnidad)
+            @*@Html.DisplayFor(model => model.PrecioUnidad)*@
+            @Html.DisplayName(string.Format("{0:C}", Model.PrecioUnidad))
         </dd>
 
         <dt>
