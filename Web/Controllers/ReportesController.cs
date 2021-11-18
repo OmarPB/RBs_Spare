@@ -8,6 +8,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,6 +26,11 @@ namespace Web.Controllers
 {
     public class ReportesController : Controller
     {
+        static IEnumerable<Orden> listaOrdenesFiltro = null;
+        static IEnumerable<Cita> listaCitasFiltro = null;
+        static string mesOrdenes;
+        static string mesCitas;
+
         // GET: Reportes
         [CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Index()
@@ -58,7 +64,10 @@ namespace Web.Controllers
 
                 IServiceOrden _ServiceOrden = new ServiceOrden();
                 lista = _ServiceOrden.GetOrdenByFecha(parametro.Fecha);
-                Console.Write(lista.ToString());
+                //Llena la lista para el PDF
+                listaOrdenesFiltro = lista;
+                //Convierte en letra el mes consultado para mostrarlo en el pdf
+                mesOrdenes = parametro.Fecha.ToString("MMMM yyyy");
                 return PartialView("_ReporteOrdenes", lista);
             }
             catch (Exception ex)
@@ -98,7 +107,10 @@ namespace Web.Controllers
 
                 IServiceCita _ServiceCita = new ServiceCita();
                 lista = _ServiceCita.GetCitasByFecha(parametro.Fecha);
-                Console.Write(lista.ToString());
+                //Llena la lista para el PDF
+                listaCitasFiltro = lista;
+                //Convierte en letra el mes consultado para mostrarlo en el pdf
+                mesCitas = parametro.Fecha.ToString("MMMM yyyy");
                 return PartialView("_ReporteCitas", lista);
             }
             catch (Exception ex)
@@ -113,211 +125,30 @@ namespace Web.Controllers
         }
 
 
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////// Método que crea el PDF ///////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        public ActionResult CreatePdfOrdenCatalogo()
+        //Creación de PDF de Órdenes con Rotativa
+        public ActionResult createPdfOrdenCatalogo()
         {
-            IEnumerable<Orden> lista = null;
-            try
+            ViewBag.mesOrdenes = mesOrdenes;
+            return new PartialViewAsPdf("PdfOrdenes", listaOrdenesFiltro)
             {
-                // Extraer informacion
-                IServiceOrden _ServiceOrden = new ServiceOrden();
-                lista = _ServiceOrden.GetOrden();
-
-                // Crear stream para almacenar en memoria el reporte 
-                MemoryStream ms = new MemoryStream();
-                //Initialize writer
-                PdfWriter writer = new PdfWriter(ms);
-
-                //Initialize document
-                PdfDocument pdfDoc = new PdfDocument(writer);
-                Document doc = new Document(pdfDoc, iText.Kernel.Geom.PageSize.A1, false);
-
-                DateTime fecha = (DateTime)lista.First().FechaCreacion;
-                string mes = fecha.ToString("MMMM");
-
-                Paragraph header = new Paragraph("Órdenes de " + mes + "\nMoto Repuestos Ramírez & Barboza S.A.")
-                                   .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
-                                   .SetFontSize(24)
-                                   .SetFontColor(ColorConstants.BLACK)
-                                   .SetTextAlignment(TextAlignment.CENTER);
-                doc.Add(header);
-
-
-                // Crear tabla con 6 columnas 
-                Table table = new Table(6, true);
-
-
-                // los Encabezados
-                table.AddHeaderCell("Id");
-                table.AddHeaderCell("Cliente");
-                table.AddHeaderCell("Fecha");
-                table.AddHeaderCell("Subtotal");
-                table.AddHeaderCell("Total Impuesto");
-                table.AddHeaderCell("Total Final");
-
-
-                foreach (var item in lista)
-                {
-
-                    // Agregar datos a las celdas
-                    table.AddCell(new Paragraph(item.Id.ToString()));
-                    table.AddCell(new Paragraph(item.NombreCliente.ToString() + item.ApellidosCliente.ToString()));
-                    table.AddCell(new Paragraph(item.FechaCreacion.ToString()));
-                    table.AddCell(new Paragraph(item.Subtotal.ToString()));
-                    table.AddCell(new Paragraph(item.TotalIVA.ToString()));
-                    table.AddCell(new Paragraph(item.TotalFinal.ToString()));
-
-                    //// Convierte la imagen que viene en Bytes en imagen para PDF
-                    //Image image = new Image(ImageDataFactory.Create(item.FotoOrden));
-                    //// Tamaño de la imagen
-                    //image = image.SetHeight(75).SetWidth(75);
-                    //table.AddCell(image);
-                }
-                doc.Add(table);
-
-                // Calculo del monto total de impuestos
-                decimal totalIVA = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalIVA));
-                // Agrega  el monto total de impuestos
-                doc.Add(new Paragraph("\n\r Total Costos " + totalIVA.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
-
-                // Calculo del monto total de impuestos
-                decimal totalFinal = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalFinal));
-                // Agrega  el monto total de impuestos
-                doc.Add(new Paragraph("\n\r Total Costos " + totalFinal.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
-
-
-                // Colocar número de páginas
-                int numberOfPages = pdfDoc.GetNumberOfPages();
-                for (int i = 1; i <= numberOfPages; i++)
-                {
-
-                    // Write aligned text to the specified by parameters point
-                    doc.ShowTextAligned(new Paragraph(String.Format("pag {0} of {1}", i, numberOfPages)),
-                            559, 826, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
-                }
-
-
-                //Close document
-                doc.Close();
-                // Retorna un File
-                return File(ms.ToArray(), "application/pdf", "Reporte de Órdenes.pdf");
-
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "¡Error al procesar los datos! " + ex.Message;
-                TempData.Keep();
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-
+                FileName = "Reporte Órdenes " + mesOrdenes + ".pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageMargins = new Rotativa.Options.Margins(10, 10, 20, 10),
+                CustomSwitches = "--page-offset 0 --footer-right [page] --footer-font-size 10"
+            };
         }
 
-
-        public ActionResult CreatePdfCitas()
+        //Creación de PDF de Citas con Rotativa
+        public ActionResult createPdfCitas()
         {
-            IEnumerable<Cita> lista = null;
-            try
+            ViewBag.mesCitas = mesCitas;
+            return new PartialViewAsPdf("PdfCitas", listaCitasFiltro)
             {
-                // Extraer informacion
-                IServiceCita _ServiceCita = new ServiceCita();
-                lista = _ServiceCita.GetCitasReport();
-
-                // Crear stream para almacenar en memoria el reporte 
-                MemoryStream ms = new MemoryStream();
-                //Initialize writer
-                PdfWriter writer = new PdfWriter(ms);
-
-                //Initialize document
-                PdfDocument pdfDoc = new PdfDocument(writer);
-                Document doc = new Document(pdfDoc, iText.Kernel.Geom.PageSize.A1, false);
-
-                DateTime fecha = (DateTime)lista.First().FechaCita;
-                string mes = fecha.ToString("MMMM");
-
-                Paragraph header = new Paragraph("Citas de " + mes)
-                                   .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
-                                   .SetFontSize(14)
-                                   .SetFontColor(ColorConstants.BLUE);
-                doc.Add(header);
-
-
-                // Crear tabla con 6 columnas 
-                Table table = new Table(6, true);
-
-
-                // los Encabezados
-                table.AddHeaderCell("Id");
-                table.AddHeaderCell("Cliente");
-                table.AddHeaderCell("Fecha");
-                table.AddHeaderCell("Hora");
-                table.AddHeaderCell("Motivo");
-                table.AddHeaderCell("Motocicleta");
-
-
-                foreach (var item in lista)
-                {
-
-                    // Agregar datos a las celdas
-                    table.AddCell(new Paragraph(item.Id.ToString()));
-                    table.AddCell(new Paragraph(item.NombreCliente.ToString() + item.ApellidosCliente.ToString()));
-                    table.AddCell(new Paragraph(item.FechaCita.ToString()));
-                    table.AddCell(new Paragraph(item.HoraCita.ToString()));
-                    table.AddCell(new Paragraph(item.MotivoCita.ToString()));
-                    table.AddCell(new Paragraph(item.ModeloMoto.MarcaMoto.Descripcion.ToString() + " " + item.ModeloMoto.Descripcion.ToString()));
-
-                    //// Convierte la imagen que viene en Bytes en imagen para PDF
-                    //Image image = new Image(ImageDataFactory.Create(item.FotoOrden));
-                    //// Tamaño de la imagen
-                    //image = image.SetHeight(75).SetWidth(75);
-                    //table.AddCell(image);
-                }
-                doc.Add(table);
-
-                //// Calculo del monto total de impuestos
-                //decimal totalIVA = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalIVA));
-                //// Agrega  el monto total de impuestos
-                //doc.Add(new Paragraph("\n\r Total Costos " + totalIVA.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
-
-                //// Calculo del monto total de impuestos
-                //decimal totalFinal = lista.ToList().Sum(k => Convert.ToDecimal(k.TotalFinal));
-                //// Agrega  el monto total de impuestos
-                //doc.Add(new Paragraph("\n\r Total Costos " + totalFinal.ToString("C", CultureInfo.CreateSpecificCulture("cr-CR"))));
-
-
-                // Colocar número de páginas
-                int numberOfPages = pdfDoc.GetNumberOfPages();
-                for (int i = 1; i <= numberOfPages; i++)
-                {
-
-                    // Write aligned text to the specified by parameters point
-                    doc.ShowTextAligned(new Paragraph(String.Format("pag {0} of {1}", i, numberOfPages)),
-                            559, 826, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
-                }
-
-
-                //Close document
-                doc.Close();
-                // Retorna un File
-                return File(ms.ToArray(), "application/pdf", "Reporte de Citas.pdf");
-
-            }
-            catch (Exception ex)
-            {
-                // Salvar el error en un archivo 
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "¡Error al procesar los datos! " + ex.Message;
-                TempData.Keep();
-                // Redireccion a la captura del Error
-                return RedirectToAction("Default", "Error");
-            }
-
+                FileName = "Reporte Citas " + mesCitas + ".pdf",
+                PageSize = Rotativa.Options.Size.A4,
+                PageMargins = new Rotativa.Options.Margins(10, 10, 20, 10),
+                CustomSwitches = "--page-offset 0 --footer-right [page] --footer-font-size 10"
+            };
         }
 
         //Fin

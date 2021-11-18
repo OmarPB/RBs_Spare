@@ -9,6 +9,9 @@
 <table class="table table-responsive-md">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.NombreCliente)
         </th>
         <th>
@@ -32,30 +35,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidosCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaCreacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subtotal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalIVA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApellidosCliente)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.FechaCreacion)*@
+                @Convert.ToDateTime(item.FechaCreacion).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subtotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalIVA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
+            </td>
+        </tr>
+    }
 
 </table>
