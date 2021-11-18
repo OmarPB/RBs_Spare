@@ -22,8 +22,8 @@
                         @Html.DisplayNameFor(model => model.FechaCreacion)
                     </th>
                     @*<th class="d-none d-sm-block">
-                        @Html.DisplayNameFor(model => model.NombreCliente)
-                    </th>*@
+                            @Html.DisplayNameFor(model => model.NombreCliente)
+                        </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.IdCondicionOrden)
                     </th>
@@ -35,33 +35,94 @@
             <tbody id=" resultado">
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaCreacion)
 
-                    </td>
-                    @*<td class="d-none d-sm-block">
-                        @Html.DisplayFor(modelItem => item.NombreCliente) @Html.DisplayFor(modelItem => item.ApellidosCliente)
-                    </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
-                    </td>
-                    <td>
-                        <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
-                        <a class="btn btn-success" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
-                        <a class="btn btn-primary" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
-                    </td>
+                        </td>
+                        @*<td class="d-none d-sm-block">
+                                @Html.DisplayFor(modelItem => item.NombreCliente) @Html.DisplayFor(modelItem => item.ApellidosCliente)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
+                        </td>
+                        <td>
+                            <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
+                            <a class="btn btn-success" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
+                            <a class="btn btn-primary" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
+                        </td>
 
-                </tr>
+                    </tr>
                 }
             </tbody>
         </table>
 
     </div>
 </div>
+<style>
+    #toast-container > div {
+        margin-top: 29%;
+        opacity: 1;
+    }
+</style>
+
 @section Scripts {
+    @Scripts.Render("~/bundles/toastjs")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryajax")
+
+
+    @*Para el Toast*@
+    <script>
+
+        $(document).ready(function () {
+             console.log("Entro a JQuery")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                // Recibe los parámetros del Controller
+                var option = '@ViewBag.Action'
+                var message = '@ViewBag.Message'
+
+
+                if (option == 'S') {
+                    toastr.success("La orden fue aprobada correctamente");
+                }
+
+
+                if (option == 'D') {
+                toastr.warning("La orden fue rechazada correctamente");
+                }
+
+                if (option == 'E') {
+                    toastr.warning("Se ha producido un error :"+message);
+            }
+
+
+            // Cambiar el color del fondo del Grid.
+            //$(".table tbody tr:even").css("background-color", "#ddd");
+        });
+
+
+
+    </script>
 }

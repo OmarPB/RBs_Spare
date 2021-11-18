@@ -14,6 +14,7 @@ namespace Web.Controllers
 {
     public class OrdenController : Controller
     {
+        private static String Action;
         // GET: Orden
         public ActionResult Index()
         {
@@ -76,13 +77,17 @@ namespace Web.Controllers
         public ActionResult IndexAdmin()
         {
             IEnumerable<Orden> lista = null;
-
+            if (!String.IsNullOrEmpty(Action))
+            {
+                ViewBag.Action = Action;
+            }
             try
             {
                 IServiceOrden _ServiceOrden = new ServiceOrden();
                 lista = _ServiceOrden.GetOrden();
                 IServiceCondicionOrden _ServiceCondicionOrden = new ServiceCondicionOrden();
                 ViewBag.CondicionOrdenId = _ServiceCondicionOrden.GetCondicionOrden();
+                Action = "";
                 return View(lista);
             }
             catch (Exception ex)
@@ -227,6 +232,8 @@ namespace Web.Controllers
 
                 _ServiceOrden.Save(orden);
 
+                Action = "S";
+
                 //Cargo la Lista Actualizada
                 IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
 
@@ -268,6 +275,8 @@ namespace Web.Controllers
                 orden.Detalle_Orden = null;
 
                 _ServiceOrden.Save(orden);
+
+                Action = "D";
 
                 //Cargo la Lista Actualizada
                 IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();

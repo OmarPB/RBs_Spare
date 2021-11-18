@@ -269,8 +269,8 @@ namespace Infraestructure.Repository
         private void SendEmail(string EmailDestino, string token)
         {
             string urlDomain = "http://localhost:64990/";
-            string EmailOrigen = "autodo.web@gmail.com";
-            string Contraseña = "omaresteban*";
+            string EmailOrigen = "ryb.rbsspare@gmail.com";
+            string Contraseña = "HKDasjfasfXC274d";
             string url = urlDomain + "/Login/Recuperacion/?token=" + token;
             MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "Recuperación de Contraseña",
                 "<p>Estimado usuario,</br></br>Ha iniciado el proceso para recuperación de contraseña del sistema RB's Spare, a continuación se le presentará el link para que proceda a realizar el cambio de su respectiva contraseña.</p><br>" +

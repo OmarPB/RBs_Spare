@@ -38,11 +38,23 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     ServiceCita _ServiceCita = new ServiceCita();
-                    if (cita.FechaCita < DateTime.Today)
+                    if (cita.FechaCita == DateTime.Today)
                     {
-                        Action = "F";
-                        return RedirectToAction("Index");
+                        if (cita.HoraCita < TimeSpan.Parse(DateTime.Now.ToShortTimeString()))
+                        {
+                            Action = "F";
+                            return RedirectToAction("Index");
+                        }
                     }
+                    else
+                    {
+                        if (cita.FechaCita < DateTime.Today)
+                        {
+                            Action = "F";
+                            return RedirectToAction("Index");
+                        }
+                    }
+
                     if (_ServiceCita.GetCita(cita) == null)
                     {
                         _ServiceCita.Save(cita);
