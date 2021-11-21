@@ -3,55 +3,62 @@
 <div>
     <h4>Detalles del Empleado</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Apellidos)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Apellidos)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Apellidos)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Apellidos)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Rol.Descripcion)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rol.Descripcion)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Rol.Descripcion)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Rol.Descripcion)
+                </dd>
 
-    </dl>
+            </dl>
+        </div>
+        <div class="col-md-8 d-none d-sm-block">
+            <img class="img-fluid" src="~/Img/user.png" width="200" height="250" style="opacity: 70%; margin-left: 12%; margin-top: 15%"/>
+        </div>
+    </div>
 </div>

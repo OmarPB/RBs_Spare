@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-6"">
+        <div class="form-group col-md-6">
             @Html.Label("IdMarca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdMarca", new SelectList(ViewBag.ListaMarcas, "Id", "Descripcion"), htmlAttributes: new { @class = "form-control" })
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-6"">
+        <div class="form-group col-md-6">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })

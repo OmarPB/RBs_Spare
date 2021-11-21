@@ -4,7 +4,7 @@
     ViewBag.Title = "Órdenes";
 }
 
-<div class="container" style="margin:10% auto">
+<div class="container">
 
     <h2>Lista de Ordenes registradas</h2>
     <div class="btn-group btn-group-justified" role="group">
@@ -51,8 +51,8 @@
                         </td>
                         <td>
                             <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
-                            <a class="btn btn-success" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
-                            <a class="btn btn-primary" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
+                            <a class="btn btn-success" onclick="aprobar()" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
+                            <a class="btn btn-primary" onclick="rechazar()" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
                         </td>
 
                     </tr>
@@ -62,6 +62,18 @@
 
     </div>
 </div>
+
+@* Mensajes de rechazado y aprobado *@
+<script>
+    function rechazar() {
+        swal("Información", "Orden Rechazada", "error");
+    }
+
+    function aprobar() {
+        swal("Información", "Orden Aprobada", "success");
+    }
+</script>
+
 <style>
     #toast-container > div {
         margin-top: 29%;
@@ -70,13 +82,16 @@
 </style>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/toastjs")
+    @*@Scripts.Render("~/bundles/toastjs")*@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryajax")
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 
     @*Para el Toast*@
-    <script>
+    @*<script>
 
         $(document).ready(function () {
              console.log("Entro a JQuery")
@@ -124,5 +139,5 @@
 
 
 
-    </script>
+    </script>*@
 }
