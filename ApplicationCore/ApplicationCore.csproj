@@ -54,6 +54,7 @@
     <Compile Include="Services\IServiceOrden.cs" />
     <Compile Include="Services\IServiceModeloMoto.cs" />
     <Compile Include="Services\IServiceProducto.cs" />
+    <Compile Include="Services\IServiceRespaldos.cs" />
     <Compile Include="Services\IServiceRol.cs" />
     <Compile Include="Services\IServiceTipoProducto.cs" />
     <Compile Include="Services\ServiceCondicionOrden.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Services\ServiceOrden.cs" />
     <Compile Include="Services\ServiceModeloMoto.cs" />
     <Compile Include="Services\ServiceProducto.cs" />
+    <Compile Include="Services\ServiceRespaldos.cs" />
     <Compile Include="Services\ServiceRol.cs" />
     <Compile Include="Services\ServiceTipoProducto.cs" />
     <Compile Include="Utils\Cryptography.cs" />

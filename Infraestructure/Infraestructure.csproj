@@ -113,6 +113,7 @@
     <Compile Include="Repository\IRepositoryOrden.cs" />
     <Compile Include="Repository\IRepositoryModeloMoto.cs" />
     <Compile Include="Repository\IRepositoryProducto.cs" />
+    <Compile Include="Repository\IRepositoryRespaldos.cs" />
     <Compile Include="Repository\IRepositoryRol.cs" />
     <Compile Include="Repository\IRepositoryTipoProducto.cs" />
     <Compile Include="Repository\RepositoryCondicionOrden.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Repository\RepositoryOrden.cs" />
     <Compile Include="Repository\RepositoryModeloMoto.cs" />
     <Compile Include="Repository\RepositoryProducto.cs" />
+    <Compile Include="Repository\RepositoryRespaldos.cs" />
     <Compile Include="Repository\RepositoryRol.cs" />
     <Compile Include="Repository\RepositoryTipoProducto.cs" />
     <Compile Include="Utils\Log.cs" />
