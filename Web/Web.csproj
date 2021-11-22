@@ -325,6 +325,7 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="Img\Logo_Nuevo.png" />
+    <Content Include="Img\respaldo.png" />
     <Content Include="Img\user.png" />
     <Content Include="Img\whatsapp.ico" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
