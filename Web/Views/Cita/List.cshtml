@@ -7,7 +7,7 @@
 <h2>Lista de citas para el día de hoy</h2>
 
 
-<table class="table table-responsive-sm">
+<table class="table table-responsive-sm" style="margin-bottom: 30%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.NombreCliente)
@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.HoraCita)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ModeloMoto.Descripcion)
+            @Html.DisplayName("Modelo Moto")
         </th>
     </tr>
 
@@ -41,7 +41,8 @@
             @Html.DisplayFor(modelItem => item.MotivoCita)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaCita)
+            @*@Html.DisplayFor(modelItem => item.FechaCita)*@
+            @Convert.ToDateTime(item.FechaCita).ToString("dd/MM/yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HoraCita)

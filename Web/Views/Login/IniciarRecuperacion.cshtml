@@ -11,14 +11,6 @@
 
 <h2 id="formularioTitle" align="center">Ingrese el correo asociado a su cuenta</h2>
 
-@if (TempData["Message"] != null)
-{
-    string mensaje = @"<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-<span aria-hidden='true'>&times;</span> </button><strong>Error!</strong> " + TempData["Message"] + " </div>";
-@Html.Raw(mensaje);
-}
-
-
 @using (Html.BeginForm("IniciarRecuperacion", "Login", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

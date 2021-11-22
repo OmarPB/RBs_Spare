@@ -145,12 +145,15 @@ namespace Web.ViewModel
             Items.Clear();
 
         }
+
         //OJO, REVISAR ESTO
         public decimal GetImpuesto()
         {
-            decimal impuesto = 0;
-            impuesto = GetSubTotal() * 0.13M;
-            return impuesto;
+            //decimal impuesto = 0;
+            //impuesto = GetSubTotal() * 0.13M;
+            //return impuesto;
+
+            return (decimal)(Items.Sum(x => x.Producto.IVA * x.Producto.PrecioUnidad));
         }
     }
 }

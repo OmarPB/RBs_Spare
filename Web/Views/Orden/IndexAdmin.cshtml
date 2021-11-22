@@ -40,8 +40,8 @@
                             @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FechaCreacion)
-
+                            @*@Html.DisplayFor(modelItem => item.FechaCreacion)*@
+                            @Convert.ToDateTime(item.FechaCreacion).ToString("dd/MM/yyyy")
                         </td>
                         @*<td class="d-none d-sm-block">
                                 @Html.DisplayFor(modelItem => item.NombreCliente) @Html.DisplayFor(modelItem => item.ApellidosCliente)
@@ -50,7 +50,7 @@
                             @Html.DisplayFor(modelItem => item.CondicionOrden.Descripcion)
                         </td>
                         <td>
-                            <a class="btn" style="background-color: lightgray" title="Aprobar Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
+                            <a class="btn" style="background-color: lightgray" title="Detalles Orden" href="@Url.Action("Details", "Orden", new {id = item.Id })"><i class="fa fa-info"></i></a>
                             <a class="btn btn-success" onclick="aprobar()" title="Aprobar Orden" href="@Url.Action("AprobarOrden", "Orden", new {id = item.Id })"><i class="fa fa-check"></i></a>
                             <a class="btn btn-primary" onclick="rechazar()" title="Rechazar Orden" href="@Url.Action("RechazarOrden", "Orden", new {id = item.Id })"><i class="fa fa-ban"></i></a>
                         </td>
@@ -67,6 +67,7 @@
 <script>
     function rechazar() {
         swal("Información", "Orden Rechazada", "error");
+        wait
     }
 
     function aprobar() {
