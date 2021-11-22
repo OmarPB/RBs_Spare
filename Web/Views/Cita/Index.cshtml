@@ -10,44 +10,29 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h5 style="color: grey">Taller Moto Repuestos Ramírez & Barboza</h5>
-        <hr />
+    <h5 style="color: grey">Taller Moto Repuestos Ramírez & Barboza</h5>
+    <hr />
+
+    <div class="form-horizontal form-row">
         @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdModelo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.IdModelo, htmlAttributes: new { @class = "control-label control-label col-md-6" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.IdModelo, new SelectList(ViewBag.listaModelos, "Id", "Descripcion"), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdModelo, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApellidosCliente, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApellidosCliente, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApellidosCliente, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MotivoCita, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.MotivoCita, htmlAttributes: new { @class = "control-label control-label col-md-6" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MotivoCita, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MotivoCita, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FechaCita, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.FechaCita, htmlAttributes: new { @class = "control-label control-label col-md-6" })
             <div class="col-md-10">
                 <div class="input-group date" id="datetimepicker12" data-target-input="nearest">
                     @Html.EditorFor(model => model.FechaCita, new { htmlAttributes = new { @class = "form-control datetimepicker-input", @target = "#datetimepicker12" } })
@@ -59,8 +44,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoraCita, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.HoraCita, htmlAttributes: new { @class = "control-label control-label col-md-6" })
             <div class="col-md-10">
 
                 @Html.EditorFor(model => model.HoraCita, new { htmlAttributes = new { @class = "form-control", @id = "durationExample" } })
@@ -68,9 +53,23 @@
             </div>
         </div>
 
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.NombreCliente, htmlAttributes: new { @class = "control-label control-label col-md-6" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NombreCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.ApellidosCliente, htmlAttributes: new { @class = "control-label control-label col-md-6" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApellidosCliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApellidosCliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Agendar cita" class="btn btn-primary" />
             </div>
@@ -83,7 +82,7 @@
 <link rel="stylesheet" type="text/css" href="~/TempResources/jquery.timepicker.css" />
 <style>
     #toast-container > div {
-        margin-top:29%;
+        margin-top: 29%;
         opacity: 1;
     }
 </style>

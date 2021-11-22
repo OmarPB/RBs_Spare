@@ -15,9 +15,9 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                        @Html.DisplayNameFor(model => model.TipoProducto):   @Html.DisplayFor(modelItem => item.TipoProducto.Descripcion)
+                        @Html.DisplayName("Tipo:") @Html.DisplayFor(modelItem => item.TipoProducto.Descripcion)
                         <br />
-                        @Html.DisplayNameFor(model => model.MarcaProducto):   @Html.DisplayFor(modelItem => item.MarcaProducto.Descripcion)
+                        @Html.DisplayName("Marca:") @Html.DisplayFor(modelItem => item.MarcaProducto.Descripcion)
                     </h6>
                     <p class="card-text">
                         @Html.DisplayNameFor(model => model.PrecioUnidad): @Html.DisplayName(string.Format("{0:C}", item.PrecioUnidad))
