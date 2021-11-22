@@ -41,7 +41,8 @@
             @Html.DisplayFor(modelItem => item.MotivoCita)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaCita)
+            @*@Html.DisplayFor(modelItem => item.FechaCita)*@
+            @Convert.ToDateTime(item.FechaCita).ToString("dd/MM/yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HoraCita)
