@@ -7,7 +7,11 @@
 @{
     ViewBag.Title = "Respaldar Base de Datos";
 }
-
-<a href="@Url.Action("guardarRespaldo", "Respaldos")">Esteban come pp</a>
+<div class="col-md-12" align="center" style="margin-top:5%;">
+    <img class="img img-fluid" width="150" height="150" src="https://cdn-icons.flaticon.com/png/512/190/premium/190833.png?token=exp=1637621505~hmac=f84109ff090713b46dbcbe83e5c1766f" style="margin-bottom:2%;" />
+    <h2>¿Desea crear un respaldo de los datos del sistema?</h2>
+    <p>Nota: Consultar el manual de usuario para más información</p>
+    <a class="btn btn-primary" href="@Url.Action("guardarRespaldo", "Respaldos")">Crear respaldo</a>
+</div>
 
 
