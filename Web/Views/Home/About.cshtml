@@ -1,7 +1,93 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Acerca de";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<section class="page-section">
+    <div class="container">
+        @*<h1 style="text-align: center">Acerca de Nosotros</h1>*@
+        <br />
+        <br />
+        <div class="row" id="info">
+            <div class="col-md-5" style="display: block; margin: auto">
+                <h2 style="text-align: center; margin-top: 5%;">
+                    Moto Repuestos Ramírez & Barboza
+                </h2>
+                <br>
+                <p style="text-align: justify; font-size: larger; color: rgb(93, 93, 93);">
+                    Somos un negocio de venta de repuestos para motocicletas de todo estilo y marca, además de contar con un servicio de taller especializado donde se realizan trabajos que van desde mantenimientos y mecánica general hasta mecánica avanzada con personal altamente capacitado en este ámbito.
+                    Además buscamos mejorar la oferta de repuestos para motocicletas mientras se proponen precios asequibles de cara al público.
+                </p>
+            </div>
+            <div class="col-md-7">
+                <img class="img img-fluid" src="~/Img/motorepuestosryb.jpg"/>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br />
+        <div class="row" id="info">
+            <div class="col-md-5">
+                <img class="img img-fluid" src="~/Img/Logo_Nuevo.png" />
+            </div>
+            <div class="col-md-7" style="display: block; margin: auto">
+                <h2 style="text-align: center; margin-top: 5%;">
+                    Sistema RB's Spare
+                </h2>
+                <br>
+                <p style="text-align: justify; font-size: larger; color: rgb(93, 93, 93);">
+                    RB’S Spare nace de la carencia que existe en la mayoría de los locales pequeños que se dedican a la venta de repuestos para motocicletas, los cuales no cuentan con una opción o forma de ofrecer su  catálogo completo de una manera más dinámica, además, viene a facilitar el proceso de agenda de citas para comodidad de los clientes del local. Ampliando así el alcance de Moto Repuestos Ramírez & Barboza.
+                </p>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <h2 class="text-center pt-2">Información de los autores</h2>
+        <div class="row" style="margin-top: 5%; margin-bottom: 5%">
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-4" style="height: auto">
+                                <img src="~/Img/Esteban.jpeg" class="card-img animated fadeIn img img-fluid" alt="" style=" height: 100%">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Esteban Vargas Ballestero</h5>
+                                    <p><i class="fas fa-user-graduate"></i> Universidad Técnica Nacional</p>
+                                    <p><i class="fas fa-mobile"></i> +506 8546 1952</p>
+                                    <p><i class="fas fa-envelope"></i> ballestero.ev@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-4" style="height: auto">
+                                <img src="~/Img/Omar.jpg" class="card-img animated fadeIn img img-fluid" alt="" style="height: 100%;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Omar Picado Brenes</h5>
+                                    <p><i class="fas fa-user-graduate"></i> Universidad Técnica Nacional</p>
+                                    <p><i class="fas fa-mobile"></i> +506 8348 2932</p>
+                                    <p><i class="fas fa-envelope"></i> ariielpb@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    hr {
+        background-color: #D9230F;
+    }
+</style>

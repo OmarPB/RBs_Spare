@@ -321,10 +321,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Img\banner.jpg" />
     <Content Include="Img\check-green.gif" />
+    <Content Include="Img\Esteban.jpeg" />
     <Content Include="Img\imagen-3.jpg" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <Content Include="Img\Logo_Nuevo.png" />
+    <Content Include="Img\motorepuestosryb.jpg" />
+    <Content Include="Img\Omar.jpg" />
     <Content Include="Img\respaldo.png" />
     <Content Include="Img\user.png" />
     <Content Include="Img\whatsapp.ico" />

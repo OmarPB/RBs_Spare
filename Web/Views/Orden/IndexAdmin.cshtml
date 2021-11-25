@@ -67,10 +67,10 @@
 <script>
     function rechazar() {
         swal("Información", "Orden Rechazada", "error");
-        wait
     }
 
     function aprobar() {
+        setTimeout(location.reload.bind(location), 3000);
         swal("Información", "Orden Aprobada", "success");
     }
 </script>
@@ -90,55 +90,54 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
-
     @*Para el Toast*@
     @*<script>
 
-        $(document).ready(function () {
-             console.log("Entro a JQuery")
+            $(document).ready(function () {
+                 console.log("Entro a JQuery")
 
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "400",
-                    "hideDuration": "1000",
-                    "timeOut": "3000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "400",
+                        "hideDuration": "1000",
+                        "timeOut": "3000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+
+                    // Recibe los parámetros del Controller
+                    var option = '@ViewBag.Action'
+                    var message = '@ViewBag.Message'
+
+
+                    if (option == 'S') {
+                        toastr.success("La orden fue aprobada correctamente");
+                    }
+
+
+                    if (option == 'D') {
+                    toastr.warning("La orden fue rechazada correctamente");
+                    }
+
+                    if (option == 'E') {
+                        toastr.warning("Se ha producido un error :"+message);
                 }
 
-                // Recibe los parámetros del Controller
-                var option = '@ViewBag.Action'
-                var message = '@ViewBag.Message'
 
-
-                if (option == 'S') {
-                    toastr.success("La orden fue aprobada correctamente");
-                }
-
-
-                if (option == 'D') {
-                toastr.warning("La orden fue rechazada correctamente");
-                }
-
-                if (option == 'E') {
-                    toastr.warning("Se ha producido un error :"+message);
-            }
-
-
-            // Cambiar el color del fondo del Grid.
-            //$(".table tbody tr:even").css("background-color", "#ddd");
-        });
+                // Cambiar el color del fondo del Grid.
+                //$(".table tbody tr:even").css("background-color", "#ddd");
+            });
 
 
 
-    </script>*@
+        </script>*@
 }

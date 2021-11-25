@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Web.Security;
@@ -237,6 +238,9 @@ namespace Web.Controllers
                 //Cargo la Lista Actualizada
                 IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
 
+                //Para mostrar la notificación por unos segundos
+                Thread.Sleep(1500);
+
                 return View("IndexAdmin", listaOrdenes);
             }
             catch (Exception ex)
@@ -280,6 +284,9 @@ namespace Web.Controllers
 
                 //Cargo la Lista Actualizada
                 IEnumerable<Orden> listaOrdenes = _ServiceOrden.GetOrden();
+
+                //Para mostrar la notificación por unos segundos
+                Thread.Sleep(1500);
 
                 return View("IndexAdmin", listaOrdenes);
             }
