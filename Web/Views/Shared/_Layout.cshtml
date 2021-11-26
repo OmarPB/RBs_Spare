@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/toastr.css">
+    <link rel="icon" href="~/Img/Logo_Nuevo.png">
 
 </head>
 <body>
@@ -131,6 +132,10 @@
             </ul>
         </div>
     </nav>
+
+    <a href="~/Manual/Manual de Usuario - RB's Spare.pdf" target="_blank" class="float" title="Manual de Usuario">
+        <i class="fa fa-question fa-2x my-float"></i>
+    </a>
 
     <br />
     <br />
@@ -269,4 +274,26 @@
         #menu:hover {
             transform: translateY(-1px) scale(1.05);
         }
+
+    .float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: darkcyan;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        box-shadow: 10px 10px 15px #999;
+    }
+
+    .my-float {
+        margin-top: 18px;
+    }
+
+    .float:hover{
+        color: white;
+        transform: scale(1.1);
+    }
 </style>

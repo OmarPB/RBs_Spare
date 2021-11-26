@@ -16,10 +16,11 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.FechaCreacion)
+                @*@Html.DisplayFor(model => model.FechaCreacion)*@
+                @Convert.ToDateTime(Model.FechaCreacion).ToString("dd/MM/yyyy")
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.CondicionOrden):
+                @Html.DisplayName("Condición"):
             </dt>
 
             <dd>
