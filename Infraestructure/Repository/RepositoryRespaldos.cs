@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,24 @@ namespace Infraestructure.Repository
         {
             try
             {
-                string url = @"'C:\Users\apica\Downloads\RBsSpare_" + DateTime.Now.ToString("dd-MMMM-yyyy HH-mm") + ".bak'";
-                using (MyContext ctx = new MyContext())
+                string path = @"C:\RespaldosRBsSpare";
+                try
                 {
-                    ctx.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, "backup database RBs_Spare to disk = " + url);
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    string url = @"'C:\RespaldosRBsSpare\RBsSpare_" + DateTime.Now.ToString("dd-MMMM-yyyy HH-mm") + ".bak'";
+                    using (MyContext ctx = new MyContext())
+                    {
+                        ctx.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, "backup database RBs_Spare to disk = " + url);
+                    }
+
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    throw new Exception(ex.Message);
+
                 }
             }
             catch (Exception dbEx)
