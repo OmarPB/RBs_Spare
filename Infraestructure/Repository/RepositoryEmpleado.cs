@@ -17,7 +17,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryEmpleado : IRepositoryEmpleado
     {
-        public void DeleteEmpleado(int id)
+        public void DeleteEmpleado(int id, BitacoraEmpleados bitacora)
         {
             int returno;
             try
@@ -26,9 +26,22 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    Empleado Empleado = GetEmpleadoByID(id);
-                    Empleado.Estado = false;
-                    ctx.Entry(Empleado).State = EntityState.Modified;
+                    Empleado empleado = GetEmpleadoByID(id);
+                    empleado.Estado = false;
+
+                    //Datos restantes Bitácora
+                    bitacora.Accion = "Borrar";
+                    bitacora.DatoAnterior = "Id: " + empleado.Id +
+                                            "\n/Rol: " + empleado.IdRol +
+                                            "\n/Nombre: " + empleado.Nombre +
+                                            "\n/Apellidos: " + empleado.Apellidos +
+                                            "\n/Email: " + empleado.Email +
+                                            "\n/Telefono: " + empleado.Telefono;
+
+                    bitacora.DatosNuevo = "Registro Desactivado";
+
+                    ctx.BitacoraEmpleados.Add(bitacora);
+                    ctx.Entry(empleado).State = EntityState.Modified;
                     returno = ctx.SaveChanges();
                 }
             }
@@ -115,6 +128,78 @@ namespace Infraestructure.Repository
         //    }
         //    return empleado;
         //}
+
+        public Empleado Save(Empleado empleado, BitacoraEmpleados bitacora)
+        {
+            int retorno = 0;
+            Empleado oEmpleado = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    empleado.Estado = true;
+
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    oEmpleado = GetEmpleadoByID(empleado.Id);
+                    if (oEmpleado == null)
+                    {
+                        //Se asingan los valores restantes a la bitácora
+                        bitacora.Accion = "Insertar";
+                        bitacora.DatoAnterior = "Nuevo Regitro";
+
+                        bitacora.DatosNuevo = "Id: " + empleado.Id +
+                                                "\n/Rol: " + empleado.IdRol +
+                                                "\n/Nombre: " + empleado.Nombre +
+                                                "\n/Apellidos: " + empleado.Apellidos +
+                                                "\n/Email: " + empleado.Email +
+                                                "\n/Telefono: " + empleado.Telefono;
+
+                        ctx.BitacoraEmpleados.Add(bitacora);
+                        ctx.Empleado.Add(empleado);
+                    }
+                    else
+                    {
+                        //Se asingan los valores restantes a la bitácora
+                        bitacora.Accion = "Editar";
+                        bitacora.DatoAnterior = "Id: " + oEmpleado.Id + 
+                                                "\n/Rol: " + oEmpleado.IdRol + 
+                                                "\n/Nombre: " + oEmpleado.Nombre + 
+                                                "\n/Apellidos: " + oEmpleado.Apellidos +
+                                                "\n/Email: " + oEmpleado.Email + 
+                                                "\n/Telefono: " + oEmpleado.Telefono;
+
+                        bitacora.DatosNuevo = "Id: " + empleado.Id + 
+                                                "\n/Rol: : " + empleado.IdRol +
+                                                "\n/Nombre: " + empleado.Nombre +
+                                                "\n/Apellidos: " + empleado.Apellidos +
+                                                "\n/Email: " + empleado.Email +
+                                                "\n/Telefono: " + empleado.Telefono;
+
+                        ctx.Entry(empleado).State = EntityState.Modified;
+                        ctx.BitacoraEmpleados.Add(bitacora);
+                    }
+                    retorno = ctx.SaveChanges();
+                }
+
+                if (retorno >= 0)
+                    oEmpleado = GetEmpleadoByID(empleado.Id);
+
+                return oEmpleado;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
 
         public Empleado Save(Empleado empleado)
         {

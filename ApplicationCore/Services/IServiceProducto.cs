@@ -11,8 +11,8 @@ namespace ApplicationCore.Services
     {
         IEnumerable<Producto> GetProducto();
         Producto GetProductoByID(int id);
-        void DeleteProducto(int id);
-        Producto Save(Producto Producto);
+        void DeleteProducto(int id, BitacoraProductos bitacora);
+        Producto Save(Producto Producto, BitacoraProductos bitacora);
         IEnumerable<Producto> GetProductoByDescription(string name);
         IEnumerable<Producto> GetProductoByIdTipoProducto(int idTipoProducto);
     }

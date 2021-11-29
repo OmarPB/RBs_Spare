@@ -11,7 +11,8 @@ namespace ApplicationCore.Services
     {
         IEnumerable<Empleado> GetEmpleado();
         Empleado GetEmpleadoByID(int id);
-        void DeleteEmpleado(int id);
+        void DeleteEmpleado(int id, BitacoraEmpleados bitacora);
+        Empleado Save(Empleado Empleado, BitacoraEmpleados bitacora);
         Empleado Save(Empleado Empleado);
         Empleado Login(int id, string contrasenia);
         Empleado VerificarEmpleado(string email);

@@ -25,6 +25,8 @@ namespace Infraestructure.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BitacoraEmpleados> BitacoraEmpleados { get; set; }
+        public virtual DbSet<BitacoraProductos> BitacoraProductos { get; set; }
         public virtual DbSet<Cita> Cita { get; set; }
         public virtual DbSet<CondicionOrden> CondicionOrden { get; set; }
         public virtual DbSet<Detalle_Orden> Detalle_Orden { get; set; }

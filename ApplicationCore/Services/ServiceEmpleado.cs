@@ -11,10 +11,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceEmpleado : IServiceEmpleado
     {
-        public void DeleteEmpleado(int id)
+        public void DeleteEmpleado(int id, BitacoraEmpleados bitacora)
         {
             IRepositoryEmpleado repository = new RepositoryEmpleado();
-            repository.DeleteEmpleado(id);
+            repository.DeleteEmpleado(id, bitacora);
         }
 
         public IEnumerable<Empleado> GetEmpleado()
@@ -29,7 +29,7 @@ namespace ApplicationCore.Services
             return repository.GetEmpleadoByID(id);
         }
 
-        public Empleado Save(Empleado empleado)
+        public Empleado Save(Empleado empleado, BitacoraEmpleados bitacora)
         {
             RepositoryEmpleado repository = new RepositoryEmpleado();
             Empleado auxEmp = repository.GetEmpleadoByID(empleado.Id);
@@ -42,6 +42,25 @@ namespace ApplicationCore.Services
                 }
             }
             
+            //Encripta la contraseña y la envía a la base de datos
+            empleado.Contrasenia = Cryptography.EncrypthAES(empleado.Contrasenia);
+
+            return repository.Save(empleado, bitacora);
+        }
+
+        public Empleado Save(Empleado empleado)
+        {
+            RepositoryEmpleado repository = new RepositoryEmpleado();
+            Empleado auxEmp = repository.GetEmpleadoByID(empleado.Id);
+            if (auxEmp != null)
+            {
+                if (auxEmp.Contrasenia.Equals(empleado.Contrasenia))
+                {
+                    //Desencripta la contraseña para prevenir errores durante el proceso de recuperación
+                    empleado.Contrasenia = Cryptography.DecrypthAES(empleado.Contrasenia);
+                }
+            }
+
             //Encripta la contraseña y la envía a la base de datos
             empleado.Contrasenia = Cryptography.EncrypthAES(empleado.Contrasenia);
 

@@ -8,8 +8,8 @@ namespace Infraestructure.Repository
     {
         IEnumerable<Producto> GetProducto();
         Producto GetProductoByID(int id);
-        void DeleteProducto(int id);
-        Producto Save(Producto Producto);
+        void DeleteProducto(int id, BitacoraProductos bitacora);
+        Producto Save(Producto Producto, BitacoraProductos bitacora);
         IEnumerable<Producto> GetProductoByDescription(string descripction);
         //IEnumerable<Producto> GetProductoByRangoFechas(DateTime fechaInicial, DateTime fechaFinal);
         IEnumerable<Producto> GetProductoByIdTipoProducto(int idTipoProducto);

@@ -12,7 +12,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryProducto : IRepositoryProducto
     {
-        public void DeleteProducto(int id)
+        public void DeleteProducto(int id, BitacoraProductos bitacora)
         {
             int returno;
             try
@@ -23,6 +23,18 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     Producto Producto = GetProductoByID(id);
                     Producto.Estado = false;
+
+                    //Datos restantes bitácora
+                    bitacora.Accion = "Desactivar";
+                    bitacora.DatoAnterior = "Id: " + Producto.Id +
+                                               "\n/IdTipoProducto: " + Producto.IdTipoProducto +
+                                               "\n/IdMarca: " + Producto.IdMarca +
+                                               "\n/Descripcion: " + Producto.Descripcion +
+                                               "\n/PrecioUnidad: " + Producto.PrecioUnidad +
+                                               "\n/IVA: " + Producto.PrecioUnidad;
+
+                    bitacora.DatosNuevo = "Registro Desactivado";
+
                     ctx.Entry(Producto).State = EntityState.Modified;
                     returno = ctx.SaveChanges();
                 }
@@ -102,7 +114,7 @@ namespace Infraestructure.Repository
         }
 
 
-        public Producto Save(Producto producto)
+        public Producto Save(Producto producto, BitacoraProductos bitacora)
         {
             int retorno = 0;
             Producto oProducto = null;
@@ -118,11 +130,42 @@ namespace Infraestructure.Repository
                     if (oProducto == null)
                     {
                         producto.IVA = producto.IVA / 100;
+
+                        //Datos restantes bitácora
+                        bitacora.Accion = "Insertar";
+                        bitacora.DatoAnterior = "Nuevo Registro";
+
+                        bitacora.DatosNuevo = "Id: Nuevo" +
+                                               "\n/IdTipoProducto: " + producto.IdTipoProducto +
+                                               "\n/IdMarca: " + producto.IdMarca +
+                                               "\n/Descripcion: " + producto.Descripcion +
+                                               "\n/PrecioUnidad: " + producto.PrecioUnidad +
+                                               "\n/IVA: " + producto.PrecioUnidad;
+
+                        ctx.BitacoraProductos.Add(bitacora);
                         ctx.Producto.Add(producto);
                     }
                     else
                     {
                         producto.IVA = producto.IVA / 100;
+
+                        //Datos restantes bitácora
+                        bitacora.Accion = "Editar";
+                        bitacora.DatoAnterior = "Id: " + oProducto.Id + 
+                                               "\n/IdTipoProducto: " + oProducto.IdTipoProducto +
+                                               "\n/IdMarca: " + oProducto.IdMarca +
+                                               "\n/Descripcion: " + oProducto.Descripcion +
+                                               "\n/PrecioUnidad: " + oProducto.PrecioUnidad +
+                                               "\n/IVA: " + oProducto.PrecioUnidad;
+
+                        bitacora.DatosNuevo = "Id: Nuevo" +
+                                               "\n/IdTipoProducto: " + producto.IdTipoProducto +
+                                               "\n/IdMarca: " + producto.IdMarca +
+                                               "\n/Descripcion: " + producto.Descripcion +
+                                               "\n/PrecioUnidad: " + producto.PrecioUnidad +
+                                               "\n/IVA: " + producto.PrecioUnidad;
+
+                        ctx.BitacoraProductos.Add(bitacora);
                         ctx.Entry(producto).State = EntityState.Modified;
                     }
                     retorno = ctx.SaveChanges();
