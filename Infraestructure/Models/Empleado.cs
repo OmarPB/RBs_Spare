@@ -16,6 +16,13 @@ namespace Infraestructure.Models
     [MetadataType(typeof(EmpleadoMetadata))]
     public partial class Empleado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Empleado()
+        {
+            this.BitacoraEmpleados = new HashSet<BitacoraEmpleados>();
+            this.BitacoraProductos = new HashSet<BitacoraProductos>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> IdRol { get; set; }
         public string Contrasenia { get; set; }
@@ -26,6 +33,10 @@ namespace Infraestructure.Models
         public Nullable<bool> Estado { get; set; }
         public string TokenRecuperacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BitacoraEmpleados> BitacoraEmpleados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BitacoraProductos> BitacoraProductos { get; set; }
         public virtual Rol Rol { get; set; }
     }
 }

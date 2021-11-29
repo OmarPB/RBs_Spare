@@ -113,27 +113,6 @@ namespace Web.Controllers
             ViewBag.ListaTipos = serviceTipoProducto.GetTipoProducto();
             ViewBag.ListaMarcas = serviceMarcaProducto.GetMarcaProducto();
 
-            //Verifica que exista la marca
-            //Instancio ServiceMarca
-            //IServiceMarcaProducto serviceMarcaProducto = new ServiceMarcaProducto();
-
-            //Verifico que exista una marca con el IdMarcaEnviado
-            //MarcaProducto marcaProducto = serviceMarcaProducto.GetMarcaProductoByID(Convert.ToInt32(Producto.IdMarca));
-            //if (marcaProducto == null)
-            //{
-            //    TempData["Message"] = "¡La Marca seleccionada no existe!";
-            //    TempData.Keep();
-
-            //    //Creación de los ViewBag
-            //    IServiceTipoProducto serviceTipoProducto = new ServiceTipoProducto();
-            //    IServiceMarcaProducto serviceMarcaProducto = new ServiceMarcaProducto();
-
-            //    ViewBag.ListaTipos = serviceTipoProducto.GetTipoProducto();
-            //    ViewBag.ListaMarcas = serviceMarcaProducto.GetMarcaProducto();
-
-            //    return View("Create", Producto);
-            //}
-
             try
             {
                 // Cuando es Insert Image viene en null porque se pasa diferente
@@ -152,26 +131,19 @@ namespace Web.Controllers
                     }
                 }
 
-                //if (Producto.FotoFactura == null)
-                //{
-                //    if (ImageFile2 != null)
-                //    {
-                //        ImageFile2.InputStream.CopyTo(target2);
-                //        Producto.FotoFactura = target2.ToArray();
-                //        ModelState.Remove("FotoFactura");
-                //    }
-                //    else
-                //    {
-                //        IServiceProducto serviceProducto = new ServiceProducto();
-                //        Producto.FotoFactura = serviceProducto.GetProductoByID(Producto.Id).FotoFactura;
-                //    }
-                //}
-
                 // Es valido
                 if (ModelState.IsValid)
                 {
                     ServiceProducto _ServiceProducto = new ServiceProducto();
-                    _ServiceProducto.Save(Producto);
+
+                    //Se crea la bitácora
+                    var empSession = Session["User"] as Empleado;
+                    BitacoraProductos bitacora = new BitacoraProductos();
+                    bitacora.IdEmpleadoEjecutor = empSession.Id;
+                    bitacora.NombreEmpleadoEjecutor = empSession.Nombre + " " + empSession.Apellidos;
+                    bitacora.FechaCambios = DateTime.Now;
+
+                    _ServiceProducto.Save(Producto, bitacora);
                 }
                 else
                 {
@@ -333,7 +305,14 @@ namespace Web.Controllers
                     return View();
                 }
 
-                _ServiceProducto.DeleteProducto(id.Value);
+                //Se crea la bitácora
+                var empSession = Session["User"] as Empleado;
+                BitacoraProductos bitacora = new BitacoraProductos();
+                bitacora.IdEmpleadoEjecutor = empSession.Id;
+                bitacora.NombreEmpleadoEjecutor = empSession.Nombre + " " + empSession.Apellidos;
+                bitacora.FechaCambios = DateTime.Now;
+
+                _ServiceProducto.DeleteProducto(id.Value, bitacora);
 
                 return RedirectToAction("List");
             }

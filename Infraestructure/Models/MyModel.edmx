@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RBs_SpareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BitacoraEmpleados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEmpleadoEjecutor" Type="int" />
+          <Property Name="NombreEmpleadoEjecutor" Type="varchar" MaxLength="100" />
+          <Property Name="DatoAnterior" Type="varchar(max)" />
+          <Property Name="DatosNuevo" Type="varchar(max)" />
+          <Property Name="FechaCambios" Type="datetime" />
+          <Property Name="Accion" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="BitacoraProductos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEmpleadoEjecutor" Type="int" />
+          <Property Name="NombreEmpleadoEjecutor" Type="varchar" MaxLength="100" />
+          <Property Name="DatoAnterior" Type="varchar(max)" />
+          <Property Name="DatosNuevo" Type="varchar(max)" />
+          <Property Name="FechaCambios" Type="datetime" />
+          <Property Name="Accion" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Cita">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +40,7 @@
           <Property Name="MotivoCita" Type="varchar" MaxLength="256" />
           <Property Name="FechaCita" Type="date" />
           <Property Name="HoraCita" Type="time" Precision="7" />
+          <Property Name="TelefonoCliente" Type="int" />
           <Property Name="Condicion" Type="bit" />
         </EntityType>
         <EntityType Name="CondicionOrden">
@@ -114,6 +139,30 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="50" />
           <Property Name="Estado" Type="bit" />
         </EntityType>
+        <Association Name="fk_BitEmpl_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="BitacoraEmpleados" Type="Self.BitacoraEmpleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BitacoraEmpleados">
+              <PropertyRef Name="IdEmpleadoEjecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BitProd_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="BitacoraProductos" Type="Self.BitacoraProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BitacoraProductos">
+              <PropertyRef Name="IdEmpleadoEjecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_CondicionOrden_Orden">
           <End Role="CondicionOrden" Type="Self.CondicionOrden" Multiplicity="0..1" />
           <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
@@ -211,6 +260,8 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RBs_SpareModelStoreContainer">
+          <EntitySet Name="BitacoraEmpleados" EntityType="Self.BitacoraEmpleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraProductos" EntityType="Self.BitacoraProductos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CondicionOrden" EntityType="Self.CondicionOrden" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Detalle_Orden" EntityType="Self.Detalle_Orden" Schema="dbo" store:Type="Tables" />
@@ -222,6 +273,14 @@
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_BitEmpl_Empleado" Association="Self.fk_BitEmpl_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="BitacoraEmpleados" EntitySet="BitacoraEmpleados" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BitProd_Empleado" Association="Self.fk_BitProd_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="BitacoraProductos" EntitySet="BitacoraProductos" />
+          </AssociationSet>
           <AssociationSet Name="fk_CondicionOrden_Orden" Association="Self.fk_CondicionOrden_Orden">
             <End Role="CondicionOrden" EntitySet="CondicionOrden" />
             <End Role="Orden" EntitySet="Orden" />
@@ -259,6 +318,32 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RBs_SpareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BitacoraEmpleados">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleadoEjecutor" Type="Int32" />
+          <Property Name="NombreEmpleadoEjecutor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DatoAnterior" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DatosNuevo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCambios" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_BitEmpl_Empleado" FromRole="BitacoraEmpleados" ToRole="Empleado" />
+          <Property Name="Accion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BitacoraProductos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmpleadoEjecutor" Type="Int32" />
+          <Property Name="NombreEmpleadoEjecutor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DatoAnterior" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DatosNuevo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCambios" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empleado" Relationship="Self.fk_BitProd_Empleado" FromRole="BitacoraProductos" ToRole="Empleado" />
+          <Property Name="Accion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Cita">
           <Key>
             <PropertyRef Name="Id" />
@@ -270,6 +355,7 @@
           <Property Name="MotivoCita" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="FechaCita" Type="DateTime" Precision="0" />
           <Property Name="HoraCita" Type="Time" Precision="7" />
+          <Property Name="TelefonoCliente" Type="Int32" />
           <Property Name="Condicion" Type="Boolean" />
           <NavigationProperty Name="ModeloMoto" Relationship="Self.fk_ModeloMoto_Cita" FromRole="Cita" ToRole="ModeloMoto" />
         </EntityType>
@@ -306,8 +392,10 @@
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Telefono" Type="Int32" />
           <Property Name="Estado" Type="Boolean" />
-          <NavigationProperty Name="Rol" Relationship="Self.fk_Rol_Empleado" FromRole="Empleado" ToRole="Rol" />
           <Property Name="TokenRecuperacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BitacoraEmpleados" Relationship="Self.fk_BitEmpl_Empleado" FromRole="Empleado" ToRole="BitacoraEmpleados" />
+          <NavigationProperty Name="BitacoraProductos" Relationship="Self.fk_BitProd_Empleado" FromRole="Empleado" ToRole="BitacoraProductos" />
+          <NavigationProperty Name="Rol" Relationship="Self.fk_Rol_Empleado" FromRole="Empleado" ToRole="Rol" />
         </EntityType>
         <EntityType Name="MarcaMoto">
           <Key>
@@ -384,6 +472,30 @@
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="Producto" Relationship="Self.fk_IdTipoProducto" FromRole="TipoProducto" ToRole="Producto" />
         </EntityType>
+        <Association Name="fk_BitEmpl_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="BitacoraEmpleados" Type="Self.BitacoraEmpleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BitacoraEmpleados">
+              <PropertyRef Name="IdEmpleadoEjecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_BitProd_Empleado">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="BitacoraProductos" Type="Self.BitacoraProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BitacoraProductos">
+              <PropertyRef Name="IdEmpleadoEjecutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ModeloMoto_Cita">
           <End Role="ModeloMoto" Type="Self.ModeloMoto" Multiplicity="0..1" />
           <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
@@ -481,6 +593,8 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RBs_SpareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BitacoraEmpleados" EntityType="Self.BitacoraEmpleados" />
+          <EntitySet Name="BitacoraProductos" EntityType="Self.BitacoraProductos" />
           <EntitySet Name="Cita" EntityType="Self.Cita" />
           <EntitySet Name="CondicionOrden" EntityType="Self.CondicionOrden" />
           <EntitySet Name="Detalle_Orden" EntityType="Self.Detalle_Orden" />
@@ -492,6 +606,14 @@
           <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="Rol" EntityType="Self.Rol" />
           <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" />
+          <AssociationSet Name="fk_BitEmpl_Empleado" Association="Self.fk_BitEmpl_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="BitacoraEmpleados" EntitySet="BitacoraEmpleados" />
+          </AssociationSet>
+          <AssociationSet Name="fk_BitProd_Empleado" Association="Self.fk_BitProd_Empleado">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="BitacoraProductos" EntitySet="BitacoraProductos" />
+          </AssociationSet>
           <AssociationSet Name="fk_ModeloMoto_Cita" Association="Self.fk_ModeloMoto_Cita">
             <End Role="ModeloMoto" EntitySet="ModeloMoto" />
             <End Role="Cita" EntitySet="Cita" />
@@ -531,6 +653,32 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RBs_SpareModelStoreContainer" CdmEntityContainer="RBs_SpareEntities">
+          <EntitySetMapping Name="BitacoraEmpleados">
+            <EntityTypeMapping TypeName="RBs_SpareModel.BitacoraEmpleados">
+              <MappingFragment StoreEntitySet="BitacoraEmpleados">
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdEmpleadoEjecutor" ColumnName="IdEmpleadoEjecutor" />
+                <ScalarProperty Name="NombreEmpleadoEjecutor" ColumnName="NombreEmpleadoEjecutor" />
+                <ScalarProperty Name="DatoAnterior" ColumnName="DatoAnterior" />
+                <ScalarProperty Name="DatosNuevo" ColumnName="DatosNuevo" />
+                <ScalarProperty Name="FechaCambios" ColumnName="FechaCambios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraProductos">
+            <EntityTypeMapping TypeName="RBs_SpareModel.BitacoraProductos">
+              <MappingFragment StoreEntitySet="BitacoraProductos">
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdEmpleadoEjecutor" ColumnName="IdEmpleadoEjecutor" />
+                <ScalarProperty Name="NombreEmpleadoEjecutor" ColumnName="NombreEmpleadoEjecutor" />
+                <ScalarProperty Name="DatoAnterior" ColumnName="DatoAnterior" />
+                <ScalarProperty Name="DatosNuevo" ColumnName="DatosNuevo" />
+                <ScalarProperty Name="FechaCambios" ColumnName="FechaCambios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Cita">
             <EntityTypeMapping TypeName="RBs_SpareModel.Cita">
               <MappingFragment StoreEntitySet="Cita">
@@ -541,6 +689,7 @@
                 <ScalarProperty Name="MotivoCita" ColumnName="MotivoCita" />
                 <ScalarProperty Name="FechaCita" ColumnName="FechaCita" />
                 <ScalarProperty Name="HoraCita" ColumnName="HoraCita" />
+                <ScalarProperty Name="TelefonoCliente" ColumnName="TelefonoCliente" />
                 <ScalarProperty Name="Condicion" ColumnName="Condicion" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -567,7 +716,6 @@
           <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="RBs_SpareModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
-                <ScalarProperty Name="TokenRecuperacion" ColumnName="TokenRecuperacion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
                 <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
@@ -576,6 +724,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="TokenRecuperacion" ColumnName="TokenRecuperacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

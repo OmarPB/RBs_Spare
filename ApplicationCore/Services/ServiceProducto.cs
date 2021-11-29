@@ -10,10 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceProducto : IServiceProducto
     {
-        public void DeleteProducto(int id)
+        public void DeleteProducto(int id, BitacoraProductos bitacora)
         {
             IRepositoryProducto repository = new RepositoryProducto();
-            repository.DeleteProducto(id);
+            repository.DeleteProducto(id, bitacora);
         }
 
         public IEnumerable<Producto> GetProducto()
@@ -30,10 +30,10 @@ namespace ApplicationCore.Services
             return Producto;
         }
 
-        public Producto Save(Producto Producto)
+        public Producto Save(Producto Producto, BitacoraProductos bitacora)
         {
             RepositoryProducto repository = new RepositoryProducto();
-            return repository.Save(Producto);
+            return repository.Save(Producto, bitacora);
         }
 
         public IEnumerable<Producto> GetProductoByDescription(string descripcion)

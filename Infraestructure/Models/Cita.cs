@@ -23,6 +23,7 @@ namespace Infraestructure.Models
         public string MotivoCita { get; set; }
         public Nullable<System.DateTime> FechaCita { get; set; }
         public Nullable<System.TimeSpan> HoraCita { get; set; }
+        public Nullable<int> TelefonoCliente { get; set; }
         public Nullable<bool> Condicion { get; set; }
     
         public virtual ModeloMoto ModeloMoto { get; set; }

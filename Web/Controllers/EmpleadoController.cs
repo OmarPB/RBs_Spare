@@ -69,7 +69,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(Empleado Empleado)
         {
             string errores = "";
@@ -79,7 +79,14 @@ namespace Web.Controllers
                 if (ModelState.IsValid)
                 {
                     ServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
-                    _ServiceEmpleado.Save(Empleado);
+                    //Se crea una bitácora con los datos iniciales
+                    var empSession = Session["User"] as Empleado;
+                    BitacoraEmpleados bitacora = new BitacoraEmpleados();
+                    bitacora.IdEmpleadoEjecutor = empSession.Id;
+                    bitacora.NombreEmpleadoEjecutor = empSession.Nombre + " " + empSession.Apellidos;
+                    bitacora.FechaCambios = DateTime.Now;
+
+                    _ServiceEmpleado.Save(Empleado, bitacora);
                 }
                 else
                 {
@@ -190,7 +197,7 @@ namespace Web.Controllers
 
 
         // GET: Empleado/Create
-        [CustomAuthorize((int)Roles.Administrador)]
+        //[CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             //ViewBag con los tipos de Empleado
@@ -248,7 +255,14 @@ namespace Web.Controllers
                     return View();
                 }
 
-                _ServiceEmpleado.DeleteEmpleado(id.Value);
+                //Se crea la bitácora
+                var empSession = Session["User"] as Empleado;
+                BitacoraEmpleados bitacora = new BitacoraEmpleados();
+                bitacora.IdEmpleadoEjecutor = empSession.Id;
+                bitacora.NombreEmpleadoEjecutor = empSession.Nombre + " " + empSession.Apellidos;
+                bitacora.FechaCambios = DateTime.Now;
+
+                _ServiceEmpleado.DeleteEmpleado(id.Value, bitacora);
 
                 return RedirectToAction("List");
             }
