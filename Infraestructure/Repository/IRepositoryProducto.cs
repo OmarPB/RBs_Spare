@@ -7,6 +7,7 @@ namespace Infraestructure.Repository
     public interface IRepositoryProducto
     {
         IEnumerable<Producto> GetProducto();
+        IEnumerable<BitacoraProductos> GetBitacoras();
         Producto GetProductoByID(int id);
         void DeleteProducto(int id, BitacoraProductos bitacora);
         Producto Save(Producto Producto, BitacoraProductos bitacora);

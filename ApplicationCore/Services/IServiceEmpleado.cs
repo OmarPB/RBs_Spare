@@ -10,6 +10,7 @@ namespace ApplicationCore.Services
     public interface IServiceEmpleado
     {
         IEnumerable<Empleado> GetEmpleado();
+        IEnumerable<BitacoraEmpleados> GetBitacoras();
         Empleado GetEmpleadoByID(int id);
         void DeleteEmpleado(int id, BitacoraEmpleados bitacora);
         Empleado Save(Empleado Empleado, BitacoraEmpleados bitacora);

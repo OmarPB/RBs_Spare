@@ -22,6 +22,12 @@ namespace ApplicationCore.Services
             return repository.GetProducto();
         }
 
+        public IEnumerable<BitacoraProductos> GetBitacoras()
+        {
+            IRepositoryProducto repository = new RepositoryProducto();
+            return repository.GetBitacoras();
+        }
+
         public Producto GetProductoByID(int id)
         {
             RepositoryProducto repository = new RepositoryProducto();

@@ -217,6 +217,7 @@ namespace Web.Controllers
                 }
 
                 producto = _ServiceProducto.GetProductoByID(id.Value);
+                producto.IVA = producto.IVA * 100;
                 // Response.StatusCode = 500;
 
                 //Creación de los ViewBag

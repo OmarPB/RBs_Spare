@@ -151,6 +151,52 @@ namespace Web.Controllers
             };
         }
 
+        [CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult ListaBitacoraEmpleados()
+        {
+            IEnumerable<BitacoraEmpleados> lista = null;
+            try
+            {
+                IServiceEmpleado _ServiceEmpleado = new ServiceEmpleado();
+                lista = _ServiceEmpleado.GetBitacoras();
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
+
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
+            return View(lista);
+        }
+
+        [CustomAuthorize((int)Roles.Administrador)]
+        public ActionResult ListaBitacoraProductos()
+        {
+            IEnumerable<BitacoraProductos> lista = null;
+            try
+            {
+                IServiceProducto _serviceProducto = new ServiceProducto();
+                lista = _serviceProducto.GetBitacoras();
+            }
+            catch (Exception ex)
+            {
+                // Salvar el error en un archivo 
+                //Log.Error(ex, MethodBase.GetCurrentMethod());
+
+                TempData["Message"] = "Error al procesar los datos! " + ex.Message;
+                TempData.Keep();
+                // Redireccion a la captura del Error
+                return RedirectToAction("Default", "Error");
+            }
+
+            return View(lista);
+        }
+
         //Fin
     }
 }
