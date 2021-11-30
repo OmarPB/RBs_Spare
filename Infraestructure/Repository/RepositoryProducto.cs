@@ -27,11 +27,11 @@ namespace Infraestructure.Repository
                     //Datos restantes bitácora
                     bitacora.Accion = "Desactivar";
                     bitacora.DatoAnterior = "Id: " + Producto.Id +
-                                               "\n/IdTipoProducto: " + Producto.IdTipoProducto +
-                                               "\n/IdMarca: " + Producto.IdMarca +
-                                               "\n/Descripcion: " + Producto.Descripcion +
-                                               "\n/PrecioUnidad: " + Producto.PrecioUnidad +
-                                               "\n/IVA: " + Producto.PrecioUnidad;
+                                               "\nIdTipoProducto: " + Producto.IdTipoProducto +
+                                               "\nIdMarca: " + Producto.IdMarca +
+                                               "\nDescripcion: " + Producto.Descripcion +
+                                               "\nPrecioUnidad: " + Producto.PrecioUnidad +
+                                               "\nIVA: " + Producto.IVA;
 
                     bitacora.DatosNuevo = "Registro Desactivado";
 
@@ -136,11 +136,11 @@ namespace Infraestructure.Repository
                         bitacora.DatoAnterior = "Nuevo Registro";
 
                         bitacora.DatosNuevo = "Id: Nuevo" +
-                                               "\n/IdTipoProducto: " + producto.IdTipoProducto +
-                                               "\n/IdMarca: " + producto.IdMarca +
-                                               "\n/Descripcion: " + producto.Descripcion +
-                                               "\n/PrecioUnidad: " + producto.PrecioUnidad +
-                                               "\n/IVA: " + producto.PrecioUnidad;
+                                               "\nIdTipoProducto: " + producto.IdTipoProducto +
+                                               "\nIdMarca: " + producto.IdMarca +
+                                               "\nDescripcion: " + producto.Descripcion +
+                                               "\nPrecioUnidad: " + producto.PrecioUnidad +
+                                               "\nIVA: " + producto.IVA;
 
                         ctx.BitacoraProductos.Add(bitacora);
                         ctx.Producto.Add(producto);
@@ -151,19 +151,19 @@ namespace Infraestructure.Repository
 
                         //Datos restantes bitácora
                         bitacora.Accion = "Editar";
-                        bitacora.DatoAnterior = "Id: " + oProducto.Id + 
-                                               "\n/IdTipoProducto: " + oProducto.IdTipoProducto +
-                                               "\n/IdMarca: " + oProducto.IdMarca +
-                                               "\n/Descripcion: " + oProducto.Descripcion +
-                                               "\n/PrecioUnidad: " + oProducto.PrecioUnidad +
-                                               "\n/IVA: " + oProducto.PrecioUnidad;
+                        bitacora.DatoAnterior = "Id: " + oProducto.Id +
+                                               "\nIdTipoProducto: " + oProducto.IdTipoProducto +
+                                               "\nIdMarca: " + oProducto.IdMarca +
+                                               "\nDescripcion: " + oProducto.Descripcion +
+                                               "\nPrecioUnidad: " + Double.Parse(oProducto.PrecioUnidad.ToString()).ToString("##,00") +
+                                               "\nIVA: " + producto.IVA;
 
                         bitacora.DatosNuevo = "Id: Nuevo" +
-                                               "\n/IdTipoProducto: " + producto.IdTipoProducto +
-                                               "\n/IdMarca: " + producto.IdMarca +
-                                               "\n/Descripcion: " + producto.Descripcion +
-                                               "\n/PrecioUnidad: " + producto.PrecioUnidad +
-                                               "\n/IVA: " + producto.PrecioUnidad;
+                                               "\nIdTipoProducto: " + producto.IdTipoProducto +
+                                               "\nIdMarca: " + producto.IdMarca +
+                                               "\nDescripcion: " + producto.Descripcion +
+                                               "\nPrecioUnidad: " + producto.PrecioUnidad +
+                                               "\nIVA: " + producto.IVA;
 
                         ctx.BitacoraProductos.Add(bitacora);
                         ctx.Entry(producto).State = EntityState.Modified;
@@ -218,6 +218,35 @@ namespace Infraestructure.Repository
                 }
                 return lista;
             }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<BitacoraProductos> GetBitacoras()
+        {
+
+            try
+            {
+                IEnumerable<BitacoraProductos> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    // mal muy mal ...
+                    lista = ctx.BitacoraProductos.Include("Empleado").ToList<BitacoraProductos>();
+                }
+                return lista;
+            }
+
             catch (DbUpdateException dbEx)
             {
                 string mensaje = "";

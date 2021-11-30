@@ -515,6 +515,8 @@
     <Content Include="Views\Reportes\PdfCitas.cshtml" />
     <Content Include="Views\Respaldos\Index.cshtml" />
     <Content Include="Views\Respaldos\respaldoExitoso.cshtml" />
+    <Content Include="Views\Reportes\ListaBitacoraEmpleados.cshtml" />
+    <Content Include="Views\Reportes\ListaBitacoraProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

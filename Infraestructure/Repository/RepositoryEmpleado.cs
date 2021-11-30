@@ -32,11 +32,11 @@ namespace Infraestructure.Repository
                     //Datos restantes Bitácora
                     bitacora.Accion = "Borrar";
                     bitacora.DatoAnterior = "Id: " + empleado.Id +
-                                            "\n/Rol: " + empleado.IdRol +
-                                            "\n/Nombre: " + empleado.Nombre +
-                                            "\n/Apellidos: " + empleado.Apellidos +
-                                            "\n/Email: " + empleado.Email +
-                                            "\n/Telefono: " + empleado.Telefono;
+                                            "\nRol: " + empleado.IdRol +
+                                            "\nNombre: " + empleado.Nombre +
+                                            "\nApellidos: " + empleado.Apellidos +
+                                            "\nEmail: " + empleado.Email +
+                                            "\nTelefono: " + empleado.Telefono;
 
                     bitacora.DatosNuevo = "Registro Desactivado";
 
@@ -71,6 +71,35 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     // mal muy mal ...
                     lista = ctx.Empleado.Where(p => p.Estado == true).Include("Rol").ToList<Empleado>();
+                }
+                return lista;
+            }
+
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<BitacoraEmpleados> GetBitacoras()
+        {
+
+            try
+            {
+                IEnumerable<BitacoraEmpleados> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    // mal muy mal ...
+                    lista = ctx.BitacoraEmpleados.Include("Empleado").ToList<BitacoraEmpleados>();
                 }
                 return lista;
             }
@@ -149,11 +178,11 @@ namespace Infraestructure.Repository
                         bitacora.DatoAnterior = "Nuevo Regitro";
 
                         bitacora.DatosNuevo = "Id: " + empleado.Id +
-                                                "\n/Rol: " + empleado.IdRol +
-                                                "\n/Nombre: " + empleado.Nombre +
-                                                "\n/Apellidos: " + empleado.Apellidos +
-                                                "\n/Email: " + empleado.Email +
-                                                "\n/Telefono: " + empleado.Telefono;
+                                                "\nRol: " + empleado.IdRol +
+                                                "\nNombre: " + empleado.Nombre +
+                                                "\nApellidos: " + empleado.Apellidos +
+                                                "\nEmail: " + empleado.Email +
+                                                "\nTelefono: " + empleado.Telefono;
 
                         ctx.BitacoraEmpleados.Add(bitacora);
                         ctx.Empleado.Add(empleado);
@@ -163,18 +192,18 @@ namespace Infraestructure.Repository
                         //Se asingan los valores restantes a la bitácora
                         bitacora.Accion = "Editar";
                         bitacora.DatoAnterior = "Id: " + oEmpleado.Id + 
-                                                "\n/Rol: " + oEmpleado.IdRol + 
-                                                "\n/Nombre: " + oEmpleado.Nombre + 
-                                                "\n/Apellidos: " + oEmpleado.Apellidos +
-                                                "\n/Email: " + oEmpleado.Email + 
-                                                "\n/Telefono: " + oEmpleado.Telefono;
+                                                "\nRol: " + oEmpleado.IdRol + 
+                                                "\nNombre: " + oEmpleado.Nombre + 
+                                                "\nApellidos: " + oEmpleado.Apellidos +
+                                                "\nEmail: " + oEmpleado.Email + 
+                                                "\nTelefono: " + oEmpleado.Telefono;
 
                         bitacora.DatosNuevo = "Id: " + empleado.Id + 
-                                                "\n/Rol: : " + empleado.IdRol +
-                                                "\n/Nombre: " + empleado.Nombre +
-                                                "\n/Apellidos: " + empleado.Apellidos +
-                                                "\n/Email: " + empleado.Email +
-                                                "\n/Telefono: " + empleado.Telefono;
+                                                "\nRol: : " + empleado.IdRol +
+                                                "\nNombre: " + empleado.Nombre +
+                                                "\nApellidos: " + empleado.Apellidos +
+                                                "\nEmail: " + empleado.Email +
+                                                "\nTelefono: " + empleado.Telefono;
 
                         ctx.Entry(empleado).State = EntityState.Modified;
                         ctx.BitacoraEmpleados.Add(bitacora);

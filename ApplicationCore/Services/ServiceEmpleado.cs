@@ -23,6 +23,12 @@ namespace ApplicationCore.Services
             return repository.GetEmpleado();
         }
 
+        public IEnumerable<BitacoraEmpleados> GetBitacoras()
+        {
+            IRepositoryEmpleado repository = new RepositoryEmpleado();
+            return repository.GetBitacoras();
+        }
+
         public Empleado GetEmpleadoByID(int id)
         {
             RepositoryEmpleado repository = new RepositoryEmpleado();

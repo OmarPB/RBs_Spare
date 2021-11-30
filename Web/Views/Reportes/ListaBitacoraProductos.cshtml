@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Infraestructure.Models.BitacoraProductos>
+
+@{
+    ViewBag.Title = "ListaBitacoraProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bitácora de Mantenimiento de Productos</h2><br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Ejecutor")
+        </th>
+        <th>
+            @Html.DisplayName("Acción")
+        </th>
+        <th>
+            @Html.DisplayName("Dato Anterior")
+        </th>
+        <th>
+            @Html.DisplayName("Dato Nuevo")
+        </th>
+        <th>
+            @Html.DisplayName("Fecha")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NombreEmpleadoEjecutor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Accion)
+    </td>
+    <td>
+        @{
+            var anterior = item.DatoAnterior;
+            var aux = "";
+            for (int i = 0; i < anterior.Length; i++)
+            {
+                if (anterior[i].ToString().Equals("\n"))
+                {
+                    <br />
+                }
+                else
+                {
+                    aux += anterior[i];
+                    @aux
+                    aux = "";
+                }
+            }
+        }
+    </td>
+    <td>
+        @{
+            var nuevo = item.DatosNuevo;
+            var aux2 = "";
+            for (int i = 0; i < nuevo.Length; i++)
+            {
+                if (nuevo[i].ToString().Equals("\n"))
+                {
+                    <br />
+                }
+                else
+                {
+                    aux2 += nuevo[i];
+                    @aux2
+                    aux2 = "";
+                }
+            }
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaCambios)
+    </td>
+</tr>
+}
+
+</table>
