@@ -102,24 +102,35 @@ namespace Infraestructure.Models
     internal partial class CitaMetadata
     {
         public int Id { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Modelo de la moto")]
         public Nullable<int> IdModelo { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Nombre")]
         public string NombreCliente { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Apellidos")]
         public string ApellidosCliente { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Motivo de la cita")]
         public string MotivoCita { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name ="Fecha deseada")]
         public Nullable<System.DateTime> FechaCita { get; set; }
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Hora deseada")]
         public Nullable<System.TimeSpan> HoraCita { get; set; }
+        
+        [Display(Name = "Teléfono")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Range(10000000, 99999999, ErrorMessage = "El formato debe ser 88888888")]
+        public Nullable<int> TelefonoCliente { get; set; }
         public Nullable<bool> Condicion { get; set; }
 
         public virtual ModeloMoto ModeloMoto { get; set; }

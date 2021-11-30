@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.ApellidosCliente)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TelefonoCliente)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.MotivoCita)
         </th>
         <th>
@@ -30,27 +33,30 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NombreCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApellidosCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MotivoCita)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.FechaCita)*@
-            @Convert.ToDateTime(item.FechaCita).ToString("dd/MM/yyyy")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraCita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModeloMoto.MarcaMoto.Descripcion) @Html.DisplayFor(modelItem => item.ModeloMoto.Descripcion)
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NombreCliente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ApellidosCliente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TelefonoCliente)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MotivoCita)
+    </td>
+    <td>
+        @*@Html.DisplayFor(modelItem => item.FechaCita)*@
+        @Convert.ToDateTime(item.FechaCita).ToString("dd/MM/yyyy")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.HoraCita)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ModeloMoto.MarcaMoto.Descripcion) @Html.DisplayFor(modelItem => item.ModeloMoto.Descripcion)
+    </td>
+</tr>
 }
 
 </table>
