@@ -329,6 +329,7 @@
     <Content Include="Img\motorepuestosryb.jpg" />
     <Content Include="Img\Omar.jpg" />
     <Content Include="Img\respaldo.png" />
+    <Content Include="Img\restore.png" />
     <Content Include="Img\user.png" />
     <Content Include="Img\whatsapp.ico" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
@@ -517,6 +518,7 @@
     <Content Include="Views\Respaldos\respaldoExitoso.cshtml" />
     <Content Include="Views\Reportes\ListaBitacoraEmpleados.cshtml" />
     <Content Include="Views\Reportes\ListaBitacoraProductos.cshtml" />
+    <Content Include="Views\Respaldos\restauracionExitosa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

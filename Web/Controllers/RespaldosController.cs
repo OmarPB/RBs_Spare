@@ -24,5 +24,21 @@ namespace Web.Controllers
 
             return View("respaldoExitoso");
         }
+
+        public ActionResult restaurarRespaldo(string ruta)
+        {
+            ruta = ruta.Substring(12);
+
+            if (ruta.Contains(".bak"))
+            {
+                ruta = @"C:\RespaldosRBsSpare\" + ruta;
+                IServiceRespaldos serviceRespaldos = new ServiceRespaldos();
+                serviceRespaldos.restaurarRespaldo(ruta);
+            }
+
+            return View("restauracionExitosa");
+        }
+
+        //Fin
     }
 }

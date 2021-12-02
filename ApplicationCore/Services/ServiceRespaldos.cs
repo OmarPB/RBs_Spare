@@ -14,5 +14,11 @@ namespace ApplicationCore.Services
             IRepositoryRespaldos repositoryRespaldos = new RepositoryRespaldos();
             repositoryRespaldos.guardarRespaldo();
         }
+
+        public void restaurarRespaldo(string ruta)
+        {
+            IRepositoryRespaldos repositoryRespaldos = new RepositoryRespaldos();
+            repositoryRespaldos.restaurarRespaldo(ruta);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Infraestructure.Repository
     public interface IRepositoryRespaldos
     {
         void guardarRespaldo();
+        void restaurarRespaldo(string ruta);
     }
 }

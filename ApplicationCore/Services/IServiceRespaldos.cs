@@ -9,5 +9,6 @@ namespace ApplicationCore.Services
     public interface IServiceRespaldos
     {
         void guardarRespaldo();
+        void restaurarRespaldo(string ruta);
     }
 }
